@@ -1,0 +1,86 @@
+{
+    "coc.source.around.enable": true,
+    "coc.source.buffer.enable": true,
+    "diagnostic.displayByAle": true,
+    "python.linting.ruffEnabled": true,
+    "python.linting.enabled": false,
+    "python.linting.ruffArgs": [
+        " --config ~/.config/nvim/ruff.toml"
+    ],
+    "suggest.noselect": true,
+    "pyright.testing.provider": "pytest",
+    "pyright.testing.pytestArgs": [
+        "-vv"
+    ],
+    "diagnostic.showUnused": true,
+    "pyright.organizeimports.provider": "isort",
+    "python.sortImports.args": [
+        "--profile",
+        "black",
+        "--line-length",
+        "120"
+    ],
+    "python.formatting.provider": "black",
+    "python.formatting.blackArgs": [
+        "--preview",
+        "--line-length",
+        "120"
+    ],
+    "python.formatting.autopep8Path": "autopep8",
+    "python.formatting.autopep8Args": [
+        "--max-line-length",
+        "120",
+    ],
+    "htmldjango.formatting.provider": "djlint",
+    "sql.database": "postgresql",
+    "sql.formatOptions": {
+        "language": "postgresql",
+        "keywordCase": "upper",
+        "indentStyle": "standard",
+        "linesBetweenQueries": 1
+    },
+    "python.linting.flake8Args": [
+        "--max-line-length",
+        "120"
+    ],
+    "snippets.ultisnips.pythonPrompt": true,
+    "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/17.0.3/clangd_17.0.3/bin/clangd",
+    "clangd.fallbackFlags": [
+        "-xc"
+    ],
+    "colors.enable": true,
+    "coc.preferences.extensionUpdateCheck": "daily",
+    "yaml.format.enable": true,
+    "diagnostic-languageserver.enable": true,
+    "diagnostic-languageserver.formatFiletypes": {
+        "sh": [
+            "shfmt",
+        ],
+    },
+    "diagnostic-languageserver.formatters": {
+        "shfmt": {
+            "command": "shfmt",
+            "args": [
+                "-i",
+                "2",
+                "-bn",
+                "-ci",
+                "-sr"
+            ]
+        }
+    },
+    "diagnostic-languageserver.filetypes": {
+        "sh": [
+            "shellcheck",
+        ],
+        "make": [
+            "checkmake",
+        ],
+    },
+    "diagnostic-languageserver.linters": {
+        "shellcheck": {
+            "command": "shellcheck",
+            "args": []
+        },
+    }
+}

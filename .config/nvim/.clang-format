@@ -1,0 +1,12 @@
+BasedOnStyle: Google
+# ColumnLimit: 120
+
+
+AllowAllArgumentsOnNextLine: false
+AllowAllConstructorInitializersOnNextLine: true
+AllowAllParametersOfDeclarationOnNextLine: false
+BinPackArguments: false
+BinPackParameters: false
+ConstructorInitializerAllOnOneLineOrOnePerLine : true
+
+AlignConsecutiveAssignments: Consecutive
