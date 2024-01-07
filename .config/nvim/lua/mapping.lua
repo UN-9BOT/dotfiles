@@ -51,34 +51,34 @@ b("n", "=", "+", opts)
 -- b({ "n", "v" }, "ZQ", "<ESC><CMD>qall<cr>", opts)
 
 local function close_test_ui()
-    vim.cmd [[Neotest summary close]]
-    require 'dapui'.close()
+  vim.cmd [[Neotest summary close]]
+  require 'dapui'.close()
 end
 
 local function save_session()
-    vim.cmd [[SessionSave]]
+  vim.cmd [[SessionSave]]
 end
 
 local function close_save()
-    vim.cmd [[qall]]
+  vim.cmd [[qall]]
 end
 
 local function close_no_save()
-    vim.cmd [[qall!]]
+  vim.cmd [[qall!]]
 end
 
 local function ZZ()
-    vim.api.nvim_input("<Esc>")
-    close_test_ui()
-    save_session()
-    close_save()
+  vim.api.nvim_input("<Esc>")
+  close_test_ui()
+  save_session()
+  close_save()
 end
 
 local function ZQ()
-    vim.api.nvim_input("<Esc>")
-    close_test_ui()
-    save_session()
-    close_no_save()
+  vim.api.nvim_input("<Esc>")
+  close_test_ui()
+  save_session()
+  close_no_save()
 end
 
 b({ "n", "v" }, "ZZ", ZZ, opts)
@@ -91,15 +91,15 @@ b("n", "q", "<Nop>", opts)
 -- b("n", "<F9>", "<cmd>make test<cr>", opts)
 b("i", "<c-e>", "<c-o>de", opts)
 
-b("n", "ss", ":split<cr>", opts)
-b("n", "sv", ":vsplit<cr>", opts)
-b("n", "S", ":tabedit<cr>", opts)
-b("n", "st", "<ESC>my<cmd>tabnew %<cr><esc>'yzz", opts)
+b("n", "sh", ":split<cr>", opts)                        -- horizontal
+b("n", "sv", ":vsplit<cr>", opts)                       -- vertical
+b("n", "sn", ":tabedit<cr>", opts)                      -- new tab
+b("n", "sd", "<ESC>my<cmd>tabnew %<cr><esc>'yzz", opts) -- duplicate tab
 
 
 
 -- TODO:
--- tab
+-- tab  // tab is same ctrl+i
 -- s-tab
 -- ss
 -- s+another_key

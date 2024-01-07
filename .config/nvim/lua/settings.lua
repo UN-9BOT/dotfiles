@@ -79,13 +79,13 @@ vim.opt.mouse = "a"
 
 --  highlight yank text
 vim.api.nvim_exec(
-	[[
+  [[
   augroup YankHighlight
     autocmd!
-    autocmd TextYankPost * lua vim.highlight.on_yank({higroup="IncSearch", timeout=350}) 
+    autocmd TextYankPost * lua vim.highlight.on_yank({higroup="IncSearch", timeout=350})
   augroup END
 ]],
-	false
+  false
 )
 
 -- for system buffer paste and copy
@@ -110,37 +110,6 @@ vim.opt.splitright = true
 vim.opt.termguicolors = true
 vim.opt.synmaxcol = 512
 
-vim.api.nvim_create_autocmd({ "FileType" }, {
-	pattern = { "c", "cpp" },
-	callback = function()
-		vim.bo.shiftwidth = 2
-		vim.bo.tabstop = 2
-		vim.bo.autoindent = true
-		vim.bo.expandtab = true
-		vim.bo.softtabstop = 2
-	end,
-})
-
-vim.api.nvim_create_autocmd({ "FileType" }, {
-	pattern = { "bash", "sh" },
-	callback = function()
-		vim.bo.shiftwidth = 2
-		-- vim.bo.smarttab = true
-		-- vim.bo.autoindent = true
-		vim.bo.expandtab = true
-		vim.bo.softtabstop = 2
-	end,
-})
--- vim.api.nvim_create_autocmd({ "FileType" }, {
--- 	pattern = { "Makefile" },
--- 	callback = function()
--- 		-- vim.bo.shiftwidth = 4
--- 		vim.bo.smarttab = true
--- 		vim.bo.autoindent = true
--- 		-- vim.bo.expandtab = true
--- 		-- vim.bo.softtabstop = 2
--- 	end,
--- })
 -- FOR neovide
 vim.g.neovide_fullscreen = true
 vim.g.neovide_cursor_animation_length = 0.05
@@ -152,14 +121,7 @@ vim.g.neovide_theme = "auto"
 -- vim.g.neovide_transparency = 1.0
 -- vim.g.transparency = 0.9
 local alpha = function()
-	return string.format("%x", math.floor(255 * (vim.g.transparency or 0.8)))
+  return string.format("%x", math.floor(255 * (vim.g.transparency or 0.8)))
 end
 vim.g.neovide_background_color = "#5b6178" .. alpha()
 vim.g.mkdp_browser = '/usr/bin/brave'
-
-
-
-vim.api.nvim_exec(
-	[[ au BufRead,BufNewFile *.ain                set syntax=toml ]],
-	false
-)
