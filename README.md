@@ -1,5 +1,9 @@
 ## DOTFILES
 
+### dotfiles manager
+
+https://github.com/kazhala/dotbare (wrapper git --bare for zsh)
+
 ### LIST config
 
 - nvim
