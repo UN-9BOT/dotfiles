@@ -4,10 +4,12 @@
 
 - nvim
 - tmux
-- kitty
 - zshrc
+- kitty
 - lazygit
 - flameshot
 - httpie
-- ranger
 - yandex-disk + yd-tools
+- pypoetry
+- coc (packages)
+- alacritty (not used)
