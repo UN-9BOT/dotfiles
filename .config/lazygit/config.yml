@@ -1,0 +1,18 @@
+#
+# os:
+#   edit: 'nvr --servername /tmp/nvim-server.pipe --remote-tab "$(pwd)/{{filename}}"'
+# os:
+  # editPreset: 'nvim'
+
+  # editCommand: 'nvim'
+  # editCommandTemplate: 'nvr --remote "{{filename}}"'
+# editCommandTemplate: '{{editor}} --server /tmp/nvim-server.pipe --remote-tab-silent "$(pwd)/{{filename}}"'
+# editCommandTemplate: '{{editor}} --server /tmp/nvim-server-$(tmux display-message -p "#S").pipe --remote-tab "$(pwd)/{{filename}}"'
+#
+os:
+  edit: 'nvim --server /tmp/nvim-server-$(tmux display-message -p "#S").pipe --remote-tab "$(pwd)/{{filename}}"'
+  editAtLine: 'nvim --server /tmp/nvim-server-$(tmux display-message -p "#S").pipe --remote-tab "$(pwd)/{{filename}}"; nvim --server /tmp/nvim-server--$(tmux display-message -p "#S").pipe --remote-send ":{{line}}<CR>"'
+  openDirInEditor: 'nvim --server /tmp/nvim-server-$(tmux display-message -p "#S").pipe --remote-tab {{dir}}'
+
+services:
+  'git@gitlab.inplatlabs.ru': 'gitlab:git@gitlab.inplatlabs.ru'

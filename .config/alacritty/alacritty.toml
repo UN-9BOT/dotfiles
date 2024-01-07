@@ -1,0 +1,13 @@
+[font]
+size = 10.0
+
+[[keyboard.bindings]]
+action = "SpawnNewInstance"
+key = "N"
+mods = "Control|Shift"
+
+[mouse]
+hide_when_typing = true
+
+[window]
+opacity = 0.9

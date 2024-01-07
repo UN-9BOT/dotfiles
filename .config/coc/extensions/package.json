@@ -1,0 +1,29 @@
+{
+  "dependencies": {
+    "coc-snippets": ">=3.1.10",
+    "coc-yank": ">=1.2.3",
+    "coc-omni": ">=1.2.4",
+    "coc-html": ">=1.8.0",
+    "coc-highlight": ">=2.0.4",
+    "coc-db": ">=0.0.44",
+    "coc-xml": ">=1.14.1",
+    "coc-yaml": ">=1.9.0",
+    "coc-vimlsp": ">=0.13.1",
+    "coc-tsserver": ">=2.1.4",
+    "coc-swagger": ">=0.0.3",
+    "coc-sql": ">=0.11.0",
+    "coc-markdownlint": ">=1.32.1",
+    "coc-toml": ">=1.2.5",
+    "coc-json": ">=1.9.2",
+    "coc-clang-format-style-options": ">=0.0.5",
+    "coc-pyright": ">=1.1.339",
+    "coc-lua": ">=2.0.5",
+    "coc-cmake": ">=0.2.1",
+    "coc-htmldjango": ">=0.14.11",
+    "coc-clangd": ">=0.29.3",
+    "coc-docker": ">=1.0.2",
+    "coc-sh": ">=1.2.2",
+    "coc-diagnostic": ">=0.24.1"
+  },
+  "lastUpdate": 1704615456414
+}
