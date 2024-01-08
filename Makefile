@@ -7,6 +7,7 @@ upd_nvim:
 	dotbare status
 
 push:
+	zsh
 	$(eval VAR_LOCAL := $(shell read -p "Commit message: " msg; echo $$msg))
 	dotbare commit -m ${VAR_LOCAL}
 	dotbare push
