@@ -89,7 +89,7 @@ lazy.setup({
   require("plugins.notify"),             -- notifications
   require("plugins.envfiles"),           -- auto load .env files
   require("plugins.sniprun"),            -- run code (<F10>)
-  require("plugins.yazi"),               -- new file browser
+  require("plugins.ranger"),             -- new file browser
   require("plugins.spider"),             -- moving for only word (w e b)
 
   -- ----------------------------
@@ -102,6 +102,17 @@ lazy.setup({
   -- NOTE: IN_PROGRESS
   -- ----------------------------
   --
+  {
+    "m4xshen/hardtime.nvim",
+    dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
+    opts = {}
+  },
+  {
+    "chrisgrieser/nvim-various-textobjs",
+    lazy = false,
+    opts = { useDefaultKeymaps = true },
+  },
+
 
 
 

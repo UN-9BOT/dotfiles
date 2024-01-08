@@ -91,10 +91,10 @@ b("n", "q", "<Nop>", opts)
 -- b("n", "<F9>", "<cmd>make test<cr>", opts)
 b("i", "<c-e>", "<c-o>de", opts)
 
-b("n", "sh", ":split<cr>", opts)                        -- horizontal
-b("n", "sv", ":vsplit<cr>", opts)                       -- vertical
-b("n", "sn", ":tabedit<cr>", opts)                      -- new tab
-b("n", "sd", "<ESC>my<cmd>tabnew %<cr><esc>'yzz", opts) -- duplicate tab
+b("n", ";h", ":split<cr>", opts)                        -- horizontal
+b("n", ";v", ":vsplit<cr>", opts)                       -- vertical
+b("n", ";n", ":tabedit<cr>", opts)                      -- new tab
+b("n", ";d", "<ESC>my<cmd>tabnew %<cr><esc>'yzz", opts) -- duplicate tab
 
 
 
