@@ -125,3 +125,10 @@ local alpha = function()
 end
 vim.g.neovide_background_color = "#5b6178" .. alpha()
 vim.g.mkdp_browser = '/usr/bin/brave'
+
+
+-- for nonlatin layout
+vim.bo.keymap = 'russian-jcukenwin'
+vim.o.langmap = 'ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz'
+vim.bo.iminsert = 0 -- Latin keyboard by default
+vim.bo.imsearch = 0

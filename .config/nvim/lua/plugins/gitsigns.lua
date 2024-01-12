@@ -45,7 +45,7 @@ M.config = function()
     },
     on_attach                    = function(bufnr)
       local function map(mode, lhs, rhs, opts)
-        opts = vim.tbl_extend('force', { noremap = true, silent = true }, opts or {})
+        opts = vim.tbl_extend('force', { noremap = true }, opts or {})
         vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
       end
 
@@ -63,6 +63,7 @@ M.config = function()
       map('n', '<leader>hR', '<cmd>Gitsigns reset_buffer<CR>')
       map('n', '<leader>hp', '<cmd>Gitsigns preview_hunk<CR>')               -- preview
       map('n', '<leader>hb', '<cmd>lua require"gitsigns".blame_line{full=true}<CR>')
+      map('v', '<leader>hb', '<cmd>lua require"gitsigns".blame_line{full=true}<CR>')
       map('n', '<leader>tb', '<cmd>Gitsigns toggle_current_line_blame<CR>')  -- имя и номер коммита
       map('n', '<leader>hd', '<cmd>lua require"gitsigns".diffthis("~")<CR>') -- diff in split
       map('n', '<leader>td', '<cmd>Gitsigns toggle_deleted<CR>')             -- дубляж строки

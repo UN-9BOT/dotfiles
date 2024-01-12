@@ -1,3 +1,4 @@
+-- WARNING: DISABLE -> switch to nvim-lint
 local M = {
 	"dense-analysis/ale",
 }

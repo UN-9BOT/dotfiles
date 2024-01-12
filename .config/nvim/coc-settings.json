@@ -1,8 +1,8 @@
 {
     "coc.source.around.enable": true,
     "coc.source.buffer.enable": true,
-    "diagnostic.displayByAle": true,
-    "python.linting.ruffEnabled": true,
+    "diagnostic.displayByAle": false,
+    "python.linting.ruffEnabled": false,
     "python.linting.enabled": false,
     "python.linting.ruffArgs": [
         " --config ~/.config/nvim/ruff.toml"
@@ -35,7 +35,7 @@
     "sql.database": "postgresql",
     "sql.formatOptions": {
         "language": "postgresql",
-        "keywordCase": "upper",
+        "keywordCase": "lower",
         "indentStyle": "standard",
         "linesBetweenQueries": 1
     },

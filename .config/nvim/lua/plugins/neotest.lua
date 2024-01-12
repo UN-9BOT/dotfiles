@@ -47,7 +47,7 @@ M.config = function()
                 -- NOTE: слишком медленный парсинг и грузит проц
                 -- используется для парсинга параметризированных тестов
                 -- для отображения параметризированных выставить true
-                pytest_discover_instances = false,
+                pytest_discover_instances = true,
 
             }),
         },

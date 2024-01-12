@@ -24,7 +24,7 @@ b("i", "<c-k>", "<up>", opts)
 b("i", "<c-l>", "<right>", opts)
 
 -- disable highlight when ESC is pressed
-b({ "i", "v", "n" }, "<ESC>", "<ESC>:noh<CR>", opts)
+b({ "i", "v", "n" }, "<ESC>", "<ESC>:noh<CR>:w<CR>", opts)
 
 --
 -- copy all text in system buffer

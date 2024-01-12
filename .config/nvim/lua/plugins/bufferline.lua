@@ -8,6 +8,7 @@ M.config = function()
     -- local groups = require('bufferline.groups')
     require("bufferline").setup({
         options = {
+            mode = "tabs",
             -- groups = {
             --     options = {
             --         toggle_hidden_on_enter = true -- when you re-enter a hidden group this options re-opens that group so the buffer is visible
@@ -61,7 +62,6 @@ M.config = function()
             --
             --     }
             -- },
-            mode = "tabs"
         }
     })
 
