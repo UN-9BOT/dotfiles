@@ -37,7 +37,7 @@ lazy.setup({
   { "sindrets/diffview.nvim" },                                 -- :Diffview
   { "wellle/targets.vim" },                                     -- next for textobjects in( an( {["'
   { "tpope/vim-fugitive" },                                     -- Neogit
-  { "RRethu/vim-tranquille" },                                  -- search and highlight without moving the cursor g/
+  { "RRethy/vim-tranquille" },                                  -- search and highlight without moving the cursor g/
   { "ekalinin/Dockerfile.vim" },                                -- сниппеты
   { "cbochs/portal.nvim" },                                     -- ctrl + i // ctrl + o motion
   { "NeogitOrg/neogit",          config = true },               -- leader G
