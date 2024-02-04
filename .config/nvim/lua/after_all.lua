@@ -1,14 +1,10 @@
 ---@diagnostic disable: undefined-global
 -- NOTE:  конфиги которые по каким-то причинам не работают внутри их require
 
--- TODO:
-vim.keymap.set("n", "<leader>o", "<cmd>Portal jumplist backward<cr>")
-vim.keymap.set("n", "<leader>i", "<cmd>Portal jumplist forward<cr>")
-
 -- coc-highlight
-vim.cmd([[
-    autocmd CursorHold * silent call CocActionAsync('highlight')
-]])
+-- vim.cmd([[
+--     autocmd CursorHold * silent call CocActionAsync('highlight')
+-- ]])
 
 
 -- FIX: для выхода из insert in Telescope
@@ -51,7 +47,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 })
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "lua" },
+  pattern = { "lua", "markdown" },
   callback = function()
     vim.bo.shiftwidth = 2
     -- vim.bo.smarttab = true

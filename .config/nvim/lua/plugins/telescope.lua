@@ -28,7 +28,7 @@ local M = {
       "aaronhallaert/advanced-git-search.nvim",
       dependencies = {
         "tpope/vim-fugitive",
-        "tpope/vim-rhubarb",
+        "tpope/vim-rhubarb", -- :advanced_git_search
       },
     }
   },
@@ -66,12 +66,13 @@ M.config = function()
 
   b("n", ",f", "<CMD>Telescope find_files<CR>", opts)
   -- b("n", ",g", require "telescope".extensions.egrepify.egrepify, opts)
-  b( "n", ",g", builtin.live_grep, opts)
+  b("n", ",g", builtin.live_grep, opts)
   b("n", ",G", require('telescope').extensions.live_grep_args.live_grep_args, opts)
   b("n", ",,", builtin.resume, opts)
   b({ "n", "v" }, ",v", builtin.grep_string, opts)
   b({ "n", "v" }, ",r", builtin.registers, opts)
   b({ "n", "v" }, ",m", builtin.marks, opts)
+  b({ "n", "v" }, ",l", builtin.oldfiles, opts)
   -- b("n", "<c-f>", builtin.current_buffer_fuzzy_find, opts)
   b("n", "<c-f>", "<CMD>Spectre<CR>", opts)
   b("n", ",j", builtin.jumplist, opts)
@@ -86,8 +87,8 @@ M.config = function()
 
     builtin.git_bcommits_range(opts)
   end
-  b({ "n", "v" }, ",b", M.my_git_bcommits)
-  -- b({ "n", "v" }, ",b", builtin.git_bcommits_range)
+  -- b({ "n", "v" }, ",b", M.my_git_bcommits)
+  b({ "n", "v" }, ",b", builtin.git_bcommits_range)
 
   local telescope = require("telescope").setup({
     defaults = {
