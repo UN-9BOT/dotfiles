@@ -11,13 +11,45 @@ return {
       dockerfile = { "hadolint" },
       Dockerfile = { "hadolint" },
       docker = { "hadolint" },
-      -- yaml = { "actionlint", "yamllint" },
+      lua = { "luacheck" },
       yaml = { "yamllint" },
+      -- yaml = { "actionlint", "yamllint" },
       -- make = { "checkmake" },  -- TODO: доделать парсер
     }
 
     --------
     --------
+
+    -- cppcheck
+    linters.cppcheck.args = {
+      "--enable=warning,style,performance,information",
+      function()
+        if vim.bo.filetype == "cpp" then
+          return "--language=c++"
+        else
+          return "--language=c"
+        end
+      end,
+      "--inline-suppr",
+      "--quiet",
+      "--template={file}:{line}:{column}: [{id}] {severity}: {message}",
+      "--suppress=missingIncludeSystem",
+    }
+    -- luacheck
+    local new_luacheck_args = { "--globals", "vim" }
+    for i = 1, #new_luacheck_args do
+      lint.linters.luacheck.args[#lint.linters.luacheck.args + 1] = new_luacheck_args[i]
+    end
+
+    -- mypy
+    table.insert(linters.mypy.args, "--ignore-missing-imports")
+
+    -- ruff
+    local new_ruff_args = { "--config=~/.config/nvim/ruff.toml" }
+    for i = 1, #new_ruff_args do
+      lint.linters.ruff.args[#lint.linters.ruff.args + 1] = new_ruff_args[i]
+    end
+
     -- makefile
     -- linters.checkmake = {
     --   cmd = "checkmake",
@@ -37,16 +69,6 @@ return {
     --     return diags
     --   end,
     -- }
-    --------
-    --------
-
-    table.insert(lint.linters.mypy.args, "--ignore-missing-imports")
-
-    -- ruff
-    local new_ruff_args = { "--config=~/.config/nvim/ruff.toml" }
-    for i = 1, #new_ruff_args do
-      lint.linters.ruff.args[#lint.linters.ruff.args + 1] = new_ruff_args[i]
-    end
 
     --------
     --------

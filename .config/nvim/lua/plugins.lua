@@ -70,7 +70,6 @@ lazy.setup({
   require("plugins.tagbar"),             -- tagbar F8
   require("plugins.codeium"),            -- Codeium AI
   require("plugins.coc"),                -- LSP
-  require("plugins.nvim_lspconfig"),
   require("plugins.nvim_lint"),       -- Lint
   require("plugins.dap"),             -- debugger
   require("plugins.dap_ui"),          -- debugger ui
@@ -98,7 +97,6 @@ lazy.setup({
   -- ----------------------------
   -- NOTE: IN_PROGRESS
   -- ----------------------------
-  require("plugins.coq"),
 
 
 
@@ -127,5 +125,7 @@ lazy.setup({
   require("plugins.obsidian"),                -- NOTE: obsidian -> не юзаю
   require("plugins.trouble"),                 -- NOTE: quickfix, bug-list and other -> не юзаю
   require("plugins.ale"),                     -- NOTE: linters -> nvim-lint
+  require("plugins.nvim_lspconfig"),
+  require("plugins.coq"),
   ]]
 })

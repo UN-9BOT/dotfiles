@@ -82,5 +82,6 @@
             "command": "shellcheck",
             "args": []
         },
-    }
+    },
+    "Lua.diagnostics.globals": ["vim"],
 }
