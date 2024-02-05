@@ -67,7 +67,7 @@
                 "-ci",
                 "-sr"
             ]
-        }
+        },
     },
     "diagnostic-languageserver.filetypes": {
         "sh": [
@@ -82,6 +82,23 @@
             "command": "shellcheck",
             "args": []
         },
+        "checkmake": {
+            "command": "checkmake",
+            "args": [
+                "--format={{.LineNumber}}:{{.Rule}}:{{.Violation}}\n",
+                "%file"
+            ],
+            "sourceName": "checkmake",
+            "formatPattern": [
+                "^(\\d+):(\\w+):(.+)$",
+                {
+                    "line": 1,
+                    "message": 3
+                }
+            ]
+        },
     },
-    "Lua.diagnostics.globals": ["vim"],
+    "Lua.diagnostics.globals": [
+        "vim"
+    ],
 }
