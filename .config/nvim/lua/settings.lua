@@ -93,8 +93,6 @@ vim.api.nvim_exec(
 
 -- for associatee in comand line vim
 vim.api.nvim_command("cnoreabbrev W w")
-vim.api.nvim_command("cnoreabbrev B BufferLineGroupToggle")
-vim.api.nvim_command("cnoreabbrev BD BufferLineGroupClose")
 
 --
 -- show invisibles

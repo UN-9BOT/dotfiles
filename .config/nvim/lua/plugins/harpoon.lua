@@ -23,11 +23,11 @@ M.config = function()
   vim.keymap.set("n", ";j", function() harpoon:list():next() end)
   harpoon:extend({
     UI_CREATE = function(cx)
-      vim.keymap.set("n", ";v", function()
+      vim.keymap.set("n", ";s", function()
         harpoon.ui:select_menu_item({ vsplit = true })
       end, { buffer = cx.bufnr })
 
-      vim.keymap.set("n", ";h", function()
+      vim.keymap.set("n", ";S", function()
         harpoon.ui:select_menu_item({ split = true })
       end, { buffer = cx.bufnr })
 

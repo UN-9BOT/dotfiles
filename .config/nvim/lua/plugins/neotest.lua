@@ -1,3 +1,5 @@
+-- NOTE: for check.h c-based test in makefile use :copen for quickfix.
+
 local M = {
     "nvim-neotest/neotest",
     dependencies = {

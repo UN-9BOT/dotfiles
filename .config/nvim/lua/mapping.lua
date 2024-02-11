@@ -11,17 +11,17 @@ b({ "n", "v" }, "j", "gj", opts)
 b({ "n", "v" }, "k", "gk", opts)
 
 -- for move in windows
-b("n", "<c-h>", "<C-w>h", opts)
-b("n", "<c-j>", "<C-w>j", opts)
-b("n", "<c-k>", "<C-w>k", opts)
-b("n", "<c-l>", "<C-w>l", opts)
+-- b("n", "<c-h>", "<C-w>h", opts)
+-- b("n", "<c-j>", "<C-w>j", opts)
+-- b("n", "<c-k>", "<C-w>k", opts)
+-- b("n", "<c-l>", "<C-w>l", opts)
 --
 
--- move in insert mode
-b("i", "<c-h>", "<left>", opts)
-b("i", "<c-j>", "<down>", opts)
-b("i", "<c-k>", "<up>", opts)
-b("i", "<c-l>", "<right>", opts)
+-- move in insert mode -- NOTE: disable in split keyboard (on other layout)
+-- b("i", "<c-h>", "<left>", opts)
+-- b("i", "<c-j>", "<down>", opts)
+-- b("i", "<c-k>", "<up>", opts)
+-- b("i", "<c-l>", "<right>", opts)
 
 -- disable highlight when ESC is pressed
 b({ "i", "v", "n" }, "<ESC>", "<ESC>:noh<CR>:w<CR>", opts)
@@ -55,6 +55,10 @@ local function close_test_ui()
   require 'dapui'.close()
 end
 
+local function close_neo_tree()
+  require("neo-tree.sources.manager").close_all()
+end
+
 local function save_session()
   vim.cmd [[SessionSave]]
 end
@@ -70,6 +74,7 @@ end
 local function ZZ()
   vim.api.nvim_input("<Esc>")
   close_test_ui()
+  close_neo_tree()
   save_session()
   close_save()
 end
@@ -77,6 +82,7 @@ end
 local function ZQ()
   vim.api.nvim_input("<Esc>")
   close_test_ui()
+  close_neo_tree()
   save_session()
   close_no_save()
 end
@@ -91,8 +97,8 @@ b("n", "q", "<Nop>", opts)
 -- b("n", "<F9>", "<cmd>make test<cr>", opts)
 b("i", "<c-e>", "<c-o>de", opts)
 
-b("n", ";h", ":split<cr>", opts)                        -- horizontal
-b("n", ";v", ":vsplit<cr>", opts)                       -- vertical
+b("n", ";S", ":split<cr>", opts)                        -- horizontal
+b("n", ";s", ":vsplit<cr>", opts)                       -- vertical
 b("n", ";n", ":tabedit<cr>", opts)                      -- new tab
 b("n", ";d", "<ESC>my<cmd>tabnew %<cr><esc>'yzz", opts) -- duplicate tab
 

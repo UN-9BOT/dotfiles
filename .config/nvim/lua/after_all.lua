@@ -2,9 +2,9 @@
 -- NOTE:  конфиги которые по каким-то причинам не работают внутри их require
 
 -- coc-highlight
--- vim.cmd([[
---     autocmd CursorHold * silent call CocActionAsync('highlight')
--- ]])
+vim.cmd([[
+    autocmd CursorHold * silent call CocActionAsync('highlight')
+]])
 
 
 -- FIX: для выхода из insert in Telescope
@@ -104,10 +104,88 @@ vim.diagnostic.config({
   virtual_text = false,
   float = {
     border = "rounded",
-    header = false,               -- remove the line that says 'Diagnostic:'
-    source = false,               -- hide it since my float_format will add it
-    format = float_format,        -- can customize more colors by using prefix/suffix instead
-    suffix = "",                  -- default is error code. Moved to message via float_format
+    header = false,         -- remove the line that says 'Diagnostic:'
+    source = false,         -- hide it since my float_format will add it
+    format = float_format,  -- can customize more colors by using prefix/suffix instead
+    suffix = "",            -- default is error code. Moved to message via float_format
   },
-  update_in_insert = false,       -- wait until insert leave to check diagnostics
+  update_in_insert = false, -- wait until insert leave to check diagnostics
+})
+
+vim.api.nvim_create_augroup("WhichKeyTelescope", { clear = true })
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = "Trouble",
+  callback = function(event)
+    local bufopts = { noremap = true, silent = true, buffer = event.buf }
+    local trouble_config = require("trouble.config")
+
+    if trouble_config.options.mode == "telescope" then
+      vim.keymap.set("n", "D", function()
+        require("trouble.providers.telescope").results = {}
+        require("trouble").close()
+      end, bufopts)
+
+      local delete_entry = function()
+        local win = vim.api.nvim_get_current_win()
+        local cursor = vim.api.nvim_win_get_cursor(win)
+        local line = cursor[1]
+        -- Can use Trouble.get_items()
+        local results = require("trouble.providers.telescope").results
+        local folds = require("trouble.folds")
+
+        local filenames = {}
+        for _, result in ipairs(results) do
+          if filenames[result.filename] == nil then
+            filenames[result.filename] = 1
+          else
+            filenames[result.filename] = 1 + filenames[result.filename]
+          end
+        end
+
+        local index = 1
+        local cursor_line = 1
+        local seen_filename = {}
+        while cursor_line < line do
+          local result = results[index]
+          local filename = result.filename
+
+          if seen_filename[filename] == nil then
+            seen_filename[filename] = true
+            cursor_line = cursor_line + 1
+
+            if folds.is_folded(filename) then
+              index = index + filenames[filename]
+            end
+          else
+            cursor_line = cursor_line + 1
+            index = index + 1
+          end
+        end
+
+        local index_filename = results[index].filename
+        local is_filename = (seen_filename[index_filename] == nil)
+
+        if is_filename then
+          local filtered_results = {}
+          for _, result in ipairs(results) do
+            if result.filename ~= index_filename then
+              table.insert(filtered_results, result)
+            end
+          end
+
+          require("trouble.providers.telescope").results = filtered_results
+        else
+          table.remove(results, index)
+        end
+
+        if #require("trouble.providers.telescope").results == 0 then
+          require("trouble").close()
+        else
+          require("trouble").refresh({ provider = "telescope", auto = false })
+        end
+      end
+
+      vim.keymap.set("n", "x", delete_entry, bufopts)
+    end
+  end,
 })

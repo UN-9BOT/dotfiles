@@ -30,7 +30,7 @@ local M = {
         "tpope/vim-fugitive",
         "tpope/vim-rhubarb", -- :advanced_git_search
       },
-    }
+    },
   },
 }
 
@@ -40,6 +40,7 @@ M.config = function()
   local actions = require("telescope.actions")
   local builtin = require("telescope.builtin")
   local previewers = require('telescope.previewers')
+  local trouble = require("trouble.providers.telescope")
   -- local trouble = require("trouble.providers.telescope")
   -- local def_mapping = { i = { ["<esc>"] = actions.close, ["<cr>"] = "select_tab", } }
   local def_mapping = {
@@ -47,11 +48,13 @@ M.config = function()
       ["<esc>"] = actions.close,
       ["<C-s>"] = actions.file_split,
       ["<C-v>"] = actions.file_vsplit,
+      ["<c-q>"] = trouble.open_with_trouble
     },
     n = {
       ["<esc>"] = actions.close,
       ["<C-s>"] = actions.file_split,
       ["<C-v>"] = actions.file_vsplit,
+      ["<c-q>"] = trouble.open_with_trouble
     },
   }
   local map_esc = { i = { ["<esc>"] = actions.close, } }

@@ -1,16 +1,16 @@
 ---@diagnostic disable: undefined-global
 local M = {
-	"mfussenegger/nvim-dap",
-	dependencies = {
-		{
-			"theHamsta/nvim-dap-virtual-text",
-			config = function()
-				require("nvim-dap-virtual-text").setup({})
-			end,
-		},
-		"williamboman/mason.nvim",
-		"jay-babu/mason-nvim-dap.nvim",
-	},
+  "mfussenegger/nvim-dap",
+  dependencies = {
+    {
+      "theHamsta/nvim-dap-virtual-text",
+      config = function()
+        require("nvim-dap-virtual-text").setup({})
+      end,
+    },
+    "williamboman/mason.nvim",
+    "jay-babu/mason-nvim-dap.nvim",
+  },
 }
 -- M.keys = {
 -- { "<leader>ddc", function() require("dap").continue() end, desc = "continue", },
@@ -26,100 +26,101 @@ local M = {
 -- }
 
 M.config = function()
-	local b = vim.keymap.set
-	local opts = { noremap = true, silent = true }
-	local nf = require("notify")
-	b("n",
-		"<leader>dp",
-		function()
-			require("dap.ui.widgets").preview()
-		end,
-		opts
-	)
-	b("n",
-		"<leader>db",
-		function() require("dap").toggle_breakpoint() end
-	)
-	b("n",
-		"<leader>dB",
-		function() require("dap").toggle_breakpoint(vim.fn.input('Breakpoint condition: ')) end
-	)
-	b("n",
-		"<leader>dc",
-		function()
-			require("dap").continue({ strategy = "dap" })
-			nf.notify("🪲 D:continue")
-		end
-	)
-	b("n",
-		"<leader>dC",
-		function()
-			require("dap").run_to_cursor()
-			nf.notify("D:run_to_cursor")
-		end
-	)
-	b("n",
-		"<leader>di",
-		function()
-			require("dap").step_into()
-			nf.notify("D:step_into")
-		end
-	)
-	b("n",
-		"<leader>dj",
-		function()
-			require("dap").step_over()
-			nf.notify("D:down")
-		end
-	)
-	b("n",
-		"<leader>dk",
-		function()
-			require("dap").up()
-			nf.notify("D:up")
-		end
-	)
-	b("n",
-		"<leader>dd",
-		function()
-			require("dap").terminate()
-			nf.notify("D:terminate")
-		end
-	)
+  local b = vim.keymap.set
+  local opts = { noremap = true, silent = true }
+  local nf = require("notify")
+  b("n",
+    "<leader>dp",
+    function()
+      require("dap.ui.widgets").preview()
+    end,
+    opts
+  )
+  b("n",
+    "<leader>db",
+    function() require("dap").toggle_breakpoint() end
+  )
+  b("n",
+    "<leader>dB",
+    function() require("dap").toggle_breakpoint(vim.fn.input('Breakpoint condition: ')) end
+  )
+  b("n",
+    "<leader>dc",
+    function()
+      require('dap.ext.vscode').load_launchjs(nil, {})
+      require("dap").continue({ strategy = "dap" })
+      nf.notify("🪲 D:continue")
+    end
+  )
+  b("n",
+    "<leader>dC",
+    function()
+      require("dap").run_to_cursor()
+      nf.notify("D:run_to_cursor")
+    end
+  )
+  b("n",
+    "<leader>di",
+    function()
+      require("dap").step_into()
+      nf.notify("D:step_into")
+    end
+  )
+  b("n",
+    "<leader>dj",
+    function()
+      require("dap").step_over()
+      nf.notify("D:down")
+    end
+  )
+  b("n",
+    "<leader>dk",
+    function()
+      require("dap").up()
+      nf.notify("D:up")
+    end
+  )
+  b("n",
+    "<leader>dd",
+    function()
+      require("dap").terminate()
+      nf.notify("D:terminate")
+    end
+  )
 
-	local dap = require('dap')
-	local lldbPath = "/usr/bin/lldb-vscode"
-	dap.adapters.lldb = {
-		type = 'executable',
-		command = lldbPath, -- adjust as needed, must be absolute path
-		name = 'lldb'
-	}
-	dap.configurations.c = {
-		{
-			name = 'Launch',
-			type = 'lldb',
-			request = 'launch',
-			program = function()
-				return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-			end,
-			cwd = '${workspaceFolder}',
-			stopOnEntry = false,
-			args = {},
+  local dap = require('dap')
+  local lldbPath = "/usr/bin/lldb-vscode"
+  dap.adapters.lldb = {
+    type = 'executable',
+    command = lldbPath, -- adjust as needed, must be absolute path
+    name = 'lldb'
+  }
+  dap.configurations.c = {
+    {
+      name = 'Launch',
+      type = 'lldb',
+      request = 'launch',
+      program = function()
+        return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+      end,
+      cwd = '${workspaceFolder}',
+      stopOnEntry = false,
+      args = {},
 
-			-- 💀
-			-- if you change `runInTerminal` to true, you might need to change the yama/ptrace_scope setting:
-			--
-			--    echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
-			--
-			-- Otherwise you might get the following error:
-			--
-			--    Error on launch: Failed to attach to the target process
-			--
-			-- But you should be aware of the implications:
-			-- https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html
-			-- runInTerminal = false,
-		},
-	}
+      -- 💀
+      -- if you change `runInTerminal` to true, you might need to change the yama/ptrace_scope setting:
+      --
+      --    echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+      --
+      -- Otherwise you might get the following error:
+      --
+      --    Error on launch: Failed to attach to the target process
+      --
+      -- But you should be aware of the implications:
+      -- https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html
+      -- runInTerminal = false,
+    },
+  }
 end
 
 -- M.config = function()
