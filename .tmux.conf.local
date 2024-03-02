@@ -456,17 +456,19 @@ set -g @continuum-restore 'on'
 # start with mouse mode enabled
 set -g mouse on
 
-# disable "release mouse drag to copy and exit copy-mode", ref: https://github.com/tmux/tmux/issues/140
-unbind-key -T copy-mode-vi MouseDragEnd1Pane
+# NOTE: for visual mode in tmux without cancel after v
 
-# since MouseDragEnd1Pane neither exit copy-mode nor clear selection now,
-# let single click do selection clearing for us.
-bind-key -T copy-mode-vi MouseDown1Pane select-pane\; send-keys -X clear-selection
-
-# this line changes the default binding of MouseDrag1Pane, the only difference
-# is that we use copy-mode -eM instead of copy-mode -M, so that WheelDownPane
-# can trigger copy-mode to exit when copy-mode is entered by MouseDrag1Pane
-bind -n MouseDrag1Pane if -Ft= '#{mouse_any_flag}' 'if -Ft= \"#{pane_in_mode}\" \"copy-mode -eM\" \"send-keys -M\"' 'copy-mode -eM'
+# # disable "release mouse drag to copy and exit copy-mode", ref: https://github.com/tmux/tmux/issues/140
+# unbind-key -T copy-mode-vi MouseDragEnd1Pane
+#
+# # since MouseDragEnd1Pane neither exit copy-mode nor clear selection now,
+# # let single click do selection clearing for us.
+# bind-key -T copy-mode-vi MouseDown1Pane select-pane\; send-keys -X clear-selection
+#
+# # this line changes the default binding of MouseDrag1Pane, the only difference
+# # is that we use copy-mode -eM instead of copy-mode -M, so that WheelDownPane
+# # can trigger copy-mode to exit when copy-mode is entered by MouseDrag1Pane
+# bind -n MouseDrag1Pane if -Ft= '#{mouse_any_flag}' 'if -Ft= \"#{pane_in_mode}\" \"copy-mode -eM\" \"send-keys -M\"' 'copy-mode -eM'
 
 
 set -g pane-active-border-style bg=color0
@@ -521,10 +523,20 @@ bind -n M-8 select-window -t 8
 # Zoom
 bind -n M-z resize-pane -Z
 
-# choose session
-bind -n M-s choose-session
+# switch latest session
+bind -n M-s switch-client -l
 
+# choose session
+bind -n M-w choose-session
 
 bind -r l display-popup -d '#{pane_current_path}' -w90% -h90% -E lazygit
-bind -r j display-popup -d '#{pane_current_path}' -w90% -h90%
+bind -r j display-popup -d '#{pane_current_path}' -w93% -h90%
 
+
+
+# { 'vimpostor/vim-tpipeline' },
+set -g focus-events on
+set -g status-style bg=default
+set -g status-left-length 90
+set -g status-right-length 90
+set -g status-justify centre

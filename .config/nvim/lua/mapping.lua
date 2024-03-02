@@ -1,5 +1,3 @@
----@diagnostic disable-next-line: undefined-global
-
 -- mapleader -> Space
 vim.g.mapleader = " "
 
@@ -31,6 +29,7 @@ b({ "n", "v" }, "<leader>P", '"+P', opts)
 
 -- delete tab
 b("n", "Q", "<cmd>q<cr>", opts)
+-- b("n", "Q", "<cmd>tabclose<cr>", opts)
 
 
 -- CUSTOM EXIT
@@ -58,7 +57,6 @@ end
 local function ZZ()
   vim.api.nvim_input("<Esc>")
   close_test_ui()
-  close_neo_tree()
   save_session()
   close_save()
 end
@@ -66,7 +64,6 @@ end
 local function ZQ()
   vim.api.nvim_input("<Esc>")
   close_test_ui()
-  close_neo_tree()
   save_session()
   close_no_save()
 end
@@ -85,8 +82,6 @@ b("n", ";S", ":split<cr>", opts)                        -- horizontal
 b("n", ";s", ":vsplit<cr>", opts)                       -- vertical
 b("n", ";n", ":tabedit<cr>", opts)                      -- new tab
 b("n", ";d", "<ESC>my<cmd>tabnew %<cr><esc>'yzz", opts) -- duplicate tab
-
-
 
 -- TODO:
 -- tab  // tab is same ctrl+i

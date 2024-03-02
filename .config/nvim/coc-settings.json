@@ -35,9 +35,9 @@
     "sql.database": "postgresql",
     "sql.formatOptions": {
         "language": "postgresql",
-        "keywordCase": "lower",
+        "keywordCase": "upper",
         "indentStyle": "standard",
-        "linesBetweenQueries": 1
+        "linesBetweenQueries": 0
     },
     "python.linting.flake8Args": [
         "--max-line-length",

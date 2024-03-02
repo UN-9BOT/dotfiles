@@ -5,8 +5,8 @@ local M = {
 
 M.keys = {
 	-- ctrl space - toggle rnvimr
-	{ "<c-space>", "<cmd>RnvimrToggle<CR>", desc = "Toggle Rnvimr" },
-	{ "<c-space>", "<C-\\><C-n><cmd>RnvimrToggle<CR>", mode = { "t" }, desc = "Rnvimr Toggle" },
+	{ "<leader>s", "<cmd>RnvimrToggle<CR>", desc = "Toggle Rnvimr" },
+	{ "<leader>s", "<C-\\><C-n><cmd>RnvimrToggle<CR>", mode = { "t" }, desc = "Rnvimr Toggle" },
 }
 
 -- Настройки rnvimr
@@ -20,19 +20,23 @@ M.config = function()
 
 	-- Действия
 	vim.g.rnvimr_action = {
-		["<cr>"] = "NvimEdit tabedit",
+		-- ["<cr>"] = "NvimEdit tabedit",
 		["<C-t>"] = "NvimEdit tabedit",
-		["<A-i>"] = "NvimEdit split",
-		["<C-i>"] = "NvimEdit vsplit",
+		["<C-h>"] = "NvimEdit split",
+		["<C-v>"] = "NvimEdit vsplit",
 	}
 	vim.g.rnvimr_layout = {
 		relative = "editor",
-		width = vim.fn.float2nr(vim.fn.round(0.95 * vim.o.columns)),
-		height = vim.fn.float2nr(vim.fn.round(0.95 * vim.o.lines)),
-		col = vim.fn.float2nr(vim.fn.round(0.15 * vim.o.columns)),
-		row = vim.fn.float2nr(vim.fn.round(0.15 * vim.o.lines)),
+		width = vim.fn.float2nr(vim.fn.round(0.8 * vim.o.columns)),
+		height = vim.fn.float2nr(vim.fn.round(0.8 * vim.o.lines)),
+		col = vim.fn.float2nr(vim.fn.round(0.1 * vim.o.columns)),
+		row = vim.fn.float2nr(vim.fn.round(0.1 * vim.o.lines)),
 		style = "minimal",
 	}
+
+    vim.cmd([[
+      autocmd Filetype rnvimr tnoremap <buffer><nowait> <leader> <leader>
+    ]])  -- NOTE: для отключение задержки на leader(space)
 end
 
 return M

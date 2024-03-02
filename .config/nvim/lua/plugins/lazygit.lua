@@ -5,6 +5,9 @@ M.config = function()
   if vim.fn.has("nvim") and vim.fn.executable("nvr") then
     vim.g.GIT_EDITOR = "nvr -cc split --remote-wait +'set bufhidden=wipe'"
   end
+  vim.cmd([[
+    autocmd Filetype lazygit tnoremap <buffer><nowait> <leader> <leader>
+  ]]) -- NOTE: для отключение задержки на leader(space)
 end
 
 local function DiffviewToggle()

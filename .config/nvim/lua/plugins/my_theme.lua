@@ -10,7 +10,7 @@ return {
         -- vim.g.edge_style = 'neon'
 	end,
 	dependencies = {
-		{ "tribela/vim-transparent" }, -- transparent background
+		-- { "tribela/vim-transparent" }, -- transparent background
 	}
 }
 

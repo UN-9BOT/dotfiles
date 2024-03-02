@@ -29,22 +29,26 @@ lazy.setup({
   -- NOTE: WITHOUT CONFIG
   -- -----------------------
   --
-  { "nvim-lua/plenary.nvim" },                                   -- common utilities
-  { "kkharji/sqlite.lua" },                                      -- sqlite for other plugins
-  { "farmergreg/vim-lastplace" },                                -- last position in files
-  { "tpope/vim-surround" },                                      -- surround ("' [ { }]')  	-: ysiw' | cs'" | ds",
-  { "tpope/vim-repeat" },                                        -- repeat for surround
-  { "sindrets/diffview.nvim" },                                  -- :Diffview
-  { "wellle/targets.vim" },                                      -- next for textobjects in( an( {["'
-  { "tpope/vim-fugitive" },                                      -- Neogit
-  { "RRethy/vim-tranquille" },                                   -- search and highlight without moving the cursor g/
-  { "ekalinin/Dockerfile.vim" },                                 -- сниппеты
-  { "NeogitOrg/neogit",              config = true },            -- leader G
-  { "ldelossa/buffertag",            config = r("buffertag") },  -- float name for tab
+  { "nvim-lua/plenary.nvim" },                                      -- common utilities
+  { "kkharji/sqlite.lua" },                                         -- sqlite for other plugins
+  { "farmergreg/vim-lastplace" },                                   -- last position in files
+  { "tpope/vim-surround" },                                         -- surround ("' [ { }]')  	-: ysiw' | cs'" | ds",
+  { "tpope/vim-repeat" },                                           -- repeat for surround
+  { "sindrets/diffview.nvim" },                                     -- :Diffview
+  { "wellle/targets.vim" },                                         -- next for textobjects in( an( {["'
+  { "tpope/vim-fugitive" },                                         -- Neogit
+  { "RRethy/vim-tranquille" },                                      -- search and highlight without moving the cursor g/
+  { "ekalinin/Dockerfile.vim" },                                    -- сниппеты
+  { 'vimpostor/vim-tpipeline' },                                    -- join tmux line and vim status line
+  { "RRethy/nvim-align",             cmd = { "Align" }, },          -- выравнивание
+  { "NeogitOrg/neogit",              config = true },               -- leader G
+  { "b0o/incline.nvim",              config = r("incline") },       -- float name for tab
   { "folke/todo-comments.nvim",      config = r("todo-comments") }, -- TODO: WARNING: FIX: XXX: BUG: NOTE:
-  { "numToStr/Comment.nvim",         config = r("Comment") },    -- commentary for if (Loop)
-  { "nacro90/numb.nvim",             config = r("numb"), },      -- live preview for :{number_line}
-  { "andrewferrier/debugprint.nvim", config = r("debugprint") }, -- debug print g?v
+  { "numToStr/Comment.nvim",         config = r("Comment") },       -- commentary for if (Loop)
+  { "nacro90/numb.nvim",             config = r("numb"), },         -- live preview for :{number_line}
+  { "andrewferrier/debugprint.nvim", config = r("debugprint") },    -- debug print g?v
+  { "anuvyklack/pretty-fold.nvim",   config = r("pretty-fold") },   -- fold for markdown
+  { 'm-demare/hlargs.nvim',          config = r("hlargs") },        -- ts based for hl args
 
 
 
@@ -68,7 +72,7 @@ lazy.setup({
   require("plugins.vim_visual_multi"),   -- multi cursor
   require("plugins.gitsigns"),           -- right sign inline
   require("plugins.lazygit"),            -- leader+l+g
-  -- require("plugins.wilder"),             -- menu vim
+  require("plugins.wilder"),             -- menu vim
   require("plugins.tagbar"),             -- tagbar F8
   require("plugins.codeium"),            -- Codeium AI
   require("plugins.coc"),                -- LSP
@@ -84,11 +88,11 @@ lazy.setup({
   require("plugins.vim-matchup"),        -- % match
   require("plugins.envfiles"),           -- auto load .env files [[:Dotenv : load .env]]
   require("plugins.sniprun"),            -- run code (<F10>)
-  require("plugins.neotree"),            -- file manager, right side, : не юзаю
   require("plugins.spider"),             -- moving for only word (w e b)
-  require("plugins.portal"),             -- M-o, M-i
   require("plugins.trouble"),            -- quickfix, bug-list and other (telescope ctrl+q : send to list (x del))
   require("plugins.vim_auto_save"),      -- auto-save files : проблемы с harpoon
+  require("plugins.rnvimr"),             -- ranger
+  require("plugins.trailblazer"),        -- marks ,ma ; ,M
 
   -- ----------------------------
   -- NOTE: dependencies
@@ -101,70 +105,22 @@ lazy.setup({
   -- NOTE: IN_PROGRESS
   -- ----------------------------
 
-  {
-    'fredeeb/tardis.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    config = true,
-  }, -- :Tardis git history moving in one file
-
-  {
-    'anuvyklack/pretty-fold.nvim',
-    config = function()
-      require('pretty-fold').setup()
-    end
-  },
-  {
-    "nvim-zh/colorful-winsep.nvim",
-    config = true,
-    event = { "WinNew" },
-  }, -- NOTE: color for main window
-  {
-    "RRethy/nvim-align",
-    cmd = { "Align" },
-  },
-  {
-    "folke/noice.nvim",
-    event = "VeryLazy",
-    opts = {
-      -- add any options here
-    },
-    dependencies = {
-      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-      "MunifTanjim/nui.nvim",
-      -- OPTIONAL:
-      --   `nvim-notify` is only needed, if you want to use the notification view.
-      --   If not available, we use `mini` as the fallback
-      "rcarriga/nvim-notify",
-    }
-  },
-
-
-
   -- ----------------------------
   -- NOTE: ARCHIVE
   -- ----------------------------
-  --
 
   --[[
-  { "liuchengxu/vim-clap" },                  -- NOTE: альтернатива Telescope : :Clap install-binary
+  { "nvim-zh/colorful-winsep.nvim", config = true, event = { "WinNew" }, }, -- NOTE: color for main window : lags
+  { "ldelossa/buffertag",            config = r("buffertag") },             -- NOTE: float name for tab : replace incline
 
-  require("plugins.ide"),                     -- NOTE: like ide :много багов при загрузке
-  require("plugins.nvim-treesitter-context"), -- NOTE: context (leader t c) : чаще отключаю, а не юзаю
-  require("plugins.telekasten"),              -- NOTE: notes in markdown  : не юзаю
-  require("plugins.dadbod"),                  -- NOTE: vim db and ui  : не юзаю
-  require("plugins.tmux"),                    -- NOTE: заменил на smart-splits
-  require("plugins.python_imports"),          -- NOTE: импорты из проекта : не юзаю
-  require("plugins.indent"),                  -- NOTE: indent (отступы) : NOTE: не юзабельно, ошибки
-  require("plugins.rnvimr"),                  -- NOTE: ranger : switch to yazi
-  require("plugins.windows"),                 -- NOTE: maximaze window : не юзаю
-  require("plugins.floaterm"),                -- NOTE: term : не юзаю
-  require("plugins.marks"),                   -- NOTE: метки на полях : заменил на bookmarks.nvim. Так как нет глоб сохранения
-  require("plugins.obsidian"),                -- NOTE: obsidian : не юзаю
-  require("plugins.ale"),                     -- NOTE: linters : nvim-lint
-  require("plugins.harpoon"),                 -- NOTE: ;marked_open ;Mark (inside: ;new_tab ;Shorizontal ;svertical)
-  require("plugins.edgy"),                    -- NOTE: UI  : need conf
-  require("plugins.nvim_lspconfig"),          -- NOTE: : need use api nvim (cmp)
-  require("plugins.coq"),                     -- NOTE: alt for coc : need config
-  require("plugins.ranger"),                  -- NOTE: new file browser : switch to neo-tree
+  require("plugins.nvim-treesitter-context"),                               -- NOTE: context (leader t c) : чаще отключаю, а не юзаю
+  require("plugins.telekasten"),                                            -- NOTE: notes in markdown  : не юзаю
+  require("plugins.python_imports"),                                        -- NOTE: импорты из проекта : не юзаю
+  require("plugins.marks"),                                                 -- NOTE: метки на полях : заменил на bookmarks.nvim. нет глоб сохранения
+  require("plugins.obsidian"),                                              -- NOTE: obsidian : не юзаю
+  require("plugins.ale"),                                                   -- NOTE: linters : nvim-lint
+  require("plugins.nvim_lspconfig"),                                        -- NOTE: : need use api nvim (cmp)
+  require("plugins.coq"),                                                   -- NOTE: alt for coc : need config
+  require("plugins.neotree"),                                               -- NOTE: file manager, right side, : не юзаю
   --]]
 })
