@@ -25,6 +25,7 @@ local M = {
       "yamllint",
       -- lua
       "lua-language-server",
+      "stylua",
     },
   },
 }

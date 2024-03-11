@@ -13,7 +13,7 @@ local M = {
     "lukas-reineke/cmp-under-comparator",
     "lukas-reineke/cmp-rg",
     "ray-x/cmp-treesitter",
-    "L3MON4D3/LuaSnip",         -- snippet engine
+    "L3MON4D3/LuaSnip", -- snippet engine
     "rafamadriz/friendly-snippets",
     "saadparwaiz1/cmp_luasnip", -- adapter for the snippet engine
 
@@ -28,11 +28,12 @@ M.config = function()
   cmp.setup({
     -- tell cmp to use Luasnip as our snippet engine
     snippet = {
-      expand = function(args) require("luasnip").lsp_expand(args.body) end,
+      expand = function(args)
+        require("luasnip").lsp_expand(args.body)
+      end,
     },
     enabled = function()
-      return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
-          or require("cmp_dap").is_dap_buffer()
+      return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
     end,
     sources = cmp.config.sources({
       { name = "nvim_lsp", priority = 1000 },
@@ -44,8 +45,7 @@ M.config = function()
       { name = "buffer", priority = 700 },
       { name = "async_path", priority = 650 },
       -- { name = "rg" } -- ripgrep  -- slow, need in individual config
-    }
-    ),
+    }),
     sorting = {
       comparators = {
         -- require("copilot_cmp.comparators").prioritize,
@@ -53,7 +53,7 @@ M.config = function()
         cmp.config.compare.exact,
         cmp.config.compare.score,
         cmp.config.compare.recently_used,
-        require("cmp-under-comparator").under,  -- magic method last
+        require("cmp-under-comparator").under, -- magic method last
         cmp.config.compare.kind,
       },
     },
@@ -61,12 +61,12 @@ M.config = function()
       ghost_text = true,
     },
     formatting = {
-      format = require('lspkind').cmp_format({
+      format = require("lspkind").cmp_format({
         mode = "symbol",
         maxwidth = 50,
-        ellipsis_char = '...',
-        symbol_map = { Codeium = "󰚩", treesitter = " ", luasnip = ' 🐍', buffer = '', }
-      })
+        ellipsis_char = "...",
+        symbol_map = { Codeium = "󰚩", treesitter = " ", luasnip = " 🐍", buffer = "" },
+      }),
     },
     mapping = {
       ["<C-d>"] = cmp.mapping.scroll_docs(-4),
@@ -83,52 +83,52 @@ M.config = function()
         end
       end, { "i", "s" }),
       ["<C-p>"] = cmp.mapping.select_prev_item(),
-      ["<CR>"] = cmp.mapping.confirm {
+      ["<CR>"] = cmp.mapping.confirm({
         behavior = cmp.ConfirmBehavior.Insert,
         select = true,
-      },
-      ["<C-y>"] = cmp.mapping.confirm {
+      }),
+      ["<C-y>"] = cmp.mapping.confirm({
         behavior = cmp.ConfirmBehavior.Insert,
         select = true,
-      },
+      }),
       ["<c-space>"] = cmp.mapping.complete(),
       -- for codeium
-     ["<C-x>"] = cmp.mapping(
+      ["<C-x>"] = cmp.mapping(
         cmp.mapping.complete({
           config = {
-              sources = cmp.config.sources({
-                { name = "codeium" },
-              }),
-            },
-          }),
-          { "i", "s" }
-        ),
+            sources = cmp.config.sources({
+              { name = "codeium" },
+            }),
+          },
+        }),
+        { "i", "s" }
+      ),
       -- for cmp-rg
       ["<C-r>"] = cmp.mapping(
-          cmp.mapping.complete({
-            config = {
-              sources = cmp.config.sources({
-                { name = "rg" },
-              }),
-            },
-          }),
-          { "i", "s" }
-        ),
-
+        cmp.mapping.complete({
+          config = {
+            sources = cmp.config.sources({
+              { name = "rg" },
+            }),
+          },
+        }),
+        { "i", "s" }
+      ),
     },
   })
   -- Set configuration for specific filetype.
-  cmp.setup.filetype('gitcommit', {
+  cmp.setup.filetype("gitcommit", {
     sources = cmp.config.sources({
-      { name = 'git' },   -- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
+      { name = "git" }, -- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
     }, {
-      { name = 'buffer' },
-    })
+      { name = "buffer" },
+    }),
   })
   require("cmp").setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
     sources = {
       { name = "dap" },
-    }})
+    },
+  })
 end
 
 return M

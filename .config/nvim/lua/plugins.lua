@@ -114,8 +114,8 @@ lazy.setup({
   require("plugins.trailblazer"),        -- marks ,ma ; ,M
   require("plugins.bmessages"),          -- wrapper for :messages
   require("plugins.rnvimr"),             -- ranger
-  require("plugins.mason"),
-  -- require("plugins.coc"),                -- LSP
+  require("plugins.mason"),  -- installer for features
+  require("plugins.conform"),
 
 
   -- ----------------------------
@@ -147,5 +147,6 @@ lazy.setup({
   require("plugins.marks"),                                                 -- NOTE: метки на полях : заменил на bookmarks.nvim. нет глоб сохранения
   require("plugins.ale"),                                                   -- NOTE: linters : nvim-lint
   require("plugins.neotree"),                                               -- NOTE: file manager, right side, : не юзаю
+  require("plugins.coc"),                                                   -- NOTE: переехал на cmp
   --]]
 })
