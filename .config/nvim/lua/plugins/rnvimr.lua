@@ -27,7 +27,7 @@ M.config = function()
 	}
 	vim.g.rnvimr_layout = {
 		relative = "editor",
-		width = vim.fn.float2nr(vim.fn.round(0.8 * vim.o.columns)),
+		width = vim.fn.float2nr(vim.fn.round(1 * vim.o.columns)),
 		height = vim.fn.float2nr(vim.fn.round(0.8 * vim.o.lines)),
 		col = vim.fn.float2nr(vim.fn.round(0.1 * vim.o.columns)),
 		row = vim.fn.float2nr(vim.fn.round(0.1 * vim.o.lines)),

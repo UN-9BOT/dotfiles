@@ -2,9 +2,9 @@
 -- NOTE:  конфиги которые по каким-то причинам не работают внутри их require
 
 -- coc-highlight
-vim.cmd([[
-  autocmd CursorHold * silent call CocActionAsync('highlight')
-]])
+-- vim.cmd([[
+--   autocmd CursorHold * silent call CocActionAsync('highlight')
+-- ]])
 
 
 -- FIX: для выхода из insert in Telescope

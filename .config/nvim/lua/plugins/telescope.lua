@@ -63,9 +63,6 @@ M.config = function()
         '--', entry.current_file }
     end
   }
-  b({ "n", "v" }, ",c", builtin.git_bcommits_range, opts)
-  -- b({ "n", "v" }, ",t", builtin.treesitter, opts)
-
   b("n", ",f", "<CMD>Telescope find_files<CR>", opts)
   b("n", ",g", builtin.live_grep, opts)
   b("n", ",G", require('telescope').extensions.live_grep_args.live_grep_args, opts)
@@ -164,13 +161,6 @@ M.config = function()
       preview_cutoff = 120,
     },
     extensions = {
-      -- media_files = {
-      -- 	-- filetypes whitelist
-      -- 	-- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
-      -- 	filetypes = { "png", "webp", "jpg", "jpeg", "webm", "pdf" },
-      -- 	-- find command (defaults to `fd`)
-      -- 	find_cmd = "rg",
-      -- },
       fzf = {
         fuzzy = true,                   -- false will only do exact matching
         override_generic_sorter = true, -- override the generic sorter
@@ -185,7 +175,7 @@ M.config = function()
     },
     pickers = {
       find_files = {
-        -- layout_config = { height = 0.6, width = 0.9 },
+        -- layout_config = { height = 0.9, width = 0.9 },
         -- theme = "ivy",
         -- previewer = false,
         sorting = "frecency",

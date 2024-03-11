@@ -218,6 +218,9 @@ abbreviation:
 
 ### CTRL
 
+- insert mode ctrl t -- add tab
+- insert mode ctrl d -- remove tab
+
 ### SHIFT
 
 ### ENTER

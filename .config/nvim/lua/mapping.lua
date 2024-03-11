@@ -23,7 +23,8 @@ b({ "i", "v", "n" }, "<ESC>", "<ESC>:noh<CR>", opts)
 -- b("n", "<leader>Y", "<Cmd>%y+<CR>", opts)
 
 -- system buffer operation
-b({ "n", "v" }, "<leader>y", '"+y', opts)
+b({ "n", "v" }, "<leader>y", '"+y', opts)  -- NOTE: for wayland need install wl-copy
+b({ "n", "v" }, "<leader>Y", '"+Y', opts)
 b({ "n", "v" }, "<leader>p", '"+p', opts)
 b({ "n", "v" }, "<leader>P", '"+P', opts)
 

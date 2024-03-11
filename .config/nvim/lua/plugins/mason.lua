@@ -22,7 +22,9 @@ local M = {
       "dockerfile-language-server",
       "hadolint",
       -- yaml
-      "yamllint"
+      "yamllint",
+      -- lua
+      "lua-language-server",
     },
   },
 }

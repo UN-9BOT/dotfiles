@@ -91,8 +91,8 @@ local M = {
               paste_at_all_trail_marks = ',m2',
               set_trail_mark_select_mode = ',m3',
               switch_to_next_trail_mark_stack = ',m4',
-              switch_to_previous_trail_mark_stack = ',m4',
-              set_trail_mark_stack_sort_mode = ',m5',
+              switch_to_previous_trail_mark_stack = ',m5',
+              set_trail_mark_stack_sort_mode = ',m6',
             },
           },
           -- You can also add/move any motion or action to mode specific mappings i.e.:

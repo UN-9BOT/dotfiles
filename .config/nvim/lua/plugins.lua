@@ -29,26 +29,47 @@ lazy.setup({
   -- NOTE: WITHOUT CONFIG
   -- -----------------------
   --
-  { "nvim-lua/plenary.nvim" },                                      -- common utilities
-  { "kkharji/sqlite.lua" },                                         -- sqlite for other plugins
-  { "farmergreg/vim-lastplace" },                                   -- last position in files
-  { "tpope/vim-surround" },                                         -- surround ("' [ { }]')  	-: ysiw' | cs'" | ds",
-  { "tpope/vim-repeat" },                                           -- repeat for surround
-  { "sindrets/diffview.nvim" },                                     -- :Diffview
-  { "wellle/targets.vim" },                                         -- next for textobjects in( an( {["'
-  { "tpope/vim-fugitive" },                                         -- Neogit
-  { "RRethy/vim-tranquille" },                                      -- search and highlight without moving the cursor g/
-  { "ekalinin/Dockerfile.vim" },                                    -- сниппеты
-  { 'vimpostor/vim-tpipeline' },                                    -- join tmux line and vim status line
-  { "RRethy/nvim-align",             cmd = { "Align" }, },          -- выравнивание
-  { "NeogitOrg/neogit",              config = true },               -- leader G
-  { "b0o/incline.nvim",              config = r("incline") },       -- float name for tab
-  { "folke/todo-comments.nvim",      config = r("todo-comments") }, -- TODO: WARNING: FIX: XXX: BUG: NOTE:
-  { "numToStr/Comment.nvim",         config = r("Comment") },       -- commentary for if (Loop)
-  { "nacro90/numb.nvim",             config = r("numb"), },         -- live preview for :{number_line}
-  { "andrewferrier/debugprint.nvim", config = r("debugprint") },    -- debug print g?v
-  { "anuvyklack/pretty-fold.nvim",   config = r("pretty-fold") },   -- fold for markdown
-  { 'm-demare/hlargs.nvim',          config = r("hlargs") },        -- ts based for hl args
+  { "nvim-lua/plenary.nvim" },                                          -- common utilities
+  { "kkharji/sqlite.lua" },                                             -- sqlite for other plugins
+  { "farmergreg/vim-lastplace" },                                       -- last position in files
+  { "tpope/vim-surround" },                                             -- surround ("' [ { }]')  	-: ysiw' | cs'" | ds"
+  { "tpope/vim-repeat" },                                               -- repeat for surround
+  { "sindrets/diffview.nvim" },                                         -- :Diffview
+  { "wellle/targets.vim" },                                             -- next for textobjects in( an( {["'
+  { "tpope/vim-fugitive" },                                             -- Neogit
+  { "RRethy/vim-tranquille" },                                          -- search and highlight without moving the cursor g/
+  { "ekalinin/Dockerfile.vim" },                                        -- сниппеты
+  { "vimpostor/vim-tpipeline" },                                        -- join tmux line and vim status line
+  { "raimon49/requirements.txt.vim" },                                  -- for syntax highlight for requirements.txt
+  { "RRethy/nvim-align",               cmd = { "Align" }, },            -- выравнивание
+  { "NeogitOrg/neogit",                config = true },                 -- leader G
+  { "b0o/incline.nvim",                config = r("incline") },         -- float name for tab
+  { "folke/todo-comments.nvim",        config = r("todo-comments") },   -- TODO: WARNING: FIX: XXX: BUG: NOTE:
+  { "numToStr/Comment.nvim",           config = r("Comment") },         -- commentary for if (Loop)
+  { "nacro90/numb.nvim",               config = r("numb"), },           -- live preview for :{number_line}
+  { "andrewferrier/debugprint.nvim",   config = r("debugprint") },      -- debug print g?v
+  { "anuvyklack/pretty-fold.nvim",     config = r("pretty-fold") },     -- fold for markdown
+  { "m-demare/hlargs.nvim",            config = r("hlargs") },          -- ts based for hl args
+  { "NStefan002/visual-surround.nvim", config = r("visual-surround") }, -- surround visual mode ( [{( )
+  { "lukas-reineke/virt-column.nvim",  config = r("virt-column") },     -- virt column narrow style
+  { "RaafatTurki/corn.nvim",           config = r("corn") },            -- float diagnostic
+  {
+    "roobert/hoversplit.nvim",
+    config = function()
+      require("hoversplit").setup({
+        key_bindings = {
+          split_remain_focused = ",E",
+          -- vsplit_remain_focused = ",F",
+          split = "<leader>hhS",
+          vsplit = ",F",
+          -- split: Opens a horizontal split with hover information, focusing on the split.
+          -- vsplit: Opens a vertical split with hover information, focusing on the split.
+          -- split_remain_focused: Opens a horizontal split without moving the focus from the original buffer.
+          -- vsplit_remain_focused: Opens a vertical split without moving the focus from the original buffer.
+        },
+      })
+    end,
+  },
 
 
 
@@ -75,7 +96,6 @@ lazy.setup({
   require("plugins.wilder"),             -- menu vim
   require("plugins.tagbar"),             -- tagbar F8
   require("plugins.codeium"),            -- Codeium AI
-  require("plugins.coc"),                -- LSP
   require("plugins.nvim_lint"),          -- Lint
   require("plugins.dap"),                -- debugger
   require("plugins.dap_ui"),             -- debugger ui
@@ -91,8 +111,12 @@ lazy.setup({
   require("plugins.spider"),             -- moving for only word (w e b)
   require("plugins.trouble"),            -- quickfix, bug-list and other (telescope ctrl+q : send to list (x del))
   require("plugins.vim_auto_save"),      -- auto-save files : проблемы с harpoon
-  require("plugins.rnvimr"),             -- ranger
   require("plugins.trailblazer"),        -- marks ,ma ; ,M
+  require("plugins.bmessages"),          -- wrapper for :messages
+  require("plugins.rnvimr"),             -- ranger
+  require("plugins.mason"),
+  -- require("plugins.coc"),                -- LSP
+
 
   -- ----------------------------
   -- NOTE: dependencies
@@ -101,9 +125,15 @@ lazy.setup({
   require("plugins.notify"),             -- notifications
   require("plugins.nvim_web_devicons"),  -- for other plugins, extend with icons
 
+
   -- ----------------------------
   -- NOTE: IN_PROGRESS
   -- ----------------------------
+
+  require("plugins.nvim_lspconfig"),
+  require("plugins.nvim_cmp"),
+
+
 
   -- ----------------------------
   -- NOTE: ARCHIVE
@@ -113,14 +143,9 @@ lazy.setup({
   { "nvim-zh/colorful-winsep.nvim", config = true, event = { "WinNew" }, }, -- NOTE: color for main window : lags
   { "ldelossa/buffertag",            config = r("buffertag") },             -- NOTE: float name for tab : replace incline
 
-  require("plugins.nvim-treesitter-context"),                               -- NOTE: context (leader t c) : чаще отключаю, а не юзаю
-  require("plugins.telekasten"),                                            -- NOTE: notes in markdown  : не юзаю
   require("plugins.python_imports"),                                        -- NOTE: импорты из проекта : не юзаю
   require("plugins.marks"),                                                 -- NOTE: метки на полях : заменил на bookmarks.nvim. нет глоб сохранения
-  require("plugins.obsidian"),                                              -- NOTE: obsidian : не юзаю
   require("plugins.ale"),                                                   -- NOTE: linters : nvim-lint
-  require("plugins.nvim_lspconfig"),                                        -- NOTE: : need use api nvim (cmp)
-  require("plugins.coq"),                                                   -- NOTE: alt for coc : need config
   require("plugins.neotree"),                                               -- NOTE: file manager, right side, : не юзаю
   --]]
 })
