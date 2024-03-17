@@ -3,8 +3,7 @@ local M = {
   lazy = false,
   dependencies = {
     "nvim-treesitter/nvim-treesitter-textobjects",
-  }
-
+  },
 }
 
 M.config = function()
@@ -12,7 +11,7 @@ M.config = function()
     highlight = { enable = true },
     indent = { enable = true },
     matchup = {
-      enable = true,             -- mandatory, false will disable the whole extension
+      enable = true, -- mandatory, false will disable the whole extension
       disable = { "c", "ruby" }, -- optional, list of language that will be disabled
       -- [options]
     },
@@ -46,9 +45,9 @@ M.config = function()
         -- and should return the mode ('v', 'V', or '<c-v>') or a table
         -- mapping query_strings to modes.
         selection_modes = {
-          ['@parameter.outer'] = 'v', -- charwise
-          ['@function.outer'] = 'V', -- linewise
-          ['@class.outer'] = '<c-v>', -- blockwise
+          ["@parameter.outer"] = "v", -- charwise
+          ["@function.outer"] = "V", -- linewise
+          ["@class.outer"] = "<c-v>", -- blockwise
         },
         -- If you set this to `true` (default is `false`) then any textobject is
         -- extended to include preceding or succeeding whitespace. Succeeding
@@ -63,6 +62,14 @@ M.config = function()
       },
     },
   })
+
+  vim.keymap.set("n", "<M-t>", function()
+    if vim.b.ts_highlight then
+      vim.treesitter.stop()
+    else
+      vim.treesitter.start()
+    end
+  end, { desc = "Toggle Treesitter Highlight" })
 end
 
 return M

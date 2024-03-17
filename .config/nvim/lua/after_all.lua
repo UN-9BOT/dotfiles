@@ -6,7 +6,6 @@
 --   autocmd CursorHold * silent call CocActionAsync('highlight')
 -- ]])
 
-
 -- FIX: для выхода из insert in Telescope
 vim.api.nvim_create_autocmd("WinLeave", {
   callback = function()
@@ -16,10 +15,8 @@ vim.api.nvim_create_autocmd("WinLeave", {
   end,
 })
 
-
 require("mason").setup()
 require("mason-nvim-dap").setup()
-
 
 -- NOTE: FileTypes indent
 
@@ -33,7 +30,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     vim.bo.softtabstop = 2
   end,
 })
-
 vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "bash", "sh", "lua", "markdown" },
   callback = function()

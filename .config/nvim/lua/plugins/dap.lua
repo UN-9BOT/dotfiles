@@ -1,4 +1,3 @@
----@diagnostic disable: undefined-global
 local M = {
   "mfussenegger/nvim-dap",
   dependencies = {
@@ -28,7 +27,7 @@ local M = {
 M.config = function()
   local b = vim.keymap.set
   local opts = { noremap = true, silent = true }
-  local nf = require("notify")
+  local nf = require("plugins.notify").nf
   b("n",
     "<leader>dp",
     function()
@@ -49,42 +48,42 @@ M.config = function()
     function()
       require('dap.ext.vscode').load_launchjs(nil, {})
       require("dap").continue({ strategy = "dap" })
-      nf.notify("🪲 D:continue")
+      nf("🪲 D:continue")
     end
   )
   b("n",
     "<leader>dC",
     function()
       require("dap").run_to_cursor()
-      nf.notify("D:run_to_cursor")
+      nf("D:run_to_cursor")
     end
   )
   b("n",
     "<leader>di",
     function()
       require("dap").step_into()
-      nf.notify("D:step_into")
+      nf("D:step_into")
     end
   )
   b("n",
     "<leader>dj",
     function()
       require("dap").step_over()
-      nf.notify("D:down")
+      nf("D:down")
     end
   )
   b("n",
     "<leader>dk",
     function()
       require("dap").up()
-      nf.notify("D:up")
+      nf("D:up")
     end
   )
   b("n",
     "<leader>dd",
     function()
       require("dap").terminate()
-      nf.notify("D:terminate")
+      nf("D:terminate")
     end
   )
 

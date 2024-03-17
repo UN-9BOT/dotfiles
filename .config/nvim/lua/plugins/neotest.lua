@@ -5,11 +5,13 @@ local M = {
   dependencies = {
     "nvim-neotest/neotest-python",
     "antoinemadec/FixCursorHold.nvim",
+    "nvim-neotest/neotest-vim-test",
+    "nvim-neotest/neotest-plenary",
   },
 }
 
 M.config = function()
-  local nf = require("notify")
+  local nf = require("plugins.notify").nf
   local pythonPath = function()
     if vim.env.VIRTUAL_ENV then
       return vim.env.VIRTUAL_ENV .. "/bin/python"
@@ -50,8 +52,8 @@ M.config = function()
         -- используется для парсинга параметризированных тестов
         -- для отображения параметризированных выставить true
         pytest_discover_instances = true,
-
       }),
+      -- require("neotest-plenary").setup({}),
     },
   })
 
@@ -59,49 +61,29 @@ M.config = function()
   local b = vim.keymap.set
   local opts = { noremap = true, silent = true }
 
-  b("n",
-    "<leader>du",
-    function()
-      require('dapui').toggle()
-      nf.notify("DAP UI")
-    end,
-    opts
-  )
-  b("n",
-    "<leader>dM",
-    function()
-      require('neotest').run.run({ strategy = 'dap' })
-      nf.notify("🪲 T:start")
-    end,
-    opts
-  )
-  b("n",
-    "<leader>dm",
-    function()
-      require('neotest').run.run()
-      nf.notify("T:start")
-    end,
-    opts
-  )
+  b("n", "<leader>du", function()
+    require("dapui").toggle()
+    nf("DAP UI")
+  end, opts)
+  b("n", "<leader>dM", function()
+    require("neotest").run.run({ strategy = "dap" })
+    nf("🪲 T:start")
+  end, opts)
+  b("n", "<leader>dm", function()
+    require("neotest").run.run()
+    nf("T:start")
+  end, opts)
   -- b("n", "<leader>dtl", "<cmd>lua require('neotest').run.run_last()<CR>", opts)
   -- b("n", "<leader>dto", "<cmd>lua require('neotest').output.open({enter=true})<CR>", opts)
   b("n", "<leader>do", "<cmd>lua require('neotest').output_panel.toggle({enter=true})<CR>", opts)
-  b("n",
-    "<leader>ds",
-    function()
-      require('neotest').run.stop()
-      nf.notify("T:stop")
-    end,
-    opts
-  )
-  b("n",
-    "<leader>dS",
-    function()
-      require('neotest').run.stop({ strategy = 'dap' })
-      nf.notify("🪲 T:stop")
-    end,
-    opts
-  )
+  b("n", "<leader>ds", function()
+    require("neotest").run.stop()
+    nf("T:stop")
+  end, opts)
+  b("n", "<leader>dS", function()
+    require("neotest").run.stop({ strategy = "dap" })
+    nf("🪲 T:stop")
+  end, opts)
   -- b("n", "<leader>dtf", "<cmd>lua require('neotest').run.run({vim.fn.expand('%')})<CR>", opts)
   b("n", "<leader>dt", "<cmd>lua require('neotest').summary.toggle()<CR>", opts)
 

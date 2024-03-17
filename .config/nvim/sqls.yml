@@ -1,0 +1,6 @@
+# Set to true to use lowercase keywords instead of uppercase.
+lowercaseKeywords: false
+connections:
+  - alias: psql_bnpl
+    driver: postgresql
+    dataSourceName: 'host=localhost port=5435 user=user password=password dbname=bnpl'
