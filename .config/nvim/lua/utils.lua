@@ -26,4 +26,19 @@ M.comparators_tscompae = function(entry1, entry2)
   end
 end
 
+--- getter for python path with virtualenv
+M.get_pythonPath = function()
+  if vim.env.VIRTUAL_ENV then
+    return vim.env.VIRTUAL_ENV .. "/bin/python"
+  end
+  local cwd = vim.fn.getcwd()
+  if vim.fn.executable(cwd .. "/venv/bin/python") == 1 then
+    return cwd .. "/venv/bin/python"
+  elseif vim.fn.executable(cwd .. "/.venv/bin/python") == 1 then
+    return cwd .. "/.venv/bin/python"
+  else
+    return "/usr/bin/python"
+  end
+end
+
 return M

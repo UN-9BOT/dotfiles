@@ -96,6 +96,17 @@ local M = {
       capabilities = lspCapabilities,
       filetypes = { "python" },
       root_dir = lsputil.root_pattern(".git", "requirements.txt", "pyproject.toml", "Makefile", "README.md"),
+      settings = {
+        -- https://microsoft.github.io/pyright/#/configuration?id=main-configuration-options
+        python = {
+          analysis = {
+            autoSearchPaths = true,
+            diagnosticMode = "openFilesOnly",
+            useLibraryCodeForTypes = true,
+            -- typeCheckingMode = "strict",
+          },
+        },
+      },
     })
     require("lspconfig").lua_ls.setup({
       capabilities = lspCapabilities,

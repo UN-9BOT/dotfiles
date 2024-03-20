@@ -52,7 +52,7 @@ M.config = function()
       return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
     end,
     sources = cmp.config.sources({
-      { name = "nvim_lsp", priority = 1000, max_item_count = 10 },
+      { name = "nvim_lsp", priority = 1000, max_item_count = 20 },
       { name = "nvim_lsp_signature_help", priority = 950, max_item_count = 5 },
       { name = "nvim_lua", priority = 900, max_item_count = 3 },
       { name = "luasnip", priority = 800, max_item_count = 5 },

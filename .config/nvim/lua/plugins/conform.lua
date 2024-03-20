@@ -7,6 +7,8 @@ M.opts = {}
 M.config = function()
   local conform = require("conform")
   conform.setup({
+
+    log_level = vim.log.levels.DEBUG,
     formatters_by_ft = {
       lua = { "stylua" },
       -- Conform will run multiple formatters sequentially
@@ -19,6 +21,7 @@ M.config = function()
   conform.formatters.shfmt = { prepend_args = { "-i", "2", "-bn", "-ci", "-sr" } }
   conform.formatters.stylua = { prepend_args = { "--indent-type", "Spaces", "--indent-width", "2" } }
   conform.formatters.sql_formatter = { prepend_args = { "-l", "postgresql" } }
+  conform.formatters.black = { prepend_args = { "--fast" } }
 end
 
 M.keys = {

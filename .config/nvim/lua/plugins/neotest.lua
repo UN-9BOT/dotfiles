@@ -1,5 +1,26 @@
 -- NOTE: for check.h c-based test in makefile use :copen for quickfix.
 
+
+-- mappings = {  -- NOTE: for summary
+--   attach = "a",
+--   clear_marked = "M",
+--   clear_target = "T",
+--   debug = "d",
+--   debug_marked = "D",
+--   expand = { "<CR>", "<2-LeftMouse>" },
+--   expand_all = "e",
+--   jumpto = "i",
+--   mark = "m",
+--   next_failed = "J",
+--   output = "o",
+--   prev_failed = "K",
+--   run = "r",
+--   run_marked = "R",
+--   short = "O",
+--   stop = "u",
+--   target = "t",
+--   watch = "w"
+-- },
 local M = {
   "nvim-neotest/neotest",
   dependencies = {
@@ -12,22 +33,8 @@ local M = {
 
 M.config = function()
   local nf = require("plugins.notify").nf
-  local pythonPath = function()
-    if vim.env.VIRTUAL_ENV then
-      return vim.env.VIRTUAL_ENV .. "/bin/python"
-    end
-    -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
-    -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
-    -- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
-    local cwd = vim.fn.getcwd()
-    if vim.fn.executable(cwd .. "/venv/bin/python") == 1 then
-      return cwd .. "/venv/bin/python"
-    elseif vim.fn.executable(cwd .. "/.venv/bin/python") == 1 then
-      return cwd .. "/.venv/bin/python"
-    else
-      return "/usr/bin/python"
-    end
-  end
+
+  local pythonPath = require("utils").get_pythonPath()
   require("neotest").setup({
     adapters = {
       require("neotest-python")({

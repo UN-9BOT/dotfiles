@@ -38,7 +38,7 @@ lazy.setup({
   { "wellle/targets.vim" }, -- next for textobjects in( an( {["'
   { "tpope/vim-fugitive" }, -- :G
   { "RRethy/vim-tranquille" }, -- search and highlight without moving the cursor g/
-  { "vimpostor/vim-tpipeline" }, -- join tmux line and vim status line
+  -- { "vimpostor/vim-tpipeline" }, -- join tmux line and vim status line
   { "raimon49/requirements.txt.vim" }, -- for syntax highlight for requirements.txt
   { "RRethy/nvim-align", cmd = { "Align" } }, -- выравнивание
   { "b0o/incline.nvim", config = r("incline") }, -- float name for tab
@@ -192,20 +192,25 @@ lazy.setup({
     end,
   },
 
-  -- {
-  --   "Olical/conjure",
-  --   config = function()
-  --     vim.g["conjure#extract#tree_sitter#enabled"] = true
-  --     vim.api.nvim_create_autocmd("BufNewFile", {
-  --       group = vim.api.nvim_create_augroup("conjure_log_disable_lsp", { clear = true }),
-  --       pattern = { "conjure-log-*" },
-  --       callback = function()
-  --         vim.diagnostic.disable(0)
-  --       end,
-  --       desc = "Conjure Log disable LSP diagnostics",
-  --     })
-  --   end,
-  -- },
+  {
+    "linrongbin16/lsp-progress.nvim",
+    config = function()
+      require("lsp-progress").setup()
+    end,
+  },
+
+  {
+    "zeioth/garbage-day.nvim",
+    dependencies = "neovim/nvim-lspconfig",
+    event = "VeryLazy",
+    opts = {
+      notifications = true,
+    },
+  },
+  {
+    "hinell/lsp-timeout.nvim",
+    dependencies = { "neovim/nvim-lspconfig" },
+  },
 
   -- ----------------------------
   -- NOTE: ARCHIVE
