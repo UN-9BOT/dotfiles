@@ -1,29 +1,7 @@
----@diagnostic disable: undefined-global
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
-end
-vim.opt.rtp:prepend(lazypath)
-
-local status_ok, lazy = pcall(require, "lazy")
-if not status_ok then
-  print("lazy just installed, please restart neovim")
-  return
-end
-
--- use for init plugin without config
-local function r(name)
-  return function()
-    require(name).setup()
-  end
-end
+local lazy = require("lazy_init").lazy
+local utils = require("utils")
+local safe_require = utils.safe_require
+local r = utils.r
 
 lazy.setup({
   -- -----------------------
@@ -31,14 +9,13 @@ lazy.setup({
   -- -----------------------
   --
   { "nvim-lua/plenary.nvim" }, -- common utilities
-  { "kkharji/sqlite.lua" }, -- sqlite for other plugins
+  { "kkharji/sqlite.lua" }, -- sqlite for other plug_configs
   { "nanotee/sqls.nvim" }, -- for sql queries
   { "farmergreg/vim-lastplace" }, -- last position in files
   { "sindrets/diffview.nvim" }, -- :Diffview
   { "wellle/targets.vim" }, -- next for textobjects in( an( {["'
   { "tpope/vim-fugitive" }, -- :G
   { "RRethy/vim-tranquille" }, -- search and highlight without moving the cursor g/
-  -- { "vimpostor/vim-tpipeline" }, -- join tmux line and vim status line
   { "raimon49/requirements.txt.vim" }, -- for syntax highlight for requirements.txt
   { "RRethy/nvim-align", cmd = { "Align" } }, -- выравнивание
   { "b0o/incline.nvim", config = r("incline") }, -- float name for tab
@@ -49,6 +26,9 @@ lazy.setup({
   { "anuvyklack/pretty-fold.nvim", config = r("pretty-fold") }, -- fold for func and diffview
   { "m-demare/hlargs.nvim", config = r("hlargs") }, -- ts based for hl args
   { "lukas-reineke/virt-column.nvim", config = r("virt-column") }, -- virt column narrow style
+  { "stevearc/dressing.nvim", opts = {} }, -- ui for other plug_configs
+  { "j-hui/fidget.nvim", opts = {} }, -- ui for lsp-progress
+  { "segeljakt/vim-silicon" }, --screenshot in visual mode
   {
     "tpope/vim-surround", -- surround ("' [ { }]')  	-: ysiw' | cs'" | ds"
     dependencies = {
@@ -61,165 +41,62 @@ lazy.setup({
   -- NOTE: WITH CONFIG
   -- -----------------------
   --
-  require("plugins.markdown-preview"), -- markdown preview :MarkdownPreview
-  require("plugins.my_theme"), -- themes
-  require("plugins.vim_smooth_scroll"), -- scrolling
-  require("plugins.bufferline"), -- buffers / tabs on top
-  require("plugins.lualine"), -- line on bottom
-  require("plugins.treesitter"), -- highlight syntax
-  require("plugins.sessions"), -- session
-  require("plugins.telescope"), -- telescope
-  require("plugins.easymotion"), -- fast motion
-  require("plugins.indent_blankline"), -- indent blanklin for func
-  require("plugins.rainbow_delimiters"), -- rainbow brackets and operators
-  require("plugins.nvim_autopairs"), -- autopairs for brackets
-  require("plugins.neogen"), -- DOC for C (doxygen)
-  require("plugins.vim_visual_multi"), -- multi cursor
-  require("plugins.gitsigns"), -- right sign inline
-  require("plugins.lazygit"), -- leader+l+g
-  require("plugins.tagbar"), -- tagbar F8
-  require("plugins.codeium"), -- Codeium AI
-  require("plugins.nvim_lint"), -- Lint
-  require("plugins.dap"), -- debugger
-  require("plugins.dap_ui"), -- debugger ui
-  require("plugins.dap_python"), -- config dap
-  require("plugins.neotest"), -- tests ui
-  require("plugins.nvim-scrollview"), -- scroll bar on right
-  require("plugins.hlslens"), -- for navigate in search mode
-  require("plugins.spectre"), -- search and replace
-  require("plugins.smart-splits"), -- navigate for tmux and resize [[ ctrl : navigate, alt : resize ]]
-  require("plugins.vim-matchup"), -- % match
-  require("plugins.envfiles"), -- auto load .env files [[:Dotenv : load .env]]
-  require("plugins.sniprun"), -- run code (<F10>)
-  require("plugins.spider"), -- moving for only word (w e b)
-  require("plugins.trouble"), -- quickfix, bug-list and other (telescope ctrl+q : send to list (x del))
-  require("plugins.vim_auto_save"), -- auto-save files : проблемы с harpoon
-  require("plugins.bmessages"), -- wrapper for :messages
-  require("plugins.rnvimr"), -- ranger
-  require("plugins.mason"), -- installer for features
-  require("plugins.marks"), -- mark with global save
-  require("plugins.close_buffers"), -- auto close buffers
-
-  -- ----------------------------
-  -- NOTE: dependencies
-  -- ----------------------------
-  require("plugins.nvim-window-picker"), -- window picker for file_browser
-  require("plugins.notify"), -- notifications
-  require("plugins.nvim_web_devicons"), -- for other plugins, extend with icons
-
+  safe_require("plug_configs.nvim-window-picker"), -- window picker for file_browser
+  safe_require("plug_configs.notify"), -- notifications
+  safe_require("plug_configs.nvim_web_devicons"), -- for other _configsgins, extend with icons
+  safe_require("plug_configs.markdown-preview"), -- markdown preview :MarkdownPreview
+  safe_require("plug_configs.my_theme"), -- themes
+  safe_require("plug_configs.vim_smooth_scroll"), -- scrolling
+  safe_require("plug_configs.bufferline"), -- buffers / tabs on top
+  safe_require("plug_configs.lualine"), -- line on bottom
+  safe_require("plug_configs.treesitter"), -- highlight syntax
+  safe_require("plug_configs.sessions"), -- session
+  safe_require("plug_configs.telescope"), -- telescope
+  safe_require("plug_configs.easymotion"), -- fast motion
+  safe_require("plug_configs.indent_blankline"), -- indent blanklin for func
+  safe_require("plug_configs.rainbow_delimiters"), -- rainbow brackets and operators
+  safe_require("plug_configs.nvim_autopairs"), -- autopairs for brackets
+  safe_require("plug_configs.neogen"), -- DOC for C (doxygen)
+  safe_require("plug_configs.vim_visual_multi"), -- multi cursor
+  safe_require("plug_configs.gitsigns"), -- right sign inline
+  safe_require("plug_configs.lazygit"), -- leader+l+g
+  safe_require("plug_configs.linting.nvim_lint"), -- Lint
+  safe_require("plug_configs.dap.dap"), -- debugger
+  safe_require("plug_configs.dap.dap_ui"), -- debugger ui
+  safe_require("plug_configs.dap.dap_python"), -- config dap
+  safe_require("plug_configs.neotest"), -- tests ui
+  safe_require("plug_configs.nvim-scrollview"), -- scroll bar on right
+  safe_require("plug_configs.hlslens"), -- for navigate in search mode
+  safe_require("plug_configs.spectre"), -- search and replace
+  safe_require("plug_configs.smart-splits"), -- navigate for tmux and resize [[ ctrl : navigate, alt : resize ]]
+  safe_require("plug_configs.vim-matchup"), -- % match
+  safe_require("plug_configs.envfiles"), -- auto load .env files [[:Dotenv : load .env]]
+  safe_require("plug_configs.sniprun"), -- run code (<F10>)
+  safe_require("plug_configs.spider"), -- moving for only word (w e b)
+  safe_require("plug_configs.trouble"), -- quickfix, bug-list and other (telescope ctrl+q : send to list (x del))
+  safe_require("plug_configs.vim_auto_save"), -- auto-save files : проблемы с harpoon
+  safe_require("plug_configs.bmessages"), -- wrapper for :messages
+  safe_require("plug_configs.rnvimr"), -- ranger
+  safe_require("plug_configs.mason"), -- installer for features
+  safe_require("plug_configs.marks"), -- mark with global save
+  safe_require("plug_configs.close_buffers"), -- auto close buffers
+  safe_require("plug_configs.none_ls"), -- custom code actions
+  safe_require("plug_configs.symbol_usage"), -- usage functions and classes
+  safe_require("plug_configs.lsp.nvim_lspconfig"), -- lsp config
+  safe_require("plug_configs.completition.nvim_cmp"), -- completition
+  safe_require("plug_configs.conform"), -- Autoformat
   -- ----------------------------
   -- NOTE: IN_PROGRESS
   -- ----------------------------
 
-  require("plugins.nvim_lspconfig"),
-  require("plugins.nvim_cmp"),
-  require("plugins.conform"),
-
-  {
-    "nvimtools/none-ls.nvim",
-    dependencies = {
-      -- { "ThePrimeagen/refactoring.nvim", config = r("refactoring") },
-    },
-
-    config = function()
-      local null_ls = require("null-ls")
-      null_ls.register({
-        name = "add type ignore",
-        method = { require("null-ls").methods.CODE_ACTION },
-        filetypes = { "python" },
-        generator = {
-          fn = function()
-            return {
-              {
-                title = "# type: ignore",
-                action = function()
-                  vim.cmd("normal! A  # type: ignore")
-                end,
-              },
-            }
-          end,
-        },
-      })
-      null_ls.register({
-        name = "add noqa",
-        method = { require("null-ls").methods.CODE_ACTION },
-        filetypes = { "python" },
-        generator = {
-          fn = function()
-            return {
-              {
-                title = "# noqa",
-                action = function()
-                  vim.cmd("normal! A   virtual# noqa")
-                end,
-              },
-            }
-          end,
-        },
-      })
-      null_ls.register({
-        name = "blame",
-        method = { require("null-ls").methods.CODE_ACTION },
-        filetypes = { "python" },
-        generator = {
-          fn = function()
-            return {
-              {
-                title = "blame",
-                action = function()
-                  vim.cmd("ToggleBlame virtual")
-                end,
-              },
-            }
-          end,
-        },
-      })
-      null_ls.setup({
-        sources = {
-          -- null_ls.builtins.code_actions.refactoring,
-          null_ls.builtins.formatting.fish_indent,
-          null_ls.builtins.formatting.stylua,
-          null_ls.builtins.formatting.shfmt,
-        },
-      })
-    end,
-  },
-  {
-    "Wansmer/symbol-usage.nvim",
-    event = "BufReadPre", -- need run before LspAttach if you use nvim 0.9. On 0.10 use 'LspAttach'
-    config = function()
-      require("symbol-usage").setup({ vt_position = "end_of_line" })
-    end,
-  },
-
-  {
-    "linrongbin16/lsp-progress.nvim",
-    config = function()
-      require("lsp-progress").setup()
-    end,
-  },
-
-  {
-    "zeioth/garbage-day.nvim",
-    dependencies = "neovim/nvim-lspconfig",
-    event = "VeryLazy",
-    opts = {
-      notifications = true,
-    },
-  },
-  {
-    "hinell/lsp-timeout.nvim",
-    dependencies = { "neovim/nvim-lspconfig" },
-  },
-
-  -- ----------------------------
+  -- ---------------------------
   -- NOTE: ARCHIVE
   -- ----------------------------
 
   --[[
-  { "RaafatTurki/corn.nvim", config = r("corn") },                          -- NOTE: float diagnostic : падает на некоторых буферах
-                                                                            
-  require("plugins.coc"),                                                   -- NOTE: переехал на cmp
-  require("plugins.trailblazer"),                                           -- NOTE: marks ,ma ; ,M : пробую recall
+  safe_require("plug_configs.optimization_lsp"), -- stop unused lsp  -- NOTE: лаги???
+  safe_require("plug_configs.coc"),                         -- NOTE: переехал на cmp
+  safe_require("plug_configs.trailblazer"),                 -- NOTE: marks ,ma ; ,M : пробую recall
+  safe_require("plug_configs.tagbar"), -- tagbar F8         -- NOTE: не юзаю
   --]]
 })

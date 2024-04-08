@@ -27,6 +27,7 @@ M.comparators_tscompae = function(entry1, entry2)
 end
 
 --- getter for python path with virtualenv
+---@return string
 M.get_pythonPath = function()
   if vim.env.VIRTUAL_ENV then
     return vim.env.VIRTUAL_ENV .. "/bin/python"
@@ -38,6 +39,38 @@ M.get_pythonPath = function()
     return cwd .. "/.venv/bin/python"
   else
     return "/usr/bin/python"
+  end
+end
+
+---use for init plugin without config
+---@param name string plugin name
+---@return function init function
+M.r = function(name)
+  return function()
+    require(name).setup()
+  end
+end
+
+--- safe execute cmd
+---@param cmd string command to execute
+---@return nil
+M.safe_cmd = function(cmd)
+  local ok, result = pcall(vim.cmd, cmd)
+  if not ok then
+    vim.api.nvim_echo({ { result, "Error" } }, true, {})
+  end
+end
+
+--- safe require
+---@param name string plugin name
+---@return table result
+M.safe_require = function(name)
+  local ok, result = pcall(require, name)
+  if not ok then
+    vim.api.nvim_echo({ { result, "Error" } }, true, {})
+    return {}
+  else
+    return result
   end
 end
 
