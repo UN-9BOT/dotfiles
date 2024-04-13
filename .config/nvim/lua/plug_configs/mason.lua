@@ -7,13 +7,14 @@ local M = {
   opts = {
     ensure_installed = {
       -- python
-      "pyright", -- LSP for python
+      "pyright",  -- LSP for python
       "ruff-lsp", -- linter for python (includes flake8, pep8, etc.)
-      "ruff",   -- linter for python (includes flake8, pep8, etc.)
-      "debugpy", -- debugger
-      "black",  -- formatter
-      "isort",  -- organize imports
-      "taplo",  -- LSP for toml (for pyproject.toml files)
+      "ruff",     -- linter for python (includes flake8, pep8, etc.)
+      "debugpy",  -- debugger
+      "black",    -- formatter
+      "isort",    -- organize imports
+      -- toml
+      "taplo",    -- LSP for toml (for pyproject.toml files)
       -- C
       "clangd",
       "cpptools",
@@ -23,9 +24,23 @@ local M = {
       "hadolint",
       -- yaml
       "yamllint",
+      "actionlint",
       -- lua
       "lua-language-server",
       "stylua",
+      "luacheck",
+      -- makefile
+      "checkmake",
+      -- c
+      "clang-format",
+      --json
+      "fixjson",
+      -- sql
+      "sql-formatter",
+      "sqlfluff",
+      "sqls",
+      -- xml
+      "xmlformatter",
     },
   },
 }

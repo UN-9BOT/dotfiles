@@ -18,15 +18,14 @@ M.config = function()
       sql = { "sql_formatter" },
       xml = { "xmllint" },
       json = { "fixjson" },
+      c = { "clang-format" },
     },
   })
   conform.formatters.shfmt = { prepend_args = { "-i", "2", "-bn", "-ci", "-sr" } }
   conform.formatters.stylua = { prepend_args = { "--config-path", "/home/vim9/.config/nvim/stylua.toml" } }
   conform.formatters.sql_formatter = { prepend_args = { "-l", "postgresql" } }
   conform.formatters.black = { prepend_args = { "--fast" } }
-  conform.formatters.lus_ls = function()
-    return vim.cmd("lua vim.lsp.buf.format()")
-  end
+  conform.formatters.clang_format = { prepend_args = { "-style", "/home/vim9/.config/nvim/.clang-format" } }
 end
 
 M.keys = {
