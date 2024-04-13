@@ -532,11 +532,13 @@ bind -n M-w choose-session
 bind -r l display-popup -d '#{pane_current_path}' -w90% -h90% -E lazygit
 bind -r j display-popup -d '#{pane_current_path}' -w93% -h90%
 
+set -g status-keys emacs
+set -g mode-keys vi
 
 
 # { 'vimpostor/vim-tpipeline' },
-set -g focus-events on
-set -g status-style bg=default
-set -g status-left-length 90
-set -g status-right-length 90
-set -g status-justify centre
+# set -g focus-events on
+# set -g status-style bg=default
+# set -g status-left-length 90
+# set -g status-right-length 90
+# set -g status-justify centre

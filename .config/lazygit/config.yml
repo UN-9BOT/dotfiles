@@ -9,6 +9,7 @@
 # editCommandTemplate: '{{editor}} --server /tmp/nvim-server.pipe --remote-tab-silent "$(pwd)/{{filename}}"'
 # editCommandTemplate: '{{editor}} --server /tmp/nvim-server-$(tmux display-message -p "#S").pipe --remote-tab "$(pwd)/{{filename}}"'
 #
+promptToReturnFromSubprocess: false
 os:
   edit: 'nvim --server /tmp/nvim-server-$(tmux display-message -p "#S").pipe --remote-tab "$(pwd)/{{filename}}"'
   editAtLine: 'nvim --server /tmp/nvim-server-$(tmux display-message -p "#S").pipe --remote-tab "$(pwd)/{{filename}}"; nvim --server /tmp/nvim-server--$(tmux display-message -p "#S").pipe --remote-send ":{{line}}<CR>"'

@@ -40,6 +40,7 @@ M.toggle_mypy = function(lint)
       else
         lint.linters_by_ft.python = { "ruff", "mypy" }
         require("lint").try_lint()
+        vim.cmd("LspRestart")
 
         require("notify").notify("  Try mypy lint", "TRACE", {})
         _G.is_mypy_enabled = true

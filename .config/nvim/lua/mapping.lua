@@ -8,10 +8,9 @@ local opts = { noremap = true, silent = true }
 b({ "n", "v" }, "j", "gj", opts)
 b({ "n", "v" }, "k", "gk", opts)
 
-
 -- disable highlight when ESC is pressed
 -- b({ "i", "v", "n" }, "<ESC>", "<ESC>:noh<CR>", opts)
-b({ "i", "v", "n" }, "<ESC>", "<ESC>:noh<CR>:w<CR>", opts)  -- NOTE: with save
+b({ "i", "v", "n" }, "<ESC>", "<ESC>:noh<CR>:w<CR>", opts) -- NOTE: with save
 
 --
 -- copy all text in system buffer
@@ -28,18 +27,10 @@ b("n", "Q", "<cmd>q<cr>", opts)
 -- b("n", "Q", "<cmd>tabclose<cr>", opts)
 
 -- CUSTOM EXIT
-local function close_test_ui()
-  vim.cmd([[Neotest summary close]])
-  require("dapui").close()
-end
-
-local function close_neo_tree()
-  require("neo-tree.sources.manager").close_all()
-end
 
 local function save_session()
-  vim.cmd([[SessionSave]])
   require("close_buffers").delete({ type = "hidden", force = true })
+  vim.cmd([[SessionSave]])
 end
 
 local function close_save()
@@ -50,23 +41,15 @@ local function close_no_save()
   vim.cmd([[qall!]])
 end
 
-local function close_hoversplit()
-  require("hoversplit").close_hover_split()
-end
-
 local function ZZ()
   vim.api.nvim_input("<Esc>")
-  close_test_ui()
   save_session()
-  -- close_hoversplit()
   close_save()
 end
 
 local function ZQ()
   vim.api.nvim_input("<Esc>")
-  close_test_ui()
   save_session()
-  -- close_hoversplit()
   close_no_save()
 end
 

@@ -3,6 +3,7 @@ local M = {
   dependencies = {},
   event = "VeryLazy",
 }
+local dap_utils = require("plug_configs.dap.utils")
 
 M.config = function()
   local nf = require("plug_configs.notify").nf
@@ -11,27 +12,27 @@ M.config = function()
     layouts = {
       {
         elements = {
-          { id = "scopes", size = 0.40 },
-          -- { id = "stacks", size = 0.25 },
-          { id = "watches", size = 0.10 },
-          { id = "breakpoints", size = 0.10 },
+          "scopes",
+          "watches",
+          "stacks",
+          "breakpoints",
         },
         position = "right",
         size = 60,
       },
       {
         elements = {
-          { id = "console", size = 1.0 },
+          "repl",
         },
         position = "bottom",
         size = 8,
       },
       {
         elements = {
-          { id = "repl", size = 1.0 },
+          "console",
         },
         position = "bottom",
-        size = 7,
+        size = 8,
       },
     },
   })
@@ -39,6 +40,15 @@ M.config = function()
   ---@diagnostic disable-next-line: undefined-global
   local b = vim.keymap.set
   local opts = { noremap = true, silent = true }
+
+  vim.api.nvim_create_autocmd({ "ExitPre" }, {
+    desc = "close nvim-tree on exit",
+    callback = function()
+      vim.cmd([[Neotest summary close]])
+      require("dapui").close()
+      dap_utils.force_close_dapui()
+    end,
+  })
 
   b("n", "<leader>du", function()
     require("dapui").toggle()

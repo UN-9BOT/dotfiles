@@ -6,15 +6,12 @@ local lint_utils = require("plug_configs.linting.utils")
 M.config = function()
   local lint = require("lint")
   local linters = lint.linters
-  -- vim.notify = require("plug_configs.notify").nf
 
   lint.linters_by_ft = {
     python = { "ruff" },
     c = { "cppcheck", "clangtidy" },
     sh = { "zsh", "shellcheck" },
     dockerfile = { "hadolint" },
-    Dockerfile = { "hadolint" },
-    docker = { "hadolint" },
     lua = { "luacheck" },
     yaml = { "yamllint" },
     -- yaml = { "actionlint", "yamllint" },
@@ -25,53 +22,22 @@ M.config = function()
   --------
   --------
 
-  -- cppcheck
-  linters.cppcheck.args = {
-    "--enable=warning,style,performance,information",
-    function()
-      if vim.bo.filetype == "cpp" then
-        return "--language=c++"
-      else
-        return "--language=c"
-      end
-    end,
-    "--inline-suppr",
-    "--quiet",
-    "--template={file}:{line}:{column}: [{id}] {severity}: {message}",
-    "--suppress=missingIncludeSystem",
-  }
-  -- luacheck
-  local new_luacheck_args = { "--globals", "vim" }
-  for i = 1, #new_luacheck_args do
-    lint.linters.luacheck.args[#lint.linters.luacheck.args + 1] = new_luacheck_args[i]
-  end
+  local cppcheck_args = { "--suppress=missingIncludeSystem" }
+  vim.list_extend(linters.cppcheck.args, cppcheck_args)
 
-  -- mypy
-  table.insert(linters.mypy.args, "--ignore-missing-imports")
-  table.insert(linters.mypy.args, "--check-untyped-defs")
-  -- if pyproject.toml exist
-  if vim.fn.filereadable("pyproject.toml") == 1 then
-    table.insert(linters.mypy.args, "--config=pyproject.toml")
-  end
+  local luacheck_args = { "--globals", "vim" }
+  vim.list_extend(linters.luacheck.args, luacheck_args)
 
-  -- ruff
-  local new_ruff_args = { "--config=~/.config/nvim/ruff.toml" }
-  for i = 1, #new_ruff_args do
-    lint.linters.ruff.args[#lint.linters.ruff.args + 1] = new_ruff_args[i]
-  end
+  local mypy_args = { "--ignore-missing-imports", "--check-untyped-defs", "--config-file=pyproject.toml" }
+  vim.list_extend(linters.mypy.args, mypy_args)
 
-  -- yamllint
+  local ruff_args = { "--config=~/.config/nvim/ruff.toml" }
+  vim.list_extend(linters.ruff.args, ruff_args)
+
   local new_yamllint_args = { "-d", "{extends: relaxed, rules: {line-length: {max: 130}}}" }
-  for i = 1, #new_yamllint_args do
-    lint.linters.yamllint.args[#lint.linters.yamllint.args + 1] = new_yamllint_args[i]
-  end
-  -- sqlfluff
-  linters.sqlfluff.args = {
-    "lint",
-    "--format=json",
-    -- note: users will have to replace the --dialect argument accordingly
-    "--dialect=postgres",
-  }
+  vim.list_extend(linters.yamllint.args, new_yamllint_args)
+
+  linters.sqlfluff.args = { "lint", "--format=json", "--config=/home/vim9/.config/nvim/.sqlfluff" }
 
   --------
   --------
@@ -82,7 +48,6 @@ M.config = function()
       lint.try_lint()
     end,
   })
-
 
   vim.diagnostic.config({
     -- virtual_lines = { only_current_line = true }, -- for lsp_lines.nvim
@@ -96,7 +61,6 @@ M.config = function()
     },
     update_in_insert = false, -- wait until insert leave to check diagnostics
   })
-
 
   -- NOTE: toggle mypy
   _G.is_mypy_enabled = false

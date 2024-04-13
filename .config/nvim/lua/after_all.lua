@@ -40,3 +40,23 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     vim.bo.softtabstop = 2
   end,
 })
+
+-- vim.api.nvim_create_autocmd({ "UIEnter", "TabNewEntered", "VimEnter" }, {
+--   desc = "open nvim-tree on directory enter",
+--   callback = function()
+--     require("plug_configs.notify").nf("test")
+--     local view = require("nvim-tree.view")
+--
+--     if not view.is_visible() then
+--       require("nvim-tree.api").tree.open()
+--     end
+--   end,
+-- })
+-- vim.api.nvim_create_autocmd({ "ExitPre" }, {
+--   desc = "close nvim-tree on exit",
+--   callback = function()
+--     require("nvim-tree.api").tree.close()
+--     require("close_buffers").delete({ type = "hidden", force = true })
+--     vim.cmd([[SessionSave]])
+--   end,
+-- })

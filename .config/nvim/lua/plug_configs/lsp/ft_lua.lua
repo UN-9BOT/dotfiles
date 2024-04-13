@@ -7,6 +7,14 @@ require("lspconfig").lua_ls.setup({
   settings = {
     Lua = {
       diagnostics = { globals = { "vim" } },
+      format = {
+        enable = true,
+        formatting_options = {
+          trimTrailingWhitespace = true,
+          insertFinalNewline = true,
+          tabSize=8,
+        },
+      },
     },
   },
 })

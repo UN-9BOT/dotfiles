@@ -1,0 +1,6 @@
+# vim :set ft=conf
+# https://docs.sqlfluff.com/en/stable/configuration.html#new-project-configuration
+[sqlfluff]
+dialect = postgres
+format = json
+max_line_length = 150
