@@ -19,7 +19,7 @@ M.mapping = {
     end,
     t_def = function()
       local position = require("vim.lsp.util").make_position_params().position
-      vim.cmd.tabedit(vim.api.nvim_buf_get_name(vim.inspect_pos().buffer))
+      vim.cmd.tabedit(vim.fn.expand("%:p"))
       vim.api.nvim_win_set_cursor(0, { position.line + 1, position.character})
       require("telescope.builtin").lsp_definitions()
     end,

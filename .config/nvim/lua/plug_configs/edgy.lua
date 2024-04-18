@@ -56,7 +56,6 @@ M.opts = {
     end,
     ["<A-j>"] = function(win)
       if win ~= nil then
-        print(win.view.ft)
         win:resize("height", -resize_steps_map(win))
       else
         require("smart-splits").resize_down()
