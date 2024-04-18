@@ -82,6 +82,7 @@ lazy.setup({
   u.safe_require("plug_configs.none_ls"),               -- custom code actions
   u.safe_require("plug_configs.lsp.nvim_lspconfig"),    -- lsp config
   u.safe_require("plug_configs.lsp.hover"),             -- lsp hover in new tab
+  u.safe_require("plug_configs.lsp.navbuddy"),          -- lsp navigation
   u.safe_require("plug_configs.completition.nvim_cmp"), -- completition
   u.safe_require("plug_configs.conform"),               -- Autoformat
   u.safe_require("plug_configs.edgy"),                  -- ui
@@ -106,49 +107,6 @@ lazy.setup({
     }
   },
 
-  {
-    "SmiteshP/nvim-navbuddy",
-    dependencies = {
-      "SmiteshP/nvim-navic",
-      "MunifTanjim/nui.nvim"
-    },
-    keys = {
-      { ",n", mode = { "n" }, function() require("nvim-navbuddy").open() end, desc = "Flash" },
-
-    },
-    config = function()
-      local navbuddy = require("nvim-navbuddy")
-
-      navbuddy.setup {
-        window = {
-          border = "rounded",                       -- "rounded", "double", "solid", "none"
-          size = { height = "90%", width = "90%" }, -- Or table format example: { height = "51%", width = "100%"}
-          -- size = { height = "70%", width = "60%" }, -- Or table format example: { height = "51%", width = "100%"}
-          -- position = "100%",                         -- Or table format example: { row = "100%", col = "0%"}
-          sections = {
-            left = {
-              size = "20%",
-              border = nil, -- You can set border style for each section individually as well.
-            },
-            mid = {
-              size = "40%",
-              border = nil,
-            },
-            right = {
-              -- No size option for right most section. It fills to
-              -- remaining area.
-              border = nil,
-              preview = "always", -- Right section can show previews too.
-              -- Options: "leaf", "always" or "never"
-            }
-          },
-        },
-        lsp = {
-          auto_attach = true, -- If set to true, you don't need to manually use attach function
-        },
-      }
-    end
-  },
 
   -- ---------------------------
   -- NOTE: ARCHIVE
