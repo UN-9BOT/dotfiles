@@ -27,34 +27,8 @@ b("n", "Q", "<cmd>q<cr>", opts)
 -- b("n", "Q", "<cmd>tabclose<cr>", opts)
 
 -- CUSTOM EXIT
-
-local function save_session()
-  require("close_buffers").delete({ type = "hidden", force = true })
-  vim.cmd([[SessionSave]])
-end
-
-local function close_save()
-  vim.cmd([[qall]])
-end
-
-local function close_no_save()
-  vim.cmd([[qall!]])
-end
-
-local function ZZ()
-  vim.api.nvim_input("<Esc>")
-  save_session()
-  close_save()
-end
-
-local function ZQ()
-  vim.api.nvim_input("<Esc>")
-  save_session()
-  close_no_save()
-end
-
-b({ "n", "v" }, "ZZ", ZZ, opts)
-b({ "n", "v" }, "ZQ", ZQ, opts)
+b({ "n", "v" }, "ZZ", "<ESC><CMD>qall<CR>", opts)
+b({ "n", "v" }, "ZQ", "<ESC><CMD>qall!<CR>", opts)
 
 -- remap <c-q> -> q
 b("n", "<c-q>", "q", opts)

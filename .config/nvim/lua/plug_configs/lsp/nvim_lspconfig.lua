@@ -1,4 +1,8 @@
-local M = { "neovim/nvim-lspconfig" }
+local M = { "neovim/nvim-lspconfig", }
+
+M.dependencies = {
+  "folke/trouble.nvim"
+}
 
 local utils = require("utils")
 local mapping = require("plug_configs.lsp.utils").mapping
@@ -10,17 +14,19 @@ M.dependencies = {
   { "aznhe21/actions-preview.nvim" },
   { "folke/neodev.nvim", config = r("neodev") }, -- lua api for neovim
   { "Fildo7525/pretty_hover", event = "LspAttach", opts = {}, config = r("pretty_hover") },
-  { require("plug_configs.lsp.glance") },
+  -- { require("plug_configs.lsp.glance") },
 }
 
 M.keys = {
   { "gj", mapping.diagnostic.def, desc = "Show Diagnostics" },
-  { "gd", mapping.definition.glance, desc = "Goto Definition" },
-  { "gD", mapping.definition.v_def, desc = "Goto Definition in new Tab" },
-  { "gr", mapping.references.glance, desc = "Goto References" },
+  { "gdd", mapping.definition.telescope, desc = "Goto Definition" },
+  { "gdv", mapping.definition.v_def, desc = "Goto Definition in vsplit" },
+  { "gdh", mapping.definition.h_def, desc = "Goto Definition in hsplit" },
+  { "gdt", mapping.definition.t_def, desc = "Goto Definition in new Tab" },
+  { "gr", mapping.references.telescope, desc = "Goto References" },
   { "ga", mapping.code_action.custom, desc = "Code Action", mode = { "n", "v" } },
   { "gk", mapping.documentation.pretty, desc = "Show Diagnostics" },
-  { "<leader>rn", mapping.rename.def, desc = "Code Action" },
+  { "<leader>rn", mapping.rename.def, desc = "Rename" },
 }
 
 M.init = function()

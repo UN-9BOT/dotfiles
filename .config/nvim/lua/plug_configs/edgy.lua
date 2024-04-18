@@ -15,6 +15,7 @@ M.keys = {
     function()
       if vim.b.edgy_keys then
         vim.b.edgy_disable = not vim.b.edgy_disable
+        -- vim.w.edgy_disable = not vim.w.edgy_disable
         require("plug_configs.notify").nf((vim.b.edgy_disable and "Disable" or "Enable") .. " Edgy for buffer")
       end
     end,
@@ -22,32 +23,41 @@ M.keys = {
   },
 }
 
+local resize_steps_map = function(win)
+  local steps = {
+    ["neotest-output-panel"] = 8,
+  }
+  setmetatable(steps, { __index = function() return 2 end })
+  return steps[win.view.ft]
+end
+
 M.opts = {
   keys = {
     ["<A-l>"] = function(win)
       if win ~= nil then
-        win:resize("width", 2)
+        win:resize("width", resize_steps_map(win))
       else
         require("smart-splits").resize_right()
       end
     end,
     ["<A-h>"] = function(win)
       if win ~= nil then
-        win:resize("width", -2)
+        win:resize("width", -resize_steps_map(win))
       else
         require("smart-splits").resize_left()
       end
     end,
     ["<A-k>"] = function(win)
       if win ~= nil then
-        win:resize("height", 2)
+        win:resize("height", resize_steps_map(win))
       else
         require("smart-splits").resize_up()
       end
     end,
     ["<A-j>"] = function(win)
       if win ~= nil then
-        win:resize("height", -2)
+        print(win.view.ft)
+        win:resize("height", -resize_steps_map(win))
       else
         require("smart-splits").resize_down()
       end
@@ -73,7 +83,6 @@ M.opts = {
 
   left = {
     { ft = "neotest-summary", title = "Tests" },
-    -- { ft = "tagbar", title = "Tags", pinned = true, open = "TagbarOpen", size = { height = 0.3 } },
     {
       ft = "markdown", -- hoversplit
       filter = function(buf, _)
@@ -84,11 +93,11 @@ M.opts = {
   },
 
   right = {
-    { ft = "dapui_scopes", title = "Scopes" },
-    { ft = "dapui_watches", title = "Watches", size = { height = 0.1 } },
+    { ft = "dapui_scopes",      title = "Scopes" },
+    { ft = "dapui_watches",     title = "Watches",     size = { height = 0.1 } },
     { ft = "dapui_breakpoints", title = "Breakpoints", size = { height = 0.2 } },
-    { ft = "dapui_stacks", title = "Stacks", size = { height = 0.2 } },
-    { ft = "spectre_panel", title = "Spectre", size = { height = 0.2, width = 0.4 } },
+    { ft = "dapui_stacks",      title = "Stacks",      size = { height = 0.2 } },
+    { ft = "spectre_panel",     title = "Spectre",     size = { height = 0.2, width = 0.4 } },
   },
   bottom = {
     "Trouble",
@@ -100,17 +109,10 @@ M.opts = {
         return vim.api.nvim_win_get_config(win).relative == ""
       end,
     },
+    { ft = "dap-repl", title = "Repl", size = { height = 0.1 } },
     { ft = "qf", title = "QuickFix" },
-    { ft = "dap-repl", title = "Repl" },
     { ft = "dapui_console", title = "Console" },
-    {
-      ft = "neotest-output-panel",
-      title = " Test Output",
-      open = function()
-        vim.cmd.vsplit()
-        require("neotest").output_panel.toggle()
-      end,
-    },
+    { ft = "neotest-output-panel", title = " Test Output" },
   },
 }
 return M

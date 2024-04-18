@@ -9,4 +9,7 @@ M.config = function()
     },
   })
 end
+M.keys = {
+  { ",d",  function() vim.cmd("Neogen") end, mode = { "n" }, desc = "Generate docstring" },
+}
 return M

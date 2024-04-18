@@ -25,4 +25,8 @@ M.config = function()
   })
 end
 
+M.keys = {
+    { "<c-f>", mode = { "n" }, function() vim.cmd("Spectre") end, desc = "Finder" },
+}
+
 return M

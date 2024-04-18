@@ -10,7 +10,7 @@ M.config = function()
 
     log_level = vim.log.levels.DEBUG,
     formatters_by_ft = {
-      lua = { "stylua" },
+      -- lua = { "stylua" },
       -- Conform will run multiple formatters sequentially
       python = { "isort", "black" },
       -- Use a sub-list to run only the first available formatter
@@ -22,9 +22,9 @@ M.config = function()
     },
   })
   conform.formatters.shfmt = { prepend_args = { "-i", "2", "-bn", "-ci", "-sr" } }
-  conform.formatters.stylua = { prepend_args = { "--config-path", "/home/vim9/.config/nvim/stylua.toml" } }
+  -- conform.formatters.stylua = { prepend_args = { "--config-path", "/home/vim9/.config/nvim/stylua.toml" } }
   conform.formatters.sql_formatter = { prepend_args = { "-l", "postgresql" } }
-  conform.formatters.black = { prepend_args = { "--fast" } }
+  conform.formatters.black = { prepend_args = { "--fast", "-l", "120" } }
   conform.formatters.clang_format = { prepend_args = { "-style", "/home/vim9/.config/nvim/.clang-format" } }
 end
 
@@ -32,22 +32,18 @@ M.keys = {
   {
     "<leader>F",
     function()
-      local _ = function()
-        local buf_clients = vim.lsp.get_active_clients()
+      local okay_conform = require("conform").format({})
 
-        -- Check LSP clients that support formatting
-        for _, client in pairs(buf_clients) do
-          if client.supports_method('textDocument/formatting') then
-            vim.lsp.buf.format { async = true }
-            return
+      if not okay_conform then
+        for _, client in pairs(vim.lsp.get_active_clients()) do
+          if client.supports_method("textDocument/formatting") then
+            vim.lsp.buf.format({ async = true })
+            require("plug_configs.notify").nf("LSP:format")
           end
         end
-
-        -- fallback
-        require("conform").format({})
+      else
+        require("plug_configs.notify").nf("󰏣:Conform:format")
       end
-      _()
-      require("plug_configs.notify").nf("󰏣:Conform done")
     end,
     mode = { "n", "v" },
     desc = "Format Injected Langs",

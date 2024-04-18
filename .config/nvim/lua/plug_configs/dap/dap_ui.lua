@@ -27,13 +27,14 @@ M.config = function()
         position = "bottom",
         size = 8,
       },
-      {
-        elements = {
-          "console",
-        },
-        position = "bottom",
-        size = 8,
-      },
+      -- NOTE: вынес в tmux
+      -- {
+      --   elements = {
+      --     "console",
+      --   },
+      --   position = "bottom",
+      --   size = 8,
+      -- },
     },
   })
 
@@ -42,11 +43,10 @@ M.config = function()
   local opts = { noremap = true, silent = true }
 
   vim.api.nvim_create_autocmd({ "ExitPre" }, {
-    desc = "close nvim-tree on exit",
+    desc = "Force close buffer plugins",
     callback = function()
-      vim.cmd([[Neotest summary close]])
       require("dapui").close()
-      dap_utils.force_close_dapui()
+      dap_utils.force_close_buffers()
     end,
   })
 
@@ -54,7 +54,7 @@ M.config = function()
     require("dapui").toggle()
     nf("DAP UI")
   end, opts)
-  -- automatically open/close the DAP UI when starting/stopping the debugger
+  -- NOTE: automatically open/close the DAP UI when starting/stopping the debugger
   -- local listener = require("dap").listeners
   -- listener.after.event_initialized["dapui_config"] = function() require("dapui").open() end
   -- listener.before.event_terminated["dapui_config"] = function() require("dapui").close() end

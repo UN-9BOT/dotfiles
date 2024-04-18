@@ -18,10 +18,12 @@ M.init = function()
   dap.defaults.fallback.terminal_win_cmd = "50vsplit new"
   -- dap.defaults.python.terminal_win_cmd = "50vsplit new"
   -- dap.defaults.python.terminal_win_cmd = "belowright new"
-  -- dap.defaults.fallback.external_terminal = {
-  --   command = "/usr/bin/alacritty",
-  --   args = { "--hold", "-e" },
-  -- }
+  dap.defaults.fallback.external_terminal = {
+    -- command = "/usr/bin/alacritty",
+    -- args = { "--hold", "-e" },
+    command = "tmux",
+    args = { "split-window", "-v", "-l", "10" },
+  }
 end
 M.config = function()
   local dap = require("dap")

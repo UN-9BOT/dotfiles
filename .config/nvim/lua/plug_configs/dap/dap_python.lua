@@ -8,7 +8,9 @@ local M = {
 M.config = function()
   -- NOTE: https://github.com/mfussenegger/nvim-dap-python/issues/75
   local pythonPath = require("utils").get_pythonPath()
-  require("dap-python").setup(pythonPath)
+  local opts = { console = "externalTerminal" }
+
+  require("dap-python").setup(pythonPath, opts)
 end
 
 return M
@@ -27,7 +29,7 @@ return M
               "env": {
                   "CONFIG_PATH": "config.toml",
               },
-              "console": "integratedTerminal"
+              "console": "externalTerminal"
           }
       ]
   }

@@ -54,17 +54,20 @@ M.config = function()
     virtual_text = false,
     float = {
       border = "rounded",
-      header = false, -- remove the line that says 'Diagnostic:'
-      source = false, -- hide it since my float_format will add it
+      header = false,                   -- remove the line that says 'Diagnostic:'
+      source = false,                   -- hide it since my float_format will add it
       format = lint_utils.float_format, -- can customize more colors by using prefix/suffix instead
-      suffix = "", -- default is error code. Moved to message via float_format
+      suffix = "",                      -- default is error code. Moved to message via float_format
     },
-    update_in_insert = false, -- wait until insert leave to check diagnostics
+    update_in_insert = false,           -- wait until insert leave to check diagnostics
   })
 
   -- NOTE: toggle mypy
   _G.is_mypy_enabled = false
   vim.keymap.set("n", "gl", lint_utils.toggle_mypy(lint), { desc = "Toggle mypy" })
+
+  -- restart lsp
+  vim.keymap.set("n", "gL", function() vim.cmd("LspRestart") end, { desc = "Toggle mypy" })
 end
 
 return M

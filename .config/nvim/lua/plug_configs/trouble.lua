@@ -57,6 +57,13 @@ M.config = function()
     },
     use_diagnostic_signs = false, -- enabling this will use the signs defined in your lsp client
   })
+   
+  vim.api.nvim_create_autocmd({ "ExitPre" }, {
+    desc = "Force close buffer plugins",
+    callback = function()
+      vim.cmd([[TroubleClose]])
+    end,
+  })
 end
 M.keys = {
     { "gy", ":TroubleToggle<CR><c-k>", { silent = true } },
