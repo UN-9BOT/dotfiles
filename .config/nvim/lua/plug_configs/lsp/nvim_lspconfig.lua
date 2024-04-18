@@ -14,7 +14,6 @@ M.dependencies = {
   { "aznhe21/actions-preview.nvim" },
   { "folke/neodev.nvim", config = r("neodev") }, -- lua api for neovim
   { "Fildo7525/pretty_hover", event = "LspAttach", opts = {}, config = r("pretty_hover") },
-  -- { require("plug_configs.lsp.glance") },
 }
 
 M.keys = {

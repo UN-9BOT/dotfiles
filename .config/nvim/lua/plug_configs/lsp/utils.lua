@@ -8,7 +8,6 @@ M.mapping = {
     def = vim.lsp.buf.definition,
     trouble = function() require("trouble").open("lsp_definitions") end,
     telescope = function() require("telescope.builtin").lsp_definitions() end,
-    glance = "<cmd>Glance definitions<CR>",
     v_def = function()
       vim.cmd.vsplit()
       require("telescope.builtin").lsp_definitions()
@@ -25,7 +24,6 @@ M.mapping = {
     end,
   },
   references = {
-    glance = "<cmd>Glance references<CR>",
     telescope = "<cmd>Telescope lsp_references<CR>",
   },
   code_action = {
