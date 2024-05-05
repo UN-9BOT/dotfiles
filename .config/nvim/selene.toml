@@ -1,0 +1,4 @@
+std = "nvim.selene"
+[lints]
+multiple_statements = "allow"
+mixed_table = "allow"

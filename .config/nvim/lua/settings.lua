@@ -1,5 +1,10 @@
 ---@diagnostic disable: undefined-global
 
+-- NOTE: GLOBAL_VARS
+-- selene: allow(global_usage)
+_G.use_split = false
+--
+
 -- security
 vim.opt.modelines = 0
 

@@ -12,21 +12,27 @@ M.config = function()
 end
 
 local function DiffviewToggle()
-  local lib = require("diffview.lib")
-  local view = lib.get_current_view()
-  if view then
-    -- Current tabpage is a Diffview; close it
+  if require("diffview.lib").get_current_view() then
     vim.cmd("DiffviewClose")
   else
-    -- No open Diffview exists: open a new one
+    local mode = vim.api.nvim_get_mode().mode
+    if mode == "v" or mode == "V" or mode == "" then
+      vim.cmd([[noautocmd silent normal! "vy]])
+
+      ---@diagnostic disable-next-line: param-type-mismatch
+      vim.fn.setreg("v", vim.fn.getreg("v"), vim.fn.getregtype("v"))
+      vim.split(vim.fn.getreg("v"), "\n")
+
+      vim.cmd("'<,'>DiffviewFileHistory")
+      return
+    end
     vim.cmd("DiffviewOpen")
   end
 end
 
 M.keys = {
-  { "<leader>lg", "<cmd>LazyGit<CR>",                            mode = { "n" }, desc = "LazyGit" },
-  { "<leader>D",  function() vim.cmd("DiffviewFileHistory") end, mode = { "v" }, desc = "Show history for selected" },
-  { "<leader>D",  DiffviewToggle,                                mode = { "n" }, desc = "DiffviewToggle" },
+  { "<leader>lg", "<cmd>LazyGit<CR>", mode = { "n" }, desc = "LazyGit" },
+  { "<leader>D", DiffviewToggle, mode = { "n", "v" }, desc = "DiffviewToggle" },
 }
 
 return M

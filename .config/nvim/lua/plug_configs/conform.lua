@@ -10,7 +10,7 @@ M.config = function()
 
     log_level = vim.log.levels.DEBUG,
     formatters_by_ft = {
-      -- lua = { "stylua" },
+      lua = { "stylua" },
       -- Conform will run multiple formatters sequentially
       python = { "isort", "black" },
       -- Use a sub-list to run only the first available formatter
@@ -22,7 +22,7 @@ M.config = function()
     },
   })
   conform.formatters.shfmt = { prepend_args = { "-i", "2", "-bn", "-ci", "-sr" } }
-  -- conform.formatters.stylua = { prepend_args = { "--config-path", "/home/vim9/.config/nvim/stylua.toml" } }
+  conform.formatters.stylua = { prepend_args = { "--config-path", "/home/vim9/.config/nvim/stylua.toml" } }
   conform.formatters.sql_formatter = { prepend_args = { "-l", "postgresql" } }
   conform.formatters.black = { prepend_args = { "--fast", "-l", "120" } }
   conform.formatters.clang_format = { prepend_args = { "-style", "/home/vim9/.config/nvim/.clang-format" } }

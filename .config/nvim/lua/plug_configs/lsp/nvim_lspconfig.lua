@@ -1,7 +1,7 @@
-local M = { "neovim/nvim-lspconfig", }
+local M = { "neovim/nvim-lspconfig" }
 
 M.dependencies = {
-  "folke/trouble.nvim"
+  "folke/trouble.nvim",
 }
 
 local utils = require("utils")
@@ -25,15 +25,15 @@ M.keys = {
   { "gr", mapping.references.telescope, desc = "Goto References" },
   { "ga", mapping.code_action.custom, desc = "Code Action", mode = { "n", "v" } },
   { "gk", mapping.documentation.pretty, desc = "Show Diagnostics" },
-  { "<leader>rn", mapping.rename.def, desc = "Rename" },
+  { "gR", mapping.rename.def, desc = "Rename" },
 }
 
 M.init = function()
   -- this snippet enables auto-completion
   local lspCapabilities = vim.lsp.protocol.make_client_capabilities()
   lspCapabilities.textDocument.completion.completionItem.snippetSupport = true
-  -- M.capabilities = require('cmp_nvim_lsp').default_capabilities()
-  -- M.lsputil = require("lspconfig/util")
+  -- local capabilities = require("cmp_nvim_lsp").default_capabilities()
+  -- local lsputil = require("lspconfig/util")
 
   require("plug_configs.lsp.ft_python")
   require("plug_configs.lsp.ft_sql")

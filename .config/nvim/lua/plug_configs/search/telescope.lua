@@ -1,5 +1,3 @@
----@diagnostic disable: undefined-global
--- TODO: переехать на live_grep_args
 local M = {
   "nvim-telescope/telescope.nvim",
 }
@@ -21,47 +19,44 @@ M.dependencies = {
       })
     end,
   },
-  { "nvim-telescope/telescope-fzf-native.nvim",    build = "make" },
+  { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
   { "nvim-telescope/telescope-live-grep-args.nvim" },
 }
-
 M.config = function()
-  local b = vim.keymap.set
-  local opts = { noremap = true, silent = true }
   local actions = require("telescope.actions")
   local builtin = require("telescope.builtin")
   local lga_actions = require("telescope-live-grep-args.actions")
   local trouble = require("trouble.providers.telescope")
   local u = require("plug_configs.search.utils")
 
-
-  local _n = { "n" }
-  local nv = { "n", "v" }
-  b(_n, ",,", builtin.resume, opts)
-  b(nv, ",l", builtin.oldfiles, opts)
-  b(_n, ",g", builtin.live_grep, opts)
-  b(_n, ",f", builtin.find_files, opts)
-  b(nv, ",v", builtin.grep_string, opts)
-  b(nv, ",b", builtin.git_bcommits_range, opts)
-  b(_n, ",S", builtin.lsp_dynamic_workspace_symbols, opts)
-  b(_n, ",G", require("telescope").extensions.live_grep_args.live_grep_args, opts)
+  local b = vim.keymap.set
+  local opts = { noremap = true, silent = true }
+  b({ "n", "v" }, ",v", builtin.grep_string, opts)
+  b({ "n", "v" }, ",b", builtin.git_bcommits_range, opts)
+  b("n", ",,", builtin.resume, opts)
+  b("n", ",l", builtin.oldfiles, opts)
+  b("n", ",g", builtin.live_grep, opts)
+  b("n", ",f", builtin.find_files, opts)
+  b("n", ",S", builtin.lsp_dynamic_workspace_symbols, opts)
+  b("n", ",G", require("telescope").extensions.live_grep_args.live_grep_args, opts)
 
   require("telescope").setup({
     defaults = {
-      path_display = { "absolute" },
+      -- path_display = { "absolute" },
+      path_display = { "filename_first" },
       file_ignore_patterns = u.file_ignore_patterns,
       mappings = {
         i = {
           ["<esc>"] = actions.close,
           ["<C-h>"] = actions.file_split,
           ["<C-v>"] = actions.file_vsplit,
-          ["<c-q>"] = trouble.open_with_trouble,
+          ["<C-q>"] = trouble.open_with_trouble,
         },
         n = {
           ["<esc>"] = actions.close,
           ["<C-h>"] = actions.file_split,
           ["<C-v>"] = actions.file_vsplit,
-          ["<c-q>"] = trouble.open_with_trouble,
+          ["<C-q>"] = trouble.open_with_trouble,
         },
       },
       layout_config = {
@@ -76,10 +71,10 @@ M.config = function()
     },
     extensions = {
       fzf = {
-        fuzzy = true,                   -- false will only do exact matching
+        fuzzy = true, -- false will only do exact matching
         override_generic_sorter = true, -- override the generic sorter
-        override_file_sorter = true,    -- override the file sorter
-        case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
+        override_file_sorter = true, -- override the file sorter
+        case_mode = "smart_case", -- or "ignore_case" or "respect_case"
       },
       live_grep_args = {
         auto_quoting = true, -- enable/disable auto-quoting
@@ -89,7 +84,7 @@ M.config = function()
             ["<C-i>"] = lga_actions.quote_prompt({ postfix = ' -g "!tests/*" ' }),
           },
         },
-      }
+      },
     },
     pickers = {
       find_files = {

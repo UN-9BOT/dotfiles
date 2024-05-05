@@ -2,12 +2,13 @@
 
 local M = {
   "nvim-neotest/neotest",
+  -- version="5.0.1",
   dependencies = {
     "nvim-neotest/neotest-python",
     "antoinemadec/FixCursorHold.nvim",
     "nvim-neotest/neotest-vim-test",
     "nvim-neotest/neotest-plenary",
-    "nvim-neotest/nvim-nio",
+    { "nvim-neotest/nvim-nio", version = "1.9.0" },
   },
 }
 
