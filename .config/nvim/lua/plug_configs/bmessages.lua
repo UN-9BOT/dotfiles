@@ -1,5 +1,6 @@
 local M = {
   "ariel-frischer/bmessages.nvim",
+  lazy=true,
 }
 
 M.event = "CmdlineEnter"

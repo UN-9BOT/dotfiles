@@ -32,12 +32,22 @@ M.init = function()
   -- this snippet enables auto-completion
   local lspCapabilities = vim.lsp.protocol.make_client_capabilities()
   lspCapabilities.textDocument.completion.completionItem.snippetSupport = true
-  -- local capabilities = require("cmp_nvim_lsp").default_capabilities()
+  local capabilities = require("cmp_nvim_lsp").default_capabilities()
   -- local lsputil = require("lspconfig/util")
 
   require("plug_configs.lsp.ft_python")
   require("plug_configs.lsp.ft_sql")
   require("plug_configs.lsp.ft_lua")
+
+  require("lspconfig").gitlab_ci_ls.setup({
+    capabilities = capabilities,
+  })
+  vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+    pattern = "*.gitlab-ci*.{yml,yaml}",
+    callback = function()
+      vim.bo.filetype = "yaml.gitlab"
+    end,
+  })
 end
 
 return M

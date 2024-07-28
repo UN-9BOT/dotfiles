@@ -1,20 +1,21 @@
 local M = {
   "WhoIsSethDaniel/mason-tool-installer.nvim",
+  lazy = true,
   dependencies = {
-    { "williamboman/mason.nvim",           opts = true },
+    { "williamboman/mason.nvim", opts = true },
     { "williamboman/mason-lspconfig.nvim", opts = true },
   },
   opts = {
     ensure_installed = {
       -- python
-      "pyright",  -- LSP for python
+      "pyright", -- LSP for python
       "ruff-lsp", -- linter for python (includes flake8, pep8, etc.)
-      "ruff",     -- linter for python (includes flake8, pep8, etc.)
-      "debugpy",  -- debugger
-      "black",    -- formatter
-      "isort",    -- organize imports
+      "ruff", -- linter for python (includes flake8, pep8, etc.)
+      "debugpy", -- debugger
+      "black", -- formatter
+      "isort", -- organize imports
       -- toml
-      "taplo",    -- LSP for toml (for pyproject.toml files)
+      "taplo", -- LSP for toml (for pyproject.toml files)
       -- C
       "clangd",
       "cpptools",

@@ -14,6 +14,15 @@
 --     end
 --   end,
 -- })
+--
+local save_augroup = vim.api.nvim_create_augroup("autosave", { clear = true })
+vim.api.nvim_create_autocmd({  "TextChanged" }, {
+  group = save_augroup,
+  callback = function()
+    vim.cmd("silent! write")
+    -- require("plug_configs.notify").nf("Save(au)")
+  end,
+})
 
 require("mason").setup()
 require("mason-nvim-dap").setup()
@@ -50,3 +59,20 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     vim.bo.softtabstop = 2
   end,
 })
+
+-- NOTE: LOGGING
+-- vim.api.nvim_create_autocmd({ "ExitPre" }, {
+--   desc = "Save :messages log",
+--   callback = function()
+--     local cwd_log_file = vim.fn.expand("~/messages.log")
+--     local messages = vim.fn.execute(":messages")
+--     local log_file = io.open(cwd_log_file, "a")
+--     if log_file then
+--       log_file:write("====== " .. os.date("%Y-%m-%d %H:%M:%S") .. " ======\n")
+--       log_file:write(messages .. "\n\n")
+--       log_file:close()
+--     else
+--       vim.api.nvim_err_writeln("Не удалось открыть файл " .. log_file)
+--     end
+--   end,
+-- })

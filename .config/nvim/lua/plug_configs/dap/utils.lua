@@ -4,7 +4,7 @@ local dap_cursor_float = function(dap_widgets, widget, title)
   dap_widgets.cursor_float(widget, { title = title })
 end
 
-M.custom_mapping = function(dap, dap_widgets, nf)
+M.custom_mapping = function(dap, dap_widgets, nf, dap_ui)
   return {
     toggle_breakpoint = {
       def = function()
@@ -71,6 +71,20 @@ M.custom_mapping = function(dap, dap_widgets, nf)
       hover = function()
         dap_widgets.hover("<cexpr>", { title = "dap-hover" })
       end,
+    },
+    dapui = {
+      floating = {
+        breakpoints = function()
+          dap_ui.float_element("breakpoints")
+        end,
+        eval = function(expr)
+          local args = {
+            width = 80,
+            height = 10,
+          }
+          dap_ui.eval(expr, args)
+        end,
+      },
     },
   }
 end

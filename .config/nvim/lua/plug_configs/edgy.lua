@@ -27,10 +27,17 @@ local resize_steps_map = function(win)
   local steps = {
     ["neotest-output-panel"] = 8,
   }
-  setmetatable(steps, { __index = function() return 2 end })
+  setmetatable(steps, {
+    __index = function()
+      return 2
+    end,
+  })
   return steps[win.view.ft]
 end
 
+local filter_exclude_float_window = function(buf, win)
+  return vim.api.nvim_win_get_config(win).relative == ""
+end
 M.opts = {
   keys = {
     ["<A-l>"] = function(win)
@@ -82,21 +89,19 @@ M.opts = {
 
   left = {
     { ft = "neotest-summary", title = "Tests" },
-    {
-      ft = "markdown", -- hoversplit
-      filter = function(buf, _)
-        return vim.api.nvim_buf_get_name(buf):match("hoversplit")
-      end,
-      title = "Hover",
-    },
   },
 
   right = {
-    { ft = "dapui_scopes",      title = "Scopes" },
-    { ft = "dapui_watches",     title = "Watches",     size = { height = 0.1 } },
-    { ft = "dapui_breakpoints", title = "Breakpoints", size = { height = 0.2 } },
-    { ft = "dapui_stacks",      title = "Stacks",      size = { height = 0.2 } },
-    { ft = "spectre_panel",     title = "Spectre",     size = { height = 0.2, width = 0.4 } },
+    { ft = "dapui_scopes", title = "Scopes" },
+    { ft = "dapui_watches", title = "Watches", size = { height = 0.1 } },
+    {
+      ft = "dapui_breakpoints",
+      title = "Breakpoints",
+      size = { height = 0.2 },
+      filter = filter_exclude_float_window,
+    },
+    { ft = "dapui_stacks", title = "Stacks", size = { height = 0.2 } },
+    { ft = "spectre_panel", title = "Spectre", size = { height = 0.2, width = 0.4 } },
   },
   bottom = {
     "Trouble",
@@ -104,14 +109,19 @@ M.opts = {
       ft = "toggleterm",
       -- exclude floating windows
       ---@diagnostic disable-next-line: unused-local
-      filter = function(buf, win) --luacheck: ignore
-        return vim.api.nvim_win_get_config(win).relative == ""
-      end,
+      filter = filter_exclude_float_window,
     },
     { ft = "dap-repl", title = "Repl", size = { height = 0.1 } },
     { ft = "qf", title = "QuickFix" },
     { ft = "dapui_console", title = "Console" },
     { ft = "neotest-output-panel", title = " Test Output" },
+    {
+      ft = "markdown", -- hoversplit
+      filter = function(buf, _)
+        return vim.api.nvim_buf_get_name(buf):match("hoversplit")
+      end,
+      title = "Hover",
+    },
   },
 }
 return M

@@ -2,7 +2,7 @@ local M = {
 
   "epwalsh/obsidian.nvim",
   version = "*",
-  lazy = false,
+  lazy = true,
   dependencies = {
     "nvim-lua/plenary.nvim",
   },

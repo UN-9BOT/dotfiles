@@ -1,7 +1,7 @@
 local M = { "mfussenegger/nvim-dap" }
 
-local utils = require("utils")
 local dap_utils = require("plug_configs.dap.utils")
+local utils = require("utils")
 
 M.dependencies = {
   { "theHamsta/nvim-dap-virtual-text", config = utils.r("nvim-dap-virtual-text") },
@@ -22,30 +22,49 @@ M.init = function()
     -- command = "/usr/bin/alacritty",
     -- args = { "--hold", "-e" },
     command = "tmux",
-    args = { "split-window", "-v", "-l", "10" },
+    args = { "split-window", "-v", "-l", "10", "-d" },
   }
 end
 M.config = function()
   local dap = require("dap")
   local dap_widgets = require("dap.ui.widgets")
+  local dap_ui = require("dapui")
   local nf = require("plug_configs.notify").nf
-  local custom_mapping = dap_utils.custom_mapping(dap, dap_widgets, nf)
+  local custom_mapping = dap_utils.custom_mapping(dap, dap_widgets, nf, dap_ui)
 
   local b = vim.keymap.set
   b("n", "<leader>d", "<Nop>")
 
-  b("n", "<leader>db", custom_mapping.toggle_breakpoint.def)
-  b("n", "<leader>dB", custom_mapping.toggle_breakpoint.cond)
-  b("n", "<leader>di", custom_mapping.steps.into)
-  b("n", "<leader>dj", custom_mapping.steps.over)
-  b("n", "<leader>dk", custom_mapping.steps.out)
-  b("n", "<leader>dh", custom_mapping.nosteps.up)
-  b("n", "<leader>dl", custom_mapping.nosteps.down)
-  b("n", "<leader>dc", custom_mapping.process.run)
-  b("n", "<leader>dC", custom_mapping.process.run_to_cursor)
-  b("n", "<leader>dd", custom_mapping.process.stop)
-  b("n", "<leader>dp", custom_mapping.widgets.cursor_float.expression)
-  b("n", "<leader>dP", custom_mapping.widgets.cursor_float.scopes)
+  -- b("n", "<leader>db", custom_mapping.toggle_breakpoint.def)
+  -- b("n", "<leader>dB", custom_mapping.toggle_breakpoint.cond)
+  -- b("n", "<leader>di", custom_mapping.steps.into)
+  -- b("n", "<leader>dj", custom_mapping.steps.over)
+  -- b("n", "<leader>dk", custom_mapping.steps.out)
+  -- b("n", "<leader>dh", custom_mapping.nosteps.up)
+  -- b("n", "<leader>dl", custom_mapping.nosteps.down)
+  -- b("n", "<leader>dc", custom_mapping.process.run)
+  -- b("n", "<leader>dC", custom_mapping.process.run_to_cursor)
+  -- b("n", "<leader>dd", custom_mapping.process.stop)
+  -- b("n", "<leader>dp", custom_mapping.widgets.cursor_float.expression)
+  -- b("n", "<leader>dP", custom_mapping.widgets.cursor_float.scopes)
+
+  b("n", "<leader>db", "<Nop>")
+  b("n", "<leader>dc", "<Nop>")
+  b("n", "<leader>dd", "<Nop>")
+
+  b("n", "<F1>", custom_mapping.process.run)
+  b("n", "<leader><F1>", custom_mapping.process.run_to_cursor, { desc = "run_to_cursor" })
+  b("n", "<F2>", custom_mapping.toggle_breakpoint.def)
+  b("n", "<leader><F2>", custom_mapping.toggle_breakpoint.cond, { desc = "toggle_breakpoint_cond" })
+  b("n", "<F3>", custom_mapping.steps.over) -- построчно
+  b("n", "<F5>", custom_mapping.nosteps.up) -- в скоупе вызовов (без шага)
+  b("n", "<F6>", custom_mapping.nosteps.down) -- в скоупе вызовов (без шага)
+  b("n", "<F7>", custom_mapping.steps.out)
+  b("n", "<F8>", custom_mapping.steps.into)
+  b("n", "<F9>", custom_mapping.process.stop)
+  b("n", "<leader><F12>", custom_mapping.widgets.cursor_float.scopes, { desc = "scopes" })
+  b({ "n", "v" }, "<F12>", custom_mapping.dapui.floating.eval)
+  b("n", "<leader>b", custom_mapping.dapui.floating.breakpoints, { desc = "breakpoints" })
 
   local lldbPath = "/usr/bin/lldb-vscode"
   dap.adapters.lldb = {

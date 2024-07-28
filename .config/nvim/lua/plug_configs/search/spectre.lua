@@ -18,7 +18,7 @@ M.config = function()
     mapping = {
       ["send_to_qf"] = {
         map = "<leader>q",
-        cmd = "<cmd>lua require('plug_configs.spectre').__send_to_trouble()<CR>",
+        cmd = "<cmd>lua require('plug_configs.search.spectre').__send_to_trouble()<CR>",
         desc = "send all items to quickfix",
       },
     },

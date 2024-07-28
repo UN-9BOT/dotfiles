@@ -4,6 +4,18 @@ local M = {}
 ---@param entry1 any
 ---@param entry2 any
 M.comparators_tscompae = function(entry1, entry2)
+  -- start: for exclude magic methos
+  local _, entry1_under = entry1.completion_item.label:find("^_+")
+  local _, entry2_under = entry2.completion_item.label:find("^_+")
+  entry1_under = entry1_under or 0
+  entry2_under = entry2_under or 0
+  if entry1_under > entry2_under then
+    return false
+  elseif entry1_under < entry2_under then
+    return true
+  end
+  -- end.
+
   local ts_utils = require("nvim-treesitter.ts_utils")
   local kind1 = entry1:get_kind()
   local kind2 = entry2:get_kind()
@@ -62,10 +74,10 @@ M.safe_cmd = function(cmd)
 end
 
 --- safe require
----@param name string plugin name
+---@param modname string
 ---@return table result
-M.safe_require = function(name)
-  local ok, result = pcall(require, name)
+M.safe_require = function(modname)
+  local ok, result = xpcall(require, debug.traceback, modname)
   if not ok then
     vim.api.nvim_echo({ { result, "Error" } }, true, {})
     return {}
@@ -74,5 +86,21 @@ M.safe_require = function(name)
   end
 end
 
+--- Return opts with desc
+---@param desc
+---@return
+M.dopts = function(desc)
+  return { noremap = true, silent = true, desc = desc }
+end
+
+M.lazygit_open_file = function(filename, line_number)
+  print("12")
+  line_number = tonumber(line_number) or 1
+
+  vim.api.nvim_win_close(0, true)
+  vim.api.nvim_command("edit +" .. line_number .. " " .. filename)
+end
+
+_G.lazygit_open_file = M.lazygit_open_file
 
 return M

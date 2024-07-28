@@ -8,7 +8,8 @@ local M = {
     "antoinemadec/FixCursorHold.nvim",
     "nvim-neotest/neotest-vim-test",
     "nvim-neotest/neotest-plenary",
-    { "nvim-neotest/nvim-nio", version = "1.9.0" },
+    "nvim-neotest/nvim-nio",
+    -- { "nvim-neotest/nvim-nio", version = "1.9.0" },
   },
 }
 

@@ -1,7 +1,11 @@
-local M = { "hrsh7th/nvim-cmp" }
+local M = {
+  "hrsh7th/nvim-cmp",
+  -- commit = "b356f2c",
+  -- pin = true,
+}
 
-local utils = require("utils")
 local cmp_utils = require("plug_configs.completition.utils")
+local utils = require("utils")
 
 local r = utils.r
 local custom_mapping = cmp_utils.custom_mapping
@@ -41,6 +45,8 @@ M.config = function()
   local cmp = require("cmp")
   local luasnip = require("luasnip")
   require("luasnip.loaders.from_vscode").lazy_load()
+  -- require("luasnip.loaders.from_lua").load()
+  require("luasnip.loaders.from_lua").load({ paths = "/home/vim9/.config/nvim/lua/plug_configs/completition/snippets" })
 
   cmp.setup({
     preselect = cmp.PreselectMode.None,
@@ -54,7 +60,7 @@ M.config = function()
       return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
     end,
     sources = cmp.config.sources({
-      { name = "nvim_lsp", priority = 1000, max_item_count = 20 },
+      { name = "nvim_lsp", priority = 1000, max_item_count = 30 },
       { name = "nvim_lsp_signature_help", priority = 950, max_item_count = 5 },
       { name = "nvim_lua", priority = 900, max_item_count = 3 },
       { name = "luasnip", priority = 800, max_item_count = 5 },
@@ -62,8 +68,9 @@ M.config = function()
       { name = "async_path", priority = 650, max_item_count = 3 },
     }),
     sorting = {
+      priority_weight = 2,
       comparators = {
-        -- require("utils").comparators_tscompae,  -- TODO: проблемы с магическими атрибутами классов
+        require("utils").comparators_tscompae,
         cmp.config.compare.offset,
         cmp.config.compare.score,
         cmp.config.compare.exact,
@@ -72,12 +79,12 @@ M.config = function()
         cmp.config.compare.kind,
         cmp.config.compare.sort_text,
         cmp.config.compare.length,
-        -- cmp.config.compare.order,
+        cmp.config.compare.order,
         -- require("copilot_cmp.comparators").prioritize,
       },
     },
     experimental = {
-      ghost_text = true,
+      ghost_text = false,
     },
     formatting = {
       format = require("lspkind").cmp_format({
@@ -163,8 +170,8 @@ M.config = function()
     }),
   })
   -- Подстановка скобок к подсказкам, которым это нужно (дополнение для nvim-autopairs)
-  local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-  cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+  -- local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+  -- cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
   vim.keymap.set("n", "<leader>i", custom_mapping.import.custom, {}) -- auto_import for python
 end

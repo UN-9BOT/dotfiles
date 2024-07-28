@@ -14,7 +14,7 @@ M.config = function()
     dockerfile = { "hadolint" },
     -- lua = { "luacheck" },
     lua = { "selene" },
-    yaml = { "yamllint" },
+    -- yaml = { "yamllint" },
     -- yaml = { "actionlint", "yamllint" },
     sql = { "sqlfluff" },
     make = { "checkmake" },
@@ -35,18 +35,20 @@ M.config = function()
   local ruff_args = { "--config=~/.config/nvim/ruff.toml" }
   vim.list_extend(linters.ruff.args, ruff_args)
 
-  local new_yamllint_args = { "-d", "{extends: relaxed, rules: {line-length: {max: 130}}}" }
-  vim.list_extend(linters.yamllint.args, new_yamllint_args)
+  -- local new_yamllint_args = { "-d", "{extends: relaxed, rules: {line-length: {max: 130}}}" }
+  -- vim.list_extend(linters.yamllint.args, new_yamllint_args)
 
   linters.sqlfluff.args = { "lint", "--format=json", "--config=/home/vim9/.config/nvim/.sqlfluff" }
 
   --------
   --------
   local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
-  vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave", "TextChanged" }, {
+  -- vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave", "TextChanged" }, {
+  vim.api.nvim_create_autocmd({ "TextChanged" }, {
     group = lint_augroup,
     callback = function()
       lint.try_lint()
+      -- require("plug_configs.notify").nf("Lint(au):try_lint")
     end,
   })
 
@@ -55,12 +57,12 @@ M.config = function()
     virtual_text = false,
     float = {
       border = "rounded",
-      header = false,                   -- remove the line that says 'Diagnostic:'
-      source = false,                   -- hide it since my float_format will add it
+      header = false, -- remove the line that says 'Diagnostic:'
+      source = false, -- hide it since my float_format will add it
       format = lint_utils.float_format, -- can customize more colors by using prefix/suffix instead
-      suffix = "",                      -- default is error code. Moved to message via float_format
+      suffix = "", -- default is error code. Moved to message via float_format
     },
-    update_in_insert = false,           -- wait until insert leave to check diagnostics
+    update_in_insert = false, -- wait until insert leave to check diagnostics
   })
 
   -- NOTE: toggle mypy
@@ -68,7 +70,32 @@ M.config = function()
   vim.keymap.set("n", "gl", lint_utils.toggle_mypy(lint), { desc = "Toggle mypy" })
 
   -- restart lsp
-  vim.keymap.set("n", "gL", function() vim.cmd("LspRestart") end, { desc = "Toggle mypy" })
+  vim.keymap.set("n", "gL", function()
+    vim.cmd("LspRestart")
+  end, { desc = "Toggle mypy" })
+
+  vim.api.nvim_set_keymap(
+    "n",
+    "<leader>gd",
+    "<cmd>lua vim.diagnostic.open_float()<CR>",
+    { noremap = true, silent = true }
+  )
+  vim.api.nvim_set_keymap(
+    "n",
+    "<leader>g[",
+    "<cmd>lua vim.diagnostic.goto_prev()<CR>",
+    { noremap = true, silent = true }
+  )
+  vim.api.nvim_set_keymap(
+    "n",
+    "<leader>g]",
+    "<cmd>lua vim.diagnostic.goto_next()<CR>",
+    { noremap = true, silent = true }
+  )
+  -- The following command requires plug-ins "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim", and optionally "kyazdani42/nvim-web-devicons" for icon support
+  vim.api.nvim_set_keymap("n", "<leader>gt", "<cmd>Telescope diagnostics<CR>", { noremap = true, silent = true })
+  -- If you don't want to use the telescope plug-in but still want to see all the errors/warnings, comment out the telescope line and uncomment this:
+  -- vim.api.nvim_set_keymap('n', '<leader>dd', '<cmd>lua vim.diagnostic.setloclist()<CR>', { noremap = true, silent = true })
 end
 
 return M

@@ -1,8 +1,30 @@
 local M = {
   "fnune/recall.nvim",
+  lazy = true,
+}
+
+local mappings = {
+  toggle = function()
+    require("recall").toggle()
+  end,
+  goto_next = function()
+    require("recall").goto_next()
+  end,
+  goto_prev = function()
+    require("recall").goto_prev()
+  end,
+  telescope = function()
+    require("telescope").extensions.recall.recall()
+  end,
+}
+
+M.keys = {
+  { ",ma", mode = { "n" }, mappings.toggle },
+  { ",mn", mode = { "n" }, mappings.goto_next },
+  { ",mp", mode = { "n" }, mappings.goto_prev },
+  { ",M", mode = { "n" }, mappings.telescope },
 }
 M.config = function()
-  -- code
   require("recall").setup({
     sign = "",
     sign_highlight = "@comment.note",
@@ -19,13 +41,6 @@ M.config = function()
 
     wshada = vim.fn.has("nvim-0.10") == 0,
   })
-  -- mappings
-  local recall = require("recall")
-
-  vim.keymap.set("n", ",ma", recall.toggle, { noremap = true, silent = true })
-  vim.keymap.set("n", ",mn", recall.goto_next, { noremap = true, silent = true })
-  vim.keymap.set("n", ",mp", recall.goto_prev, { noremap = true, silent = true })
-  vim.keymap.set("n", ",M", ":Telescope recall<CR>", { noremap = true, silent = true })
 end
 
 return M

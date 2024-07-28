@@ -6,7 +6,6 @@ M.config = function()
     position = "bottom", -- position of the list can be: bottom, top, left, right
     height = 5, -- height of the trouble list when position is top or bottom
     width = 50, -- width of the list when position is left or right
-    icons = true, -- use devicons for filenames
     mode = "document_diagnostics", -- "workspace_diagnostics", "document_diagnostics", "quickfix", "lsp_references", "loclist"
     severity = nil, -- nil (ALL) or vim.diagnostic.severity.ERROR | WARN | INFO | HINT
     fold_open = "", -- icon used for open folds
@@ -56,16 +55,58 @@ M.config = function()
       other = "",
     },
     use_diagnostic_signs = false, -- enabling this will use the signs defined in your lsp client
+    icons = {
+      indent = {
+        top = "│ ",
+        middle = "├╴",
+        last = "└╴",
+        -- last          = "-╴",
+        -- last       = "╰╴", -- rounded
+        fold_open = " ",
+        fold_closed = " ",
+        ws = "  ",
+      },
+      folder_closed = " ",
+      folder_open = " ",
+      kinds = {
+        Array = " ",
+        Boolean = "󰨙 ",
+        Class = " ",
+        Constant = "󰏿 ",
+        Constructor = " ",
+        Enum = " ",
+        EnumMember = " ",
+        Event = " ",
+        Field = " ",
+        File = " ",
+        Function = "󰊕 ",
+        Interface = " ",
+        Key = " ",
+        Method = "󰊕 ",
+        Module = " ",
+        Namespace = "󰦮 ",
+        Null = " ",
+        Number = "󰎠 ",
+        Object = " ",
+        Operator = " ",
+        Package = " ",
+        Property = " ",
+        String = " ",
+        Struct = "󰆼 ",
+        TypeParameter = " ",
+        Variable = "󰀫 ",
+      },
+    },
   })
-   
+
   vim.api.nvim_create_autocmd({ "ExitPre" }, {
     desc = "Force close buffer plugins",
-    callback = function()
-      vim.cmd([[TroubleClose]])
+    callback = function(opts)
+      require("trouble").close(opts)
     end,
   })
 end
 M.keys = {
-    { "gy", ":TroubleToggle<CR><c-k>", { silent = true } },
+  { "gy", ":Trouble quickfix toggle<CR><c-k>", { silent = true } },
 }
 return M

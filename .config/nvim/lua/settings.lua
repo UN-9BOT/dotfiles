@@ -39,6 +39,7 @@ vim.opt.undodir = vim.fn.stdpath("data") .. "/undo"
 --
 -- всегда отображать левый столбец знаков
 vim.opt.signcolumn = "yes:3"
+-- vim.opt.foldcolumn= "auto:9"
 
 --
 -- подсветка поиска
