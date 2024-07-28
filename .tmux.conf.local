@@ -401,18 +401,18 @@ tmux_conf_copy_to_os_clipboard=false
 # by default, launching tmux will update tpm and all plugins
 #   - true (default)
 #   - false
-tmux_conf_update_plugins_on_launch=true
+tmux_conf_update_plugins_on_launch=false
 
 # by default, reloading the configuration will update tpm and all plugins
 #   - true (default)
 #   - false
-tmux_conf_update_plugins_on_reload=true
+tmux_conf_update_plugins_on_reload=false
 
 # by default, reloading the configuration will uninstall tpm and plugins when no
 # plugins are enabled
 #   - true (default)
 #   - false
-tmux_conf_uninstall_plugins_on_reload=true
+tmux_conf_uninstall_plugins_on_reload=false
 
 # /!\ the tpm bindings differ slightly from upstream:
 #   - installing plugins: <prefix> + I
@@ -425,15 +425,25 @@ tmux_conf_uninstall_plugins_on_reload=true
 # to enable a plugin, use the 'set -g @plugin' syntax:
 # visit https://github.com/tmux-plugins for available plugins
 # set -g @plugin 'tmux-plugins/tmux-copycat'
-#set -g @plugin 'tmux-plugins/tmux-cpu'
-set -g @plugin 'tmux-plugins/tmux-sessionist'
-set -g @plugin 'tmux-plugins/tmux-resurrect'
-set -g @plugin 'tmux-plugins/tmux-continuum'
+# set -g @plugin 'tmux-plugins/tmux-cpu'
 # set -g @plugin 'trevarj/tmux-open-nvim'
 # set -g @plugin 'christoomey/vim-tmux-navigator'
 # set -g @plugin 'jabirali/tmux-tilish'
+# set -g @plugin 'tmux-plugins/tmux-sessionist'
+# set -g @plugin 'tmux-plugins/tmux-resurrect'
+# set -g @plugin 'tmux-plugins/tmux-continuum'
+# set -g @plugin 'AngryMorrocoy/tmux-neolazygit'
+
+set -g @tpm_plugins '              \
+    tmux-plugins/tmux-sessionist   \
+    tmux-plugins/tmux-resurrect    \
+    tmux-plugins/tmux-continuum    \
+    AngryMorrocoy/tmux-neolazygit  \
+    christoomey/vim-tmux-navigator \
+'
 
 set -g @continuum-restore 'on'
+set -g @open-lazygit 'l'
 
 
 # -- custom variables ----------------------------------------------------------
@@ -541,14 +551,6 @@ bind -n M-s switch-client -l
 # choose session
 bind -n M-w choose-session
 
-bind -r l display-popup -d '#{pane_current_path}' -w90% -h90% -E lazygit
-bind -r j display-popup -d '#{pane_current_path}' -w93% -h90%
-
-
-
-# { 'vimpostor/vim-tpipeline' },
-# set -g focus-events on
-# set -g status-style bg=default
-# set -g status-left-length 90
-# set -g status-right-length 90
-# set -g status-justify centre
+# bind -r l display-popup -d '#{pane_current_path}' -w90% -h90% -E lazygit
+# bind -r l @open-lazygit 'G'
+# bind -r j display-popup -d '#{pane_current_path}' -w93% -h90%
