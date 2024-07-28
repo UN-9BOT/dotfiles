@@ -1,8 +1,5 @@
 return {
   "nvimtools/none-ls.nvim",
-  dependencies = {
-    -- { "ThePrimeagen/refactoring.nvim", config = r("refactoring") },
-  },
   config = function()
     local null_ls = require("null-ls")
     null_ls.register({
@@ -17,8 +14,10 @@ return {
               action = function()
                 if vim.bo.filetype == "python" then
                   vim.cmd("normal! A  # type: ignore")
+                  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "i", false)
                 elseif vim.bo.filetype == "lua" then
                   vim.cmd("normal! A --luacheck: ignore")
+                  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "i", false)
                 end
               end,
             },
@@ -37,6 +36,7 @@ return {
               title = "# noqa",
               action = function()
                 vim.cmd("normal! A  # noqa")
+                vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "i", false)
               end,
             },
           }

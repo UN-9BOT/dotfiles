@@ -10,7 +10,7 @@ lazy.setup({
   { "kkharji/sqlite.lua" }, -- sqlite for other plug_configs
   { "nanotee/sqls.nvim" }, -- for sql queries
   { "farmergreg/vim-lastplace" }, -- last position in files
-  { "wellle/targets.vim" }, -- next for textobjects in( an( {["'
+  { "wellle/targets.vim" }, -- next for textobjects in( an( {["'  or previous 2ab
   { "tpope/vim-fugitive" }, -- :G
   { "RRethy/vim-tranquille" }, -- search and highlight without moving g/
   { "raimon49/requirements.txt.vim" }, -- for syntax highlight for requirements.txt
@@ -95,20 +95,6 @@ lazy.setup({
   -- ----------------------------
 
   {
-    "chrisgrieser/nvim-rip-substitute",
-    cmd = "RipSubstitute",
-    keys = {
-      {
-        "<leader>fs",
-        function()
-          require("rip-substitute").sub()
-        end,
-        mode = { "n", "x" },
-        desc = " rip substitute",
-      },
-    },
-  },
-  {
     "domharries/foldnav.nvim",
     version = "*",
     config = function()
@@ -153,15 +139,11 @@ lazy.setup({
       },
     },
   },
-
   -- ---------------------------
   -- NOTE: ARCHIVE
   -- ----------------------------
 
   --[[
-
-  { "anuvyklack/pretty-fold.nvim", config = u.r("pretty-fold") }, -- fold for func and diffview  -- diff bug
-  u.safe_require("plug_configs.optimization_lsp"),      -- stop unused lsp  --NOTE: лишнее
 
   --]]
 })
