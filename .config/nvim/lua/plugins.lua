@@ -62,7 +62,6 @@ lazy.setup({
   u.safe_require("plug_configs.dap.dap_python"), -- config dap
   u.safe_require("plug_configs.dap.envfiles"), -- auto load .env files [[:Dotenv : load .env]]
   u.safe_require("plug_configs.neotest"), -- tests ui
-  u.safe_require("plug_configs.nvim-scrollview"), -- scroll bar on right
   u.safe_require("plug_configs.multicursor"), -- multi cursor
   u.safe_require("plug_configs.search.hlslens"), -- for navigate in search mode
   u.safe_require("plug_configs.search.spectre"), -- search and replace
@@ -94,56 +93,13 @@ lazy.setup({
   -- NOTE: IN_PROGRESS
   -- ----------------------------
 
-  {
-    "domharries/foldnav.nvim",
-    version = "*",
-    config = function()
-      vim.g.foldnav = {
-        flash = {
-          enabled = true,
-          -- mode = "opposite", -- "fold" or "opposite"
-          mode = "fold", -- "fold" or "opposite"
-          duration_ms = 300,
-        },
-      }
-    end,
-    keys = {
-      {
-        "<S-h>",
-        function()
-          require("foldnav").goto_start()
-        end,
-        mode = { "n", "x", "o" },
-      },
-      -- {
-      --   "<S-j>",
-      --   function()
-      --     require("foldnav").goto_next()
-      --   end,
-      --   mode = { "n", "x", "o" },
-      -- },
-      -- {
-      --   "<S-k>",
-      --   function()
-      --     require("foldnav").goto_prev_start()
-      --   end,
-      --   mode = { "n", "x", "o" },
-      -- },
-      -- { "<S-k>", function() require("foldnav").goto_prev_end() end },
-      {
-        "<S-l>",
-        function()
-          require("foldnav").goto_end()
-        end,
-        mode = { "n", "x", "o" },
-      },
-    },
-  },
+
   -- ---------------------------
   -- NOTE: ARCHIVE
   -- ----------------------------
 
   --[[
 
+  u.safe_require("plug_configs.nvim-scrollview"), -- scroll bar on right  -- TODO: удалить signs (highlight), +test
   --]]
 })

@@ -57,7 +57,7 @@ return {
       end,
     })
     resession.autosave = {
-      enabled = true,
+      enabled = false,
       interval = 60,
       notify = true,
     }

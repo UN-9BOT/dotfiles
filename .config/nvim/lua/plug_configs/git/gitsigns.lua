@@ -1,5 +1,6 @@
 local M = {
   "lewis6991/gitsigns.nvim",
+  lazy=false,
 }
 
 M.config = function()
@@ -66,7 +67,7 @@ M.config = function()
 
       -- Text object
       map("o", "ih", ":<C-U>Gitsigns select_hunk<CR>")
-      map("x", "ih", ":<C-U>Gitsigns select_hunk<CR>")
+      map("x", "ih", ":<C-U>gitsigns select_hunk<CR>")
     end,
   })
 end
