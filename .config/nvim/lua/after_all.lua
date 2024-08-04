@@ -1,28 +1,13 @@
 ---@diagnostic disable: undefined-global
 -- NOTE:  конфиги которые по каким-то причинам не работают внутри их require
+--
+--
+--
 
 -- coc-highlight
 -- vim.cmd([[
 --   autocmd CursorHold * silent call CocActionAsync('highlight')
 -- ]])
-
--- FIX: для выхода из insert in Telescope
--- vim.api.nvim_create_autocmd("WinLeave", {
---   callback = function()
---     if vim.bo.ft == "TelescopePrompt" and vim.fn.mode() == "i" then
---       vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "i", false)
---     end
---   end,
--- })
---
-local save_augroup = vim.api.nvim_create_augroup("autosave", { clear = true })
-vim.api.nvim_create_autocmd({  "TextChanged" }, {
-  group = save_augroup,
-  callback = function()
-    vim.cmd("silent! write")
-    -- require("plug_configs.notify").nf("Save(au)")
-  end,
-})
 
 require("mason").setup()
 require("mason-nvim-dap").setup()
@@ -50,7 +35,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "sql"},
+  pattern = { "sql" },
   callback = function()
     vim.bo.shiftwidth = 2
     -- vim.bo.smarttab = true
@@ -64,6 +49,10 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 -- vim.api.nvim_create_autocmd({ "ExitPre" }, {
 --   desc = "Save :messages log",
 --   callback = function()
+--     local buf_ids = vim.api.nvim_list_bufs()
+--     for _, v in pairs(buf_ids) do
+--       print("OPEN:", v, "---", tostring(vim.api.nvim_buf_get_name(v)), "---", "found", v)
+--     end
 --     local cwd_log_file = vim.fn.expand("~/messages.log")
 --     local messages = vim.fn.execute(":messages")
 --     local log_file = io.open(cwd_log_file, "a")

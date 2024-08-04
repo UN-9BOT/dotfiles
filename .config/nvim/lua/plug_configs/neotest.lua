@@ -9,7 +9,6 @@ local M = {
     "nvim-neotest/neotest-vim-test",
     "nvim-neotest/neotest-plenary",
     "nvim-neotest/nvim-nio",
-    -- { "nvim-neotest/nvim-nio", version = "1.9.0" },
   },
 }
 
@@ -73,20 +72,21 @@ M.config = function()
   b("n", "<leader>dTf", "<cmd>lua require('neotest').run.run({vim.fn.expand('%')})<CR>", opts)
   b("n", "<leader>dTl", "<cmd>lua require('neotest').run.run_last()<CR>", opts)
 
-  vim.api.nvim_create_autocmd({ "ExitPre" }, {
-    desc = "Force close buffer plugins",
-    callback = function()
-      vim.cmd([[Neotest summary close]])
-
-      local buf_output_panel = "Neotest Output Panel"
-      local buf_ids = vim.api.nvim_list_bufs()
-      for _, v in pairs(buf_ids) do
-        if vim.api.nvim_buf_get_name(v):match(buf_output_panel) then
-          -- print("buf_end", buf, "found", v)
-          vim.api.nvim_buf_delete(v, { force = true })
-        end
-      end
-    end,
-  })
+  -- vim.api.nvim_create_autocmd({ "ExitPre" }, {
+  --   desc = "Force close buffer plugins",
+  --   callback = function()
+  --     vim.cmd([[Neotest summary close]])
+  --
+  --     local buf_output_panel = "Neotest Output Panel"
+  --     -- local buf_output_panel = "Neotest Summary"
+  --     local buf_ids = vim.api.nvim_list_bufs()
+  --     for _, v in pairs(buf_ids) do
+  --       if vim.api.nvim_buf_get_name(v):match(buf_output_panel) then
+  --         print("buf_end", buf_output_panel, "found", v)
+  --         vim.api.nvim_buf_delete(v, { force = true })
+  --       end
+  --     end
+  --   end,
+  -- })
 end
 return M

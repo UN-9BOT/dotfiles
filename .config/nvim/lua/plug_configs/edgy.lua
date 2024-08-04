@@ -115,13 +115,6 @@ M.opts = {
     { ft = "qf", title = "QuickFix" },
     { ft = "dapui_console", title = "Console" },
     { ft = "neotest-output-panel", title = " Test Output" },
-    {
-      ft = "markdown", -- hoversplit
-      filter = function(buf, _)
-        return vim.api.nvim_buf_get_name(buf):match("hoversplit")
-      end,
-      title = "Hover",
-    },
   },
 }
 return M

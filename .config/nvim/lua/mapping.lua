@@ -35,10 +35,6 @@ b({ "n", "v" }, "<leader>P", '"+P', opts)
 b("n", "Q", "<cmd>q<cr>", opts)
 -- b("n", "Q", "<cmd>tabclose<cr>", opts)
 
--- CUSTOM EXIT
-b({ "n", "v" }, "ZZ", "<ESC><CMD>qall<CR>", opts)
-b({ "n", "v" }, "ZQ", "<ESC><CMD>qall!<CR>", opts)
-
 -- remap <c-q> -> q
 b("n", "<c-q>", "q", opts)
 b("n", "q", "<Nop>", opts)
@@ -58,3 +54,17 @@ b("n", ";d", "<ESC>my<cmd>tabnew %<cr><esc>'yzz", opts) -- duplicate tab
 
 -- TODO: NOPE
 b("n", "<leader>lg", "<Nop>", opts)
+
+-- CUSTOM EXIT
+--
+b({ "n", "v" }, "ZZ", function()
+  require("utils").custom_exit__force_close()
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "i", false)
+  vim.cmd("qall")
+end, opts)
+
+b({ "n", "v" }, "ZQ", function()
+  require("utils").custom_exit__force_close()
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "i", false)
+  vim.cmd("qall!")
+end, opts)

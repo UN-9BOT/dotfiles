@@ -26,6 +26,7 @@ lazy.setup({
   { "segeljakt/vim-silicon" }, --screenshot in visual mode
   { "NvChad/nvim-colorizer.lua", config = u.r("colorizer") },
   { "stevearc/oil.nvim", config = u.r("oil") }, -- file explorer
+  { "kazhala/close-buffers.nvim" }, -- autoclose hidden buffers (optimization)
   {
     "tpope/vim-surround", -- surround ("' [ { }]')  	-: ysiw' | cs'" | ds"
     dependencies = {
@@ -77,10 +78,8 @@ lazy.setup({
   u.safe_require("plug_configs.rnvimr"), -- ranger
   u.safe_require("plug_configs.mason"), -- installer for features
   u.safe_require("plug_configs.recall"), -- mark with global saveplu
-  u.safe_require("plug_configs.close_buffers"), -- auto close buffers
   u.safe_require("plug_configs.none_ls"), -- custom code actions
   u.safe_require("plug_configs.lsp.nvim_lspconfig"), -- lsp config
-  u.safe_require("plug_configs.lsp.hover"), -- lsp hover in new tab
   u.safe_require("plug_configs.lsp.navbuddy"), -- lsp navigation
   u.safe_require("plug_configs.completition.nvim_cmp"), -- completition
   u.safe_require("plug_configs.conform"), -- Autoformat
@@ -92,7 +91,6 @@ lazy.setup({
   -- ----------------------------
   -- NOTE: IN_PROGRESS
   -- ----------------------------
-
 
   -- ---------------------------
   -- NOTE: ARCHIVE

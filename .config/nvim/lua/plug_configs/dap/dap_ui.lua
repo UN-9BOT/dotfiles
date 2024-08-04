@@ -3,7 +3,6 @@ local M = {
   dependencies = {},
   event = "VeryLazy",
 }
-local dap_utils = require("plug_configs.dap.utils")
 
 M.config = function()
   local nf = require("plug_configs.notify").nf
@@ -42,23 +41,10 @@ M.config = function()
   local b = vim.keymap.set
   local opts = { noremap = true, silent = true }
 
-  vim.api.nvim_create_autocmd({ "ExitPre" }, {
-    desc = "Force close buffer plugins",
-    callback = function()
-      require("dapui").close()
-      dap_utils.force_close_buffers()
-    end,
-  })
-
   b("n", "<leader>du", function()
     require("dapui").toggle()
     nf("DAP UI")
   end, opts)
-  -- NOTE: automatically open/close the DAP UI when starting/stopping the debugger
-  -- local listener = require("dap").listeners
-  -- listener.after.event_initialized["dapui_config"] = function() require("dapui").open() end
-  -- listener.before.event_terminated["dapui_config"] = function() require("dapui").close() end
-  -- listener.before.event_exited["dapui_config"] = function() require("dapui").close() end
 
   vim.fn.sign_define("DapBreakpoint", { text = "●", texthl = "", linehl = "", numhl = "" })
   vim.fn.sign_define("DapBreakpointCondition", { text = "", texthl = "", linehl = "", numhl = "" })

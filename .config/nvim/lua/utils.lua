@@ -103,4 +103,60 @@ end
 
 _G.lazygit_open_file = M.lazygit_open_file
 
+M.force_close_buffers = function()
+  local end_target_bufs = {
+    "DAP Console",
+    "DAP Scopes",
+    "DAP Watches",
+    "DAP Breakpoints",
+    "DAP Stacks",
+    "dap-repl",
+    "toggleterm",
+    "hoversplit",
+  }
+  for _, buf in pairs(end_target_bufs) do
+    local buf_ids = vim.api.nvim_list_bufs()
+    for _, v in pairs(buf_ids) do
+      if vim.api.nvim_buf_get_name(v):match(buf) then
+        vim.api.nvim_buf_delete(v, { force = true })
+      end
+    end
+  end
+end
+_G.fcd = M.force_close_buffers
+
+M.custom_exit__force_close = function(opts)
+  if pcall(require, "neotest") then
+    vim.cmd([[Neotest summary close]])
+
+    local buf_ids = vim.api.nvim_list_bufs()
+    for _, v in pairs(buf_ids) do
+      if vim.api.nvim_buf_get_name(v):match("Neotest Summary") then
+        vim.api.nvim_buf_delete(v, { force = true })
+      end
+    end
+  end
+
+  if pcall(require, "trouble") then
+    require("trouble").close(opts)
+  end
+
+  if pcall(require, "edgy") then
+    require("edgy").close()
+  end
+
+  if pcall(require, "edgy") then
+    require("edgy").close()
+  end
+
+  if pcall(require, "dapui") then
+    require("dapui").close()
+    M.force_close_buffers()
+  end
+
+  if pcall(require, "close_buffers") then
+    require("close_buffers").delete({ type = "hidden", force = true })
+  end
+end
+
 return M

@@ -99,12 +99,6 @@ M.config = function()
     },
   })
 
-  vim.api.nvim_create_autocmd({ "ExitPre" }, {
-    desc = "Force close buffer plugins",
-    callback = function(opts)
-      require("trouble").close(opts)
-    end,
-  })
 end
 M.keys = {
   { "gy", ":Trouble quickfix toggle<CR><c-k>", { silent = true } },

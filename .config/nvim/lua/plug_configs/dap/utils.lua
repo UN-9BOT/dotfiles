@@ -89,27 +89,4 @@ M.custom_mapping = function(dap, dap_widgets, nf, dap_ui)
   }
 end
 
-M.force_close_buffers = function()
-  local end_target_bufs = {
-    "DAP Console",
-    "DAP Scopes",
-    "DAP Watches",
-    "DAP Breakpoints",
-    "DAP Stacks",
-    "dap-repl",
-    "toggleterm",
-    "hoversplit",
-  }
-  for _, buf in pairs(end_target_bufs) do
-    local buf_ids = vim.api.nvim_list_bufs()
-    for _, v in pairs(buf_ids) do
-      if vim.api.nvim_buf_get_name(v):match(buf) then
-        -- print("buf_end", buf, "found", v)
-        vim.api.nvim_buf_delete(v, { force = true })
-      end
-    end
-  end
-end
-_G.fcd = M.force_close_buffers
-
 return M
