@@ -9,57 +9,57 @@ local function check_status_linters()
   end
   return "󱉶 " .. table.concat(linters, ", ")
 end
-local test_status_counts = {
-  function()
-    local ok, neotest = pcall(require, "neotest")
-    if not ok then
-      return ""
-    end
-    local adapters = neotest.state.adapter_ids()
 
-    if #adapters > 0 then
-      local status = neotest.state.status_counts(adapters[1], {
-        buffer = vim.api.nvim_buf_get_name(0),
-      })
-      local sections = {
-        {
-          sign = "",
-          count = status.failed,
-          base = "NeotestFailed",
-          tag = "test_fail",
-        },
-        {
-          sign = "",
-          count = status.running,
-          base = "NeotestRunning",
-          tag = "test_running",
-        },
-        {
-          sign = "",
-          count = status.passed,
-          base = "NeotestPassed",
-          tag = "test_pass",
-        },
-        {
-          sign = "󰙨",
-          count = status.total,
-          base = "NeotestTotal",
-          tag = "test_total",
-        },
-      }
-
-      local result = {}
-      for _, section in ipairs(sections) do
-        if section.count > 0 then
-          table.insert(result, "%#" .. section.base .. "#" .. section.sign .. " " .. section.count)
-        end
-      end
-
-      return table.concat(result, " ")
-    end
+local test_status_counts = function()
+  local ok, neotest = pcall(require, "neotest")
+  if not ok then
     return ""
-  end,
-}
+  end
+  local adapters = neotest.state.adapter_ids()
+
+  if #adapters > 0 then
+    local status = neotest.state.status_counts(adapters[1], {
+      buffer = vim.api.nvim_buf_get_name(0),
+    })
+    local sections = {
+      {
+        sign = "",
+        count = status.failed,
+        base = "NeotestFailed",
+        tag = "test_fail",
+      },
+      {
+        sign = "",
+        count = status.running,
+        base = "NeotestRunning",
+        tag = "test_running",
+      },
+      {
+        sign = "",
+        count = status.passed,
+        base = "NeotestPassed",
+        tag = "test_pass",
+      },
+      {
+        sign = "󰙨",
+        count = status.total,
+        base = "NeotestTotal",
+        tag = "test_total",
+      },
+    }
+
+    local result = {}
+    for _, section in ipairs(sections) do
+      if section.count > 0 then
+        table.insert(result, "%#" .. section.base .. "#" .. section.sign .. " " .. section.count)
+      end
+    end
+
+    return table.concat(result, " ")
+  end
+  return ""
+end
+
 M.config = function()
   require("lualine").setup({
     options = {
@@ -92,7 +92,7 @@ M.config = function()
             return _G.is_mypy_enabled and " " or " "
           end,
         },
-        test_status_counts,  -- TODO: вынести в функцию
+        { test_status_counts },
         { check_status_linters },
       },
     },

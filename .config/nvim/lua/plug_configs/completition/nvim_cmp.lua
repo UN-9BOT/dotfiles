@@ -5,9 +5,7 @@ local M = {
 }
 
 local cmp_utils = require("plug_configs.completition.utils")
-local utils = require("utils")
 
-local r = utils.r
 local custom_mapping = cmp_utils.custom_mapping
 
 M.dependencies = {
@@ -23,64 +21,80 @@ M.dependencies = {
   "lukas-reineke/cmp-rg",
   "ray-x/cmp-treesitter",
 
-  "L3MON4D3/LuaSnip",
-  "rafamadriz/friendly-snippets",
-  "saadparwaiz1/cmp_luasnip", -- adapter for the snippet engine
-
   "hrsh7th/cmp-cmdline", -- for command line completion
 
   "hrsh7th/cmp-nvim-lsp-document-symbol",
-  { "Exafunction/codeium.nvim", config = r("codeium") },
 
   {
     "ray-x/lsp_signature.nvim",
     ---@diagnostic disable-next-line: unused-local
     config = function(_, opts) --luacheck: ignore
-      require("lsp_signature").setup({ hint_enable = false })
+      require("lsp_signature").setup({
+        hint_enable = false,
+        -- cursorhold_update = false,
+        zindex = 45,
+        max_width = 100,
+      })
     end,
   },
 }
 
 M.config = function()
   local cmp = require("cmp")
-  local luasnip = require("luasnip")
-  require("luasnip.loaders.from_vscode").lazy_load()
-  -- require("luasnip.loaders.from_lua").load()
-  require("luasnip.loaders.from_lua").load({ paths = "/home/vim9/.config/nvim/lua/plug_configs/completition/snippets" })
 
   cmp.setup({
     preselect = cmp.PreselectMode.None,
-
-    snippet = {
-      expand = function(args)
-        require("luasnip").lsp_expand(args.body)
-      end,
+    completion = {
+      -- autocomplete = false,
     },
+
     enabled = function()
       return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
     end,
+
+    window = {
+      completion = cmp.config.window.bordered({
+        scrollbar = true,
+        border = "rounded",
+        col_offset = -1,
+        side_padding = 0,
+      }),
+      documentation = cmp.config.window.bordered({
+        scrollbar = true,
+        border = "rounded",
+        max_height = 18,
+        max_width = 80,
+        side_padding = 1,
+      }),
+    },
+
     sources = cmp.config.sources({
-      { name = "nvim_lsp", priority = 1000, max_item_count = 30 },
+      {
+        name = "nvim_lsp",
+        priority = 1000,
+        max_item_count = 30,
+        entry_filter = function(entry)
+          return require("cmp.types").lsp.CompletionItemKind[entry:get_kind()] ~= "Text"
+        end,
+      },
       { name = "nvim_lsp_signature_help", priority = 950, max_item_count = 5 },
       { name = "nvim_lua", priority = 900, max_item_count = 3 },
-      { name = "luasnip", priority = 800, max_item_count = 5 },
       { name = "buffer", priority = 700, max_item_count = 5 },
       { name = "async_path", priority = 650, max_item_count = 3 },
     }),
     sorting = {
       priority_weight = 2,
       comparators = {
-        require("utils").comparators_tscompae,
+        cmp_utils.comparators_tscompae,
         cmp.config.compare.offset,
-        cmp.config.compare.score,
         cmp.config.compare.exact,
+        cmp.config.compare.score,
         cmp.config.compare.recently_used,
         require("cmp-under-comparator").under, -- magic method last
         cmp.config.compare.kind,
         cmp.config.compare.sort_text,
-        cmp.config.compare.length,
-        cmp.config.compare.order,
-        -- require("copilot_cmp.comparators").prioritize,
+        -- cmp.config.compare.length,
+        -- cmp.config.compare.order,
       },
     },
     experimental = {
@@ -89,11 +103,11 @@ M.config = function()
     formatting = {
       format = require("lspkind").cmp_format({
         mode = "symbol",
-        maxwidth = 50,
+        maxwidth = 30,
         ellipsis_char = "...",
         -- show_labelDetails = true, -- show labelDetails in menu. Disabled by default
         symbol_map = {
-          Text = "󰉿",
+          Text = "󰉿colors",
           String = "󰉿",
           Method = "󰆧",
           Function = "󰊕",
@@ -119,12 +133,10 @@ M.config = function()
           Event = "",
           Operator = "󰆕",
           TypeParameter = "",
-          Codeium = "󰚩",
         },
         menu = {
           buffer = "[Buffer]",
           nvim_lsp = "[Lsp]",
-          luasnip = "[LuaSnip]",
           rg = "[Rg]",
           treesitter = "[Treesitter]",
           async_path = "[Path]",
@@ -137,15 +149,14 @@ M.config = function()
       ["<C-f>"] = cmp.mapping.scroll_docs(4),
       ["<C-e>"] = cmp.mapping.abort(),
       -- ["<esc>"] = cmp.mapping.abort(),
-      ["<C-n>"] = cmp.mapping(custom_mapping.next_item.v1(cmp, luasnip), { "i", "s" }),
-      ["<C-p>"] = cmp.mapping(custom_mapping.prev_item.v1(cmp, luasnip), { "i", "s" }),
+      ["<C-n>"] = cmp.mapping(custom_mapping.next_item.v1(cmp), { "i", "s", "c" }),
+      ["<C-p>"] = cmp.mapping(custom_mapping.prev_item.v1(cmp), { "i", "s", "c" }),
       ["<C-y>"] = cmp.mapping.confirm({
-        behavior = cmp.ConfirmBehavior.Insert,
+        -- behavior = cmp.ConfirmBehavior.Insert,
         select = true,
       }),
-      ["<c-space>"] = cmp.mapping.complete(),
-      ["<C-x>"] = cmp.mapping(custom_mapping.codeium_complete.v1(cmp), { "i", "s" }), -- NOTE: codeium
-      ["<C-r>"] = cmp.mapping(custom_mapping.rg_complete.v1(cmp), { "i", "s" }), -- NOTE: ripgrep
+      ["<A-space>"] = cmp.mapping.complete(),
+      ["<C-r>"] = cmp.mapping(custom_mapping.rg_complete.v1(cmp), { "i", "s", "c" }), -- NOTE: ripgrep
     },
   })
   -- Set configuration for specific filetype.
@@ -174,6 +185,19 @@ M.config = function()
   -- cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
   vim.keymap.set("n", "<leader>i", custom_mapping.import.custom, {}) -- auto_import for python
+  if pcall(require, "neocodeium") then
+    local neocodeium = require("neocodeium")
+    local commands = require("neocodeium.commands")
+
+    cmp.event:on("menu_opened", function()
+      commands.disable()
+      neocodeium.clear()
+    end)
+
+    cmp.event:on("menu_closed", function()
+      commands.enable()
+    end)
+  end
 end
 
 return M

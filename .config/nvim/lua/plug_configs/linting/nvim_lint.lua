@@ -72,14 +72,8 @@ M.config = function()
   -- restart lsp
   vim.keymap.set("n", "gL", function()
     vim.cmd("LspRestart")
-  end, { desc = "Toggle mypy" })
+  end, { desc = "Restart lint" })
 
-  vim.api.nvim_set_keymap(
-    "n",
-    "<leader>gd",
-    "<cmd>lua vim.diagnostic.open_float()<CR>",
-    { noremap = true, silent = true }
-  )
   vim.api.nvim_set_keymap(
     "n",
     "<leader>g[",

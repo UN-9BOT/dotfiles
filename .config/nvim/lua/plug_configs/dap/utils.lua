@@ -40,7 +40,7 @@ M.custom_mapping = function(dap, dap_widgets, nf, dap_ui)
     },
     process = {
       run = function()
-        require("dap.ext.vscode").load_launchjs(nil, {})
+        -- require("dap.ext.vscode").load_launchjs(nil, {})  -- NOTE: устарело, стоит по дефолту
         dap.continue({ strategy = "dap" })
         nf("🪲 D:continue")
       end,

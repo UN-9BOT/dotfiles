@@ -39,6 +39,9 @@ b("n", "Q", "<cmd>q<cr>", opts)
 b("n", "<c-q>", "q", opts)
 b("n", "q", "<Nop>", opts)
 
+-- join 
+b({ "n", "v" }, "gJ", vim.cmd.join, opts)
+
 -- b("n", "<F9>", "<cmd>make test<cr>", opts)
 b("i", "<c-e>", "<c-o>de", opts)
 

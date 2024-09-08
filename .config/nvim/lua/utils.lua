@@ -1,43 +1,5 @@
 local M = {}
 
---- Compare two entries by score (the higher the better).
----@param entry1 any
----@param entry2 any
-M.comparators_tscompae = function(entry1, entry2)
-  -- start: for exclude magic methos
-  local _, entry1_under = entry1.completion_item.label:find("^_+")
-  local _, entry2_under = entry2.completion_item.label:find("^_+")
-  entry1_under = entry1_under or 0
-  entry2_under = entry2_under or 0
-  if entry1_under > entry2_under then
-    return false
-  elseif entry1_under < entry2_under then
-    return true
-  end
-  -- end.
-
-  local ts_utils = require("nvim-treesitter.ts_utils")
-  local kind1 = entry1:get_kind()
-  local kind2 = entry2:get_kind()
-  local node = ts_utils.get_node_at_cursor()
-
-  if node and node:type() == "argument" then
-    if kind1 == 6 then
-      entry1.score = 100
-    end
-    if kind2 == 6 then
-      entry2.score = 100
-    end
-  end
-
-  local diff = entry2.score - entry1.score
-  if diff < 0 then
-    return true
-  else
-    return false
-  end
-end
-
 --- getter for python path with virtualenv
 ---@return string
 M.get_pythonPath = function()
@@ -156,6 +118,13 @@ M.custom_exit__force_close = function(opts)
 
   if pcall(require, "close_buffers") then
     require("close_buffers").delete({ type = "hidden", force = true })
+    require("close_buffers").delete({ type = "nameless", force = true })
+    require("close_buffers").delete({ regex = "Neotest Output Panel", force = true })
+  end
+  if pcall(require, "avante") then
+    if require("avante").get():is_open() then
+      require("avante").get():close()
+    end
   end
 end
 

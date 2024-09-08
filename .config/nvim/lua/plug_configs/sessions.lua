@@ -4,7 +4,13 @@ return {
   config = function()
     require("possession").setup({
       autoload = "last_cwd",
+      plugins = { delete_hidden_buffers = false, delete_buffers = true },
       -- autosave = { current = true, cwd = true },  -- XXX: не работает с neotest
+      hooks = {
+        before_load = function(name, user_data)
+          return user_data
+        end,
+      },
     })
 
     -- NOTE:  Фикс для neotest
@@ -17,7 +23,7 @@ return {
       vim.cmd("PossessionLoadCwd")
     end)
     vim.keymap.set("n", "\\1s", function()
-      vim.cmd("PossessionSaveCwd")
+      vim.cmd("PossessionSaveCwd!")
     end)
   end,
 }

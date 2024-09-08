@@ -17,6 +17,15 @@ M.config = function()
 
   local pythonPath = require("utils").get_pythonPath()
   require("neotest").setup({
+    summary = {
+      animated = false,
+    },
+    floating = {
+      border = "rounded",
+      max_height = 0.9,
+      max_width = 0.9,
+      options = { wrap = true },
+    },
     adapters = {
       require("neotest-python")({
         -- Extra arguments for nvim-dap configuration
@@ -63,12 +72,16 @@ M.config = function()
     nf("T:start")
   end, opts)
   -- b("n", "<leader>dto", "<cmd>lua require('neotest').output.open({enter=true})<CR>", opts)
-  b("n", "<leader>do", "<cmd>lua require('neotest').output_panel.toggle({enter=true})<CR>", opts)
+  b("n", "<leader>do", function()
+    require("neotest").output_panel.toggle({ enter = true })
+  end, opts)
   b("n", "<leader>ds", function()
     require("neotest").run.stop()
     nf("T:stop")
   end, opts)
-  b("n", "<leader>dt", "<cmd>lua require('neotest').summary.toggle()<CR>", opts)
+  b("n", "<leader>dt", function()
+    require("neotest").summary.toggle()
+  end, opts)
   b("n", "<leader>dTf", "<cmd>lua require('neotest').run.run({vim.fn.expand('%')})<CR>", opts)
   b("n", "<leader>dTl", "<cmd>lua require('neotest').run.run_last()<CR>", opts)
 

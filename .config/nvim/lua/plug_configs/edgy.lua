@@ -15,7 +15,6 @@ M.keys = {
     function()
       if vim.b.edgy_keys then
         vim.b.edgy_disable = not vim.b.edgy_disable
-        -- vim.w.edgy_disable = not vim.w.edgy_disable
         require("plug_configs.notify").nf((vim.b.edgy_disable and "Disable" or "Enable") .. " Edgy for buffer")
       end
     end,

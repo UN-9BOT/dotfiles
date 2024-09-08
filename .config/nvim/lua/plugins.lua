@@ -20,12 +20,9 @@ lazy.setup({
   { "nacro90/numb.nvim", config = u.r("numb") }, -- live preview for :{number_line}
   { "andrewferrier/debugprint.nvim", config = u.r("debugprint") }, -- debug print g?v
   { "m-demare/hlargs.nvim", config = u.r("hlargs") }, -- ts based for hl args
-  { "lukas-reineke/virt-column.nvim", config = u.r("virt-column") }, -- virt column narrow style
   { "stevearc/dressing.nvim", opts = {} }, -- ui for other plug_configs
   { "j-hui/fidget.nvim", opts = {} }, -- ui for lsp-progress
-  { "segeljakt/vim-silicon" }, --screenshot in visual mode
-  { "NvChad/nvim-colorizer.lua", config = u.r("colorizer") },
-  { "stevearc/oil.nvim", config = u.r("oil") }, -- file explorer
+  { "NvChad/nvim-colorizer.lua", config = u.r("colorizer") }, -- color for hex and rgb notation
   { "kazhala/close-buffers.nvim" }, -- autoclose hidden buffers (optimization)
   {
     "tpope/vim-surround", -- surround ("' [ { }]')  	-: ysiw' | cs'" | ds"
@@ -87,6 +84,8 @@ lazy.setup({
   u.safe_require("plug_configs.pantran"), -- translate : leader tr
   u.safe_require("plug_configs.todo_comments"), -- TODO: WARNING: FIX: XXX: BUG: NOTE:
   u.safe_require("plug_configs.arrow"), -- marks v2
+  u.safe_require("plug_configs.ai.avante"), -- chat
+  u.safe_require("plug_configs.ai.neocodeium"), -- codeium with fast completion
 
   -- ----------------------------
   -- NOTE: IN_PROGRESS
@@ -98,6 +97,5 @@ lazy.setup({
 
   --[[
 
-  u.safe_require("plug_configs.nvim-scrollview"), -- scroll bar on right  -- TODO: удалить signs (highlight), +test
   --]]
 })

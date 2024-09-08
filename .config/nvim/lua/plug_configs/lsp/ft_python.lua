@@ -20,6 +20,7 @@ require("lspconfig").pyright.setup({
   -- },
 })
 
+
 -- NOTE: for codeactions
 -- require("lspconfig").ruff_lsp.setup({
 --   filetypes = { "python" },

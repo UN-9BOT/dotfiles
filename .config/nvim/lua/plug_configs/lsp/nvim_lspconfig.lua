@@ -29,6 +29,20 @@ M.keys = {
 }
 
 M.init = function()
+  vim.g.coq_settings = {
+    auto_start = true,
+    keymap = {
+      jump_to_mark = "",
+      manual_complete = "<A-space>",
+      -- pre_select = true,
+    },
+    match = { look_ahead = true, unifying_chars = { "_", "-" } },
+    -- limits = {
+    --     completion_auto_timeout = 0,
+    -- },
+
+    display = { icons = { mode = "short" } },
+  }
   -- this snippet enables auto-completion
   local lspCapabilities = vim.lsp.protocol.make_client_capabilities()
   lspCapabilities.textDocument.completion.completionItem.snippetSupport = true

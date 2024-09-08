@@ -1,6 +1,6 @@
 local M = {
   "fnune/recall.nvim",
-  lazy = true,
+  lazy = false,
 }
 
 local mappings = {
