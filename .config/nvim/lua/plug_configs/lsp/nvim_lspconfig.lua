@@ -1,8 +1,6 @@
 local M = { "neovim/nvim-lspconfig" }
 
-M.dependencies = {
-  "folke/trouble.nvim",
-}
+M.dependencies = {}
 
 local utils = require("utils")
 local mapping = require("plug_configs.lsp.utils").mapping
@@ -12,8 +10,10 @@ local r = utils.r
 M.dependencies = {
   { "stevanmilic/nvim-lspimport" },
   { "aznhe21/actions-preview.nvim" },
+  { "folke/trouble.nvim" },
   { "folke/neodev.nvim", config = r("neodev") }, -- lua api for neovim
   { "Fildo7525/pretty_hover", event = "LspAttach", opts = {}, config = r("pretty_hover") },
+  { "rmagatti/goto-preview", config = true },
 }
 
 M.keys = {
@@ -22,27 +22,16 @@ M.keys = {
   { "gdv", mapping.definition.v_def, desc = "Goto Definition in vsplit" },
   { "gdh", mapping.definition.h_def, desc = "Goto Definition in hsplit" },
   { "gdt", mapping.definition.t_def, desc = "Goto Definition in new Tab" },
+  { "gdT", mapping.definition.t_def, desc = "Goto Definition in new Tab" },
   { "gr", mapping.references.telescope, desc = "Goto References" },
   { "ga", mapping.code_action.custom, desc = "Code Action", mode = { "n", "v" } },
   { "gk", mapping.documentation.pretty, desc = "Show Diagnostics" },
   { "gR", mapping.rename.def, desc = "Rename" },
+  { "gi", mapping.incoming_calls.telescope, desc = "Incoming Calls" },
+  { "gt", mapping.type_definition.goto_preview, desc = "Goto Type Definition" },
 }
 
 M.init = function()
-  vim.g.coq_settings = {
-    auto_start = true,
-    keymap = {
-      jump_to_mark = "",
-      manual_complete = "<A-space>",
-      -- pre_select = true,
-    },
-    match = { look_ahead = true, unifying_chars = { "_", "-" } },
-    -- limits = {
-    --     completion_auto_timeout = 0,
-    -- },
-
-    display = { icons = { mode = "short" } },
-  }
   -- this snippet enables auto-completion
   local lspCapabilities = vim.lsp.protocol.make_client_capabilities()
   lspCapabilities.textDocument.completion.completionItem.snippetSupport = true

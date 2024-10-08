@@ -36,9 +36,10 @@ lazy.setup({
   -- NOTE: WITH CONFIG
   -- -----------------------
   --
-  u.safe_require("plug_configs.my_theme"), -- themes
-  u.safe_require("plug_configs.nvim-window-picker"), -- window picker for file_browser
+  u.safe_require("plug_configs.ui.my_theme"), -- themes
+  u.safe_require("plug_configs.ui.edgy"), -- ui
   u.safe_require("plug_configs.notify"), -- notifications
+  u.safe_require("plug_configs.nvim-window-picker"), -- window picker for file_browser
   u.safe_require("plug_configs.nvim_web_devicons"), -- for other _configsgins, extend with icons
   u.safe_require("plug_configs.markdown-preview"), -- markdown preview :MarkdownPreview
   u.safe_require("plug_configs.vim_smooth_scroll"), -- scrolling
@@ -47,9 +48,7 @@ lazy.setup({
   u.safe_require("plug_configs.treesitter"), -- highlight syntax
   u.safe_require("plug_configs.sessions"), -- session
   u.safe_require("plug_configs.easymotion"), -- fast motion
-  u.safe_require("plug_configs.indent_blankline"), -- indent blanklin for func
   u.safe_require("plug_configs.rainbow_delimiters"), -- rainbow brackets and operators
-  u.safe_require("plug_configs.mini.pairs"), -- autopairs for brackets
   u.safe_require("plug_configs.neogen"), -- DOC for C (doxygen)
   u.safe_require("plug_configs.git.gitsigns"), -- right sign inline
   u.safe_require("plug_configs.git.diffview"), -- Leader+D -- diffview in n/x
@@ -62,9 +61,10 @@ lazy.setup({
   u.safe_require("plug_configs.neotest"), -- tests ui
   u.safe_require("plug_configs.multicursor"), -- multi cursor
   u.safe_require("plug_configs.search.hlslens"), -- for navigate in search mode
-  u.safe_require("plug_configs.search.spectre"), -- search and replace
+  u.safe_require("plug_configs.search.grug"), -- search and replace
   u.safe_require("plug_configs.search.yankbank"), -- yank register ,r
   u.safe_require("plug_configs.search.telescope"), -- telescope
+  u.safe_require("plug_configs.search.nvim-rip-substitute"), -- rip substitute
   u.safe_require("plug_configs.smart-splits"), -- navigate and resize tmux [[ ctrl : navigate, alt : resize ]]
   u.safe_require("plug_configs.vim-matchup"), -- % match
   u.safe_require("plug_configs.sniprun"), -- run code (<F10>)
@@ -74,28 +74,46 @@ lazy.setup({
   u.safe_require("plug_configs.bmessages"), -- wrapper for :messages
   u.safe_require("plug_configs.rnvimr"), -- ranger
   u.safe_require("plug_configs.mason"), -- installer for features
-  u.safe_require("plug_configs.recall"), -- mark with global saveplu
+  u.safe_require("plug_configs.recall"), -- mark with global save
   u.safe_require("plug_configs.none_ls"), -- custom code actions
   u.safe_require("plug_configs.lsp.nvim_lspconfig"), -- lsp config
   u.safe_require("plug_configs.lsp.navbuddy"), -- lsp navigation
   u.safe_require("plug_configs.completition.nvim_cmp"), -- completition
   u.safe_require("plug_configs.conform"), -- Autoformat
-  u.safe_require("plug_configs.edgy"), -- ui
   u.safe_require("plug_configs.pantran"), -- translate : leader tr
   u.safe_require("plug_configs.todo_comments"), -- TODO: WARNING: FIX: XXX: BUG: NOTE:
   u.safe_require("plug_configs.arrow"), -- marks v2
-  u.safe_require("plug_configs.ai.avante"), -- chat
-  u.safe_require("plug_configs.ai.neocodeium"), -- codeium with fast completion
+  u.safe_require("plug_configs.ai.supermaven"), -- supermaven AI completion
+  u.safe_require("plug_configs.hlchunk"), -- highlight chunk (indent)
 
   -- ----------------------------
   -- NOTE: IN_PROGRESS
-  -- ----------------------------
+  --
+  {
+    "altermo/ultimate-autopair.nvim",
+    event = { "InsertEnter", "CmdlineEnter" },
+    opts = {},
+  },
+  {
+    "smjonas/live-command.nvim",
+    config = function()
+      require("live-command").setup({
+        commands = {
+          Norm = { cmd = "norm" },
+        },
+      })
+    end,
+  },
 
   -- ---------------------------
   -- NOTE: ARCHIVE
   -- ----------------------------
 
   --[[
+
+  u.safe_require("plug_configs.ai.neocodeium"), -- codeium with fa  st completion
+  u.safe_require("plug_configs.ai.avante"), -- chat
+  u.safe_require("plug_configs.search.spectre"), -- search and replace
 
   --]]
 })

@@ -27,21 +27,23 @@ M.config = function()
   local actions = require("telescope.actions")
   local builtin = require("telescope.builtin")
   local lga_actions = require("telescope-live-grep-args.actions")
+  local lga_shortucts = require("telescope-live-grep-args.shortcuts")
   local trouble = require("trouble.sources.telescope")
   local u = require("plug_configs.search.utils")
 
   local b = vim.keymap.set
   local opts = { noremap = true, silent = true }
   b({ "n", "v" }, ",v", builtin.grep_string, opts)
+  -- b({ "n", "v" }, ",v", lga_shortucts.grep_word_under_cursor, opts)
   b({ "n", "v" }, ",b", builtin.git_bcommits_range, opts)
   b("n", ",,", builtin.resume, opts)
   b("n", ",l", builtin.oldfiles, opts)
   b("n", ",o", builtin.jumplist, opts)
-  b("n", ",g", builtin.live_grep, opts)
+  b("n", ",G", builtin.live_grep, opts)
   b("n", ",f", builtin.find_files, opts)
   b("n", ",SS", builtin.lsp_dynamic_workspace_symbols, opts)
   b("n", ",Ss", builtin.lsp_document_symbols, opts)
-  b("n", ",G", require("telescope").extensions.live_grep_args.live_grep_args, opts)
+  b("n", ",g", require("telescope").extensions.live_grep_args.live_grep_args, opts)
 
   require("telescope").setup({
     defaults = {
@@ -54,12 +56,14 @@ M.config = function()
           ["<C-h>"] = actions.file_split,
           ["<C-v>"] = actions.file_vsplit,
           ["<C-q>"] = trouble.open,
+          ["<A-q>"] = trouble.open,
         },
         n = {
           ["<esc>"] = actions.close,
           ["<C-h>"] = actions.file_split,
           ["<C-v>"] = actions.file_vsplit,
           ["<C-q>"] = trouble.open,
+          ["<A-q>"] = trouble.open,
         },
       },
       layout_config = {
@@ -88,9 +92,10 @@ M.config = function()
         mappings = {
           i = {
             ["<C-k>"] = lga_actions.quote_prompt(),
-            ["<C-i>"] = lga_actions.quote_prompt({ postfix = ' -g "!tests/*" ' }),
+            ["<C-o>"] = lga_actions.quote_prompt({ postfix = ' -g "!tests/*" ' }),
             -- freeze the current list and start a fuzzy search in the frozen list
             ["<C-space>"] = actions.to_fuzzy_refine,
+            ["<tab>"] = actions.toggle_selection + actions.move_selection_previous,
           },
         },
       },

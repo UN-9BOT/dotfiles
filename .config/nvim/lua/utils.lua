@@ -121,11 +121,11 @@ M.custom_exit__force_close = function(opts)
     require("close_buffers").delete({ type = "nameless", force = true })
     require("close_buffers").delete({ regex = "Neotest Output Panel", force = true })
   end
-  if pcall(require, "avante") then
-    if require("avante").get():is_open() then
-      require("avante").get():close()
-    end
-  end
+  -- if pcall(require, "avante") then
+  --   if require("avante").get():is_open() then
+  --     require("avante").get():close()
+  --   end
+  -- end
 end
 
 return M

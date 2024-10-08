@@ -157,6 +157,10 @@ M.config = function()
       }),
       ["<A-space>"] = cmp.mapping.complete(),
       ["<C-r>"] = cmp.mapping(custom_mapping.rg_complete.v1(cmp), { "i", "s", "c" }), -- NOTE: ripgrep
+      -- ["<A-e>"] = function()
+      --   cmp.mapping.abort()
+      --   require("neocodeium").cycle_or_complete()
+      -- end,
     },
   })
   -- Set configuration for specific filetype.
@@ -185,19 +189,6 @@ M.config = function()
   -- cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
   vim.keymap.set("n", "<leader>i", custom_mapping.import.custom, {}) -- auto_import for python
-  if pcall(require, "neocodeium") then
-    local neocodeium = require("neocodeium")
-    local commands = require("neocodeium.commands")
-
-    cmp.event:on("menu_opened", function()
-      commands.disable()
-      neocodeium.clear()
-    end)
-
-    cmp.event:on("menu_closed", function()
-      commands.enable()
-    end)
-  end
 end
 
 return M

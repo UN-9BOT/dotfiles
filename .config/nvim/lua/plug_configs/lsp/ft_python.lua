@@ -20,6 +20,7 @@ require("lspconfig").pyright.setup({
   -- },
 })
 
+-- require("lspconfig").pyre.setup({ })
 
 -- NOTE: for codeactions
 -- require("lspconfig").ruff_lsp.setup({

@@ -14,6 +14,7 @@ M.config = function()
       -- Conform will run multiple formatters sequentially
       -- python = { "isort", "black" },
       python = { "black" },
+      -- python = { "black", "docformatter" },
       -- Use a sub-list to run only the first available formatter
       javascript = { { "prettierd", "prettier" } },
       sql = { "sql_formatter" },
@@ -24,6 +25,7 @@ M.config = function()
     },
   })
   conform.formatters.shfmt = { prepend_args = { "-i", "2", "-bn", "-ci", "-sr" } }
+  conform.formatters.docformatter = { prepend_args = { "--black" } }
   conform.formatters.stylua = { prepend_args = { "--config-path", "/home/vim9/.config/nvim/stylua.toml" } }
   conform.formatters.sql_formatter = { prepend_args = { "-l", "postgresql" } }
   conform.formatters.yamlfmt = { prepend_args = { "-conf", "/home/vim9/.config/nvim/yamlfmt.yml" } }
@@ -51,8 +53,8 @@ M.keys = {
     function()
       local args = {}
       if vim.bo.filetype == "python" then
-        args = {timeout_ms = 5000}
-      end 
+        args = { timeout_ms = 5000 }
+      end
       local okay_conform = require("conform").format(args)
 
       if not okay_conform then

@@ -20,11 +20,23 @@ M.config = function()
     summary = {
       animated = false,
     },
+    output = {
+      enabled = true,
+      open_on_run = "short",
+    },
     floating = {
-      border = "rounded",
+      border = "solid",
       max_height = 0.9,
       max_width = 0.9,
-      options = { wrap = true },
+      --LINK: https://neovim.io/doc/user/options.html#'winwidth'
+      options = {
+        wrap = true,
+        -- wiw = 999,
+      },
+    },
+    discovery = {
+      concurrent = 6,
+      enabled = true,
     },
     adapters = {
       require("neotest-python")({
@@ -48,10 +60,10 @@ M.config = function()
         -- NOTE: слишком медленный парсинг и грузит проц
         -- используется для парсинга параметризированных тестов
         -- для отображения параметризированных выставить true
+        -- смотреть в discovery.concurrent количество процессов
         -- WARNING: спавнит кучу процессов python
         pytest_discover_instances = false,
       }),
-      -- require("neotest-plenary").setup({}),
     },
   })
 
