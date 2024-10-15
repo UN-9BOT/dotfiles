@@ -69,6 +69,7 @@ M.opts = {
     end,
   },
   animate = { enabled = false },
+  close_when_all_hidden = true,
   exit_when_last = true,
   wo = {
     winbar = true,

@@ -21,13 +21,13 @@ M.config = function()
       animated = false,
     },
     output = {
-      enabled = true,
+      enabled = false,
       open_on_run = "short",
     },
     floating = {
       border = "solid",
-      max_height = 0.9,
-      max_width = 0.9,
+      max_height = 0.99,
+      max_width = 0.99,
       --LINK: https://neovim.io/doc/user/options.html#'winwidth'
       options = {
         wrap = true,

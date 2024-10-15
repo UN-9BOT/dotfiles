@@ -57,6 +57,8 @@ M.config = function()
           ["<C-v>"] = actions.file_vsplit,
           ["<C-q>"] = trouble.open,
           ["<A-q>"] = trouble.open,
+          ["<C-Down>"] = actions.cycle_history_next,
+          ["<C-Up>"] = actions.cycle_history_prev,
         },
         n = {
           ["<esc>"] = actions.close,
@@ -93,6 +95,8 @@ M.config = function()
           i = {
             ["<C-k>"] = lga_actions.quote_prompt(),
             ["<C-o>"] = lga_actions.quote_prompt({ postfix = ' -g "!tests/*" ' }),
+            ["<F1>"] = lga_actions.quote_prompt({ postfix = ' -g "!tests/*" ' }),
+            ["<F2>"] = lga_actions.quote_prompt({ postfix = ' -g "!tests/*" ' }),
             -- freeze the current list and start a fuzzy search in the frozen list
             ["<C-space>"] = actions.to_fuzzy_refine,
             ["<tab>"] = actions.toggle_selection + actions.move_selection_previous,
@@ -109,7 +113,6 @@ M.config = function()
   vim.cmd("autocmd User TelescopePreviewerLoaded setlocal number") -- line number in previeew mode
   require("telescope").load_extension("fzf")
   require("telescope").load_extension("live_grep_args")
-  -- require("telescope").load_extension("persisted")
 end
 
 return M

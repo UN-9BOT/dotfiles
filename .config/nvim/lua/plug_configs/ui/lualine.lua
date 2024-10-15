@@ -2,6 +2,23 @@ local M = {
   "nvim-lualine/lualine.nvim",
 }
 
+local supermaven = {
+  check_status = function()
+    local ok, supermaven_repo = pcall(require, "plug_configs.ai.supermaven")
+    if not ok then
+      return ""
+    end
+    return supermaven_repo.check_status_supermaven()
+  end,
+  toggle = function()
+    local ok, supermaven_repo = pcall(require, "plug_configs.ai.supermaven")
+    if not ok then
+      return
+    end
+    supermaven_repo.toggle_supermaven()
+  end,
+}
+
 local function check_status_linters()
   local linters = require("lint").get_running()
   if #linters == 0 then
@@ -89,11 +106,18 @@ M.config = function()
       lualine_c = {
         {
           function()
-            return _G.is_mypy_enabled and " " or " "
+            return _G.is_mypy_enabled and "mypy  " or "mypy  "
           end,
+          color = { fg = "#aaba88", bg = "grey" },
+
         },
         { test_status_counts },
         { check_status_linters },
+        {
+          supermaven.check_status,
+          on_click = supermaven.toggle,
+          color = { fg = "#ffaa88", bg = "grey", gui = "italic,bold" },
+        },
       },
     },
   })

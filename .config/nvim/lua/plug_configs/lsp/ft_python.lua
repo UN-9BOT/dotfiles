@@ -43,23 +43,25 @@ require("lspconfig").basedpyright.setup({
   root_dir = lsputil.root_pattern(".git", "requirements.txt", "pyproject.toml", "Makefile", "README.md"),
   settings = {
     -- https://microsoft.github.io/pyright/#/configuration?id=main-configuration-options
-      analysis = {
-        autoSearchPaths = true,
-        diagnosticMode = "openFilesOnly",
-        useLibraryCodeForTypes = true,
-        typeCheckingMode = "standard",
-      },
-      diagnosticSeverityOverrides = {
-        reportUnusedCallResult = "information",
-        reportUnusedExpression = "information",
-        reportUnknownMemberType = "none",
-        reportUnknownLambdaType = "none",
-        reportUnknownParameterType = "none",
-        reportMissingParameterType = "none",
-        reportUnknownVariableType = "none",
-        reportUnknownArgumentType = "none",
-        reportAny = "none",
-      },
+    analysis = {
+      autoSearchPaths = true,
+      diagnosticMode = "workspace",
+      useLibraryCodeForTypes = true,
+      -- typeCheckingMode = "standard",
+      typeCheckingMode = "basic",
+    },
+    diagnosticSeverityOverrides = {
+      reportUnusedCallResult = "information",
+      reportUnusedExpression = "information",
+      reportUnknownMemberType = "none",
+      reportUnknownLambdaType = "none",
+      reportUnknownParameterType = "none",
+      reportMissingParameterType = "none",
+      reportUnknownVariableType = "none",
+      reportUnknownArgumentType = "none",
+      reportAny = "none",
+      reportImplicitStringConcatenation = "none",
+    },
   },
 })
 --]]
