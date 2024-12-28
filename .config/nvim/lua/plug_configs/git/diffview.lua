@@ -1,4 +1,4 @@
-local M = { "sindrets/diffview.nvim", lazy = true }
+local M = { "sindrets/diffview.nvim", lazy = false }
 
 local function DiffviewToggle()
   if require("diffview.lib").get_current_view() then
@@ -22,5 +22,6 @@ end
 M.keys = {
   { "<leader>D", DiffviewToggle, mode = { "n", "v" }, desc = "DiffviewToggle" },
 }
+
 
 return M

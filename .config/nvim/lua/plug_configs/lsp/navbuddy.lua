@@ -12,7 +12,7 @@ M.keys = {
     function()
       require("nvim-navbuddy").open()
     end,
-    desc = "Flash",
+    desc = "LSP: Navbuddy",
   },
 }
 

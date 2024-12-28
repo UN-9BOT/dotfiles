@@ -102,5 +102,6 @@ M.config = function()
 end
 M.keys = {
   { "gy", ":Trouble quickfix toggle<CR><c-k>", { silent = true } },
+  { "gY", "<cmd>Trouble diagnostics toggle filter.buf=0<cr><c-k>", { silent = true } },
 }
 return M

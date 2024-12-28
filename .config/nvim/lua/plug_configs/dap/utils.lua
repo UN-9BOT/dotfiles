@@ -75,7 +75,7 @@ M.custom_mapping = function(dap, dap_widgets, nf, dap_ui)
     dapui = {
       floating = {
         breakpoints = function()
-          dap_ui.float_element("breakpoints")
+          dap_ui.float_element("breakpoints", { width = 55, height = 30, position= "center" })
         end,
         eval = function(expr)
           local args = {

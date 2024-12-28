@@ -17,17 +17,20 @@ M.config = function()
       -- python = { "black", "docformatter" },
       -- Use a sub-list to run only the first available formatter
       javascript = { { "prettierd", "prettier" } },
-      sql = { "sql_formatter" },
+      -- sql = { "sql_formatter" },
+      sql = { "sqlfluff" },
       xml = { "xmllint" },
       json = { "fixjson" },
       c = { "clang-format" },
       yaml = { "yamlfmt" },
+      sh = { "shfmt" },
     },
   })
-  conform.formatters.shfmt = { prepend_args = { "-i", "2", "-bn", "-ci", "-sr" } }
+  conform.formatters.shfmt = { prepend_args = { "-i", "4", "-bn", "-ci", "-sr" } }
   conform.formatters.docformatter = { prepend_args = { "--black" } }
   conform.formatters.stylua = { prepend_args = { "--config-path", "/home/vim9/.config/nvim/stylua.toml" } }
-  conform.formatters.sql_formatter = { prepend_args = { "-l", "postgresql" } }
+  -- conform.formatters.sql_formatter = { prepend_args = { "-l", "postgresql" } }
+  conform.formatters.sqlfluff = { append_args = { "--config", "/home/vim9/.config/nvim/.sqlfluff" } }
   conform.formatters.yamlfmt = { prepend_args = { "-conf", "/home/vim9/.config/nvim/yamlfmt.yml" } }
 
   -- local black_args = { "--fast", "-l", "120" }
@@ -49,7 +52,7 @@ end
 
 M.keys = {
   {
-    "<leader>F",
+    "<leader>ff",
     function()
       local args = {}
       if vim.bo.filetype == "python" then
@@ -69,7 +72,20 @@ M.keys = {
       end
     end,
     mode = { "n", "v" },
-    desc = "Format Injected Langs",
+    desc = "Conform: default format",
+  },
+  {
+    "<leader>fF",
+    function()
+      local okay_conform = require("conform").format({ timeout_ms = 5000, formatters = { "docformatter" } })
+      if not okay_conform then
+        require("plug_configs.notify").nfe("󰏣:Conform: docformatter Error")
+      else
+        require("plug_configs.notify").nf("󰏣:Conform: docformatter Success")
+      end
+    end,
+    mode = { "n", "v" },
+    desc = "Conform: docformatter",
   },
 }
 return M

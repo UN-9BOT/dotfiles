@@ -1,19 +1,13 @@
-#
-# os:
-#   edit: 'nvr --servername /tmp/nvim-server.pipe --remote-tab "$(pwd)/{{filename}}"'
-# os:
-  # editPreset: 'nvim'
-
-  # editCommand: 'nvim'
-  # editCommandTemplate: 'nvr --remote "{{filename}}"'
-# editCommandTemplate: '{{editor}} --server /tmp/nvim-server.pipe --remote-tab-silent "$(pwd)/{{filename}}"'
-# editCommandTemplate: '{{editor}} --server /tmp/nvim-server-$(tmux display-message -p "#S").pipe --remote-tab "$(pwd)/{{filename}}"'
-#
 promptToReturnFromSubprocess: false
-os:
-  edit: 'nvim --server /tmp/nvim-server-$(tmux display-message -p "#S").pipe --remote-tab "$(pwd)/{{filename}}"'
-  editAtLine: 'nvim --server /tmp/nvim-server-$(tmux display-message -p "#S").pipe --remote-tab "$(pwd)/{{filename}}"; nvim --server /tmp/nvim-server--$(tmux display-message -p "#S").pipe --remote-send ":{{line}}<CR>"'
-  openDirInEditor: 'nvim --server /tmp/nvim-server-$(tmux display-message -p "#S").pipe --remote-tab {{dir}}'
+
+git:
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never --line-numbers --syntax-theme="Dracula"
+    # pager: diff-so-fancy
+  commitPrefix:
+    pattern: "^(\\w+-\\w+).*"
+    replace: '$1 - '
 
 services:
   'git@gitlab.inplatlabs.ru': 'gitlab:git@gitlab.inplatlabs.ru'

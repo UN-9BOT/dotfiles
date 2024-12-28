@@ -1,6 +1,6 @@
 local M = {
   "lewis6991/gitsigns.nvim",
-  lazy=false,
+  lazy = false,
 }
 
 M.config = function()
@@ -43,6 +43,30 @@ M.config = function()
       col = 1,
     },
     on_attach = function(bufnr)
+      local function run_git_log()
+        local word = vim.fn.expand("<cword>")
+        local hash_length = #word
+        if hash_length ~= 7 and hash_length ~= 40 then
+          require("plug_configs.notify").nfe(
+            "Неверная длина хэша. Хэш должен содержать либо 7, либо 40 символов."
+          )
+          return
+        end
+
+        local command = "git log " .. word .. "..HEAD --ancestry-path --merges --oneline | tail -n 1"
+        local handle = io.popen(command)
+        if handle == nil then
+          return
+        end
+        local result = handle:read("*a")
+        handle:close()
+        require("plug_configs.notify").nf(result)
+      end
+
+      vim.keymap.set("n", "\\gh", run_git_log, { noremap = true, silent = true })
+
+      -- Привязываем функцию к команде Neovim
+
       local function map(mode, lhs, rhs, opts)
         opts = vim.tbl_extend("force", { noremap = true }, opts or {})
         vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)

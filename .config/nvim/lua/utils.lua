@@ -75,6 +75,10 @@ M.force_close_buffers = function()
     "dap-repl",
     "toggleterm",
     "hoversplit",
+    "Neotest Output Panel",
+    "Neotest Summary",
+    "neotest-output",
+    "ranger",
   }
   for _, buf in pairs(end_target_bufs) do
     local buf_ids = vim.api.nvim_list_bufs()
@@ -120,6 +124,9 @@ M.custom_exit__force_close = function(opts)
     require("close_buffers").delete({ type = "hidden", force = true })
     require("close_buffers").delete({ type = "nameless", force = true })
     require("close_buffers").delete({ regex = "Neotest Output Panel", force = true })
+    require("close_buffers").delete({ regex = "Neotest Summary", force = true })
+    require("close_buffers").delete({ regex = "neotest-output", force = true })
+    require("close_buffers").delete({ regex = "dap-repl", force = true })
   end
   -- if pcall(require, "avante") then
   --   if require("avante").get():is_open() then

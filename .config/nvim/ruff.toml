@@ -48,6 +48,7 @@ select = [
     # "D", # pydocstyle
     "E", # pycodestyle
     "F", # Pyflakes
+    "W", # pycodestyle
     # "I", # isort
     "INT", # flake8-gettext
     "N", # pep8-naming
@@ -61,6 +62,7 @@ select = [
     "PL",  # Pylint
     "PT",  # flake8-pytest-style
     "ARG",  # flake8-argument
+    "TCH",  # flake8-type-checking
 ]
 unfixable = ["F401", "F841"]
 

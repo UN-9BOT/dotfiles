@@ -23,6 +23,7 @@ M.dependencies = {
   { "nvim-telescope/telescope-live-grep-args.nvim" },
   { "scottmckendry/telescope-resession.nvim" },
 }
+
 M.config = function()
   local actions = require("telescope.actions")
   local builtin = require("telescope.builtin")
@@ -34,8 +35,8 @@ M.config = function()
   local b = vim.keymap.set
   local opts = { noremap = true, silent = true }
   b({ "n", "v" }, ",v", builtin.grep_string, opts)
-  -- b({ "n", "v" }, ",v", lga_shortucts.grep_word_under_cursor, opts)
-  b({ "n", "v" }, ",b", builtin.git_bcommits_range, opts)
+  -- b({ "n", "v" }, ",v", u._add_buf_name(lga_shortucts.grep_word_under_cursor), opts)
+  -- b({ "n", "v" }, ",b", builtin.git_bcommits_range, opts)
   b("n", ",,", builtin.resume, opts)
   b("n", ",l", builtin.oldfiles, opts)
   b("n", ",o", builtin.jumplist, opts)
@@ -43,7 +44,8 @@ M.config = function()
   b("n", ",f", builtin.find_files, opts)
   b("n", ",SS", builtin.lsp_dynamic_workspace_symbols, opts)
   b("n", ",Ss", builtin.lsp_document_symbols, opts)
-  b("n", ",g", require("telescope").extensions.live_grep_args.live_grep_args, opts)
+  -- b("n", ",g", require("telescope").extensions.live_grep_args.live_grep_args, opts)
+  b("n", ",g", u._add_buf_name(require("telescope").extensions.live_grep_args.live_grep_args), opts)
 
   require("telescope").setup({
     defaults = {
@@ -96,8 +98,8 @@ M.config = function()
             ["<C-k>"] = lga_actions.quote_prompt(),
             ["<C-o>"] = lga_actions.quote_prompt({ postfix = ' -g "!tests/*" ' }),
             ["<F1>"] = lga_actions.quote_prompt({ postfix = ' -g "!tests/*" ' }),
-            ["<F2>"] = lga_actions.quote_prompt({ postfix = ' -g "!tests/*" ' }),
-            -- freeze the current list and start a fuzzy search in the frozen list
+            -- ["<F2>"] = u.__find_lib(),
+            ["<F2>"] = u.LGA:find_lib(),
             ["<C-space>"] = actions.to_fuzzy_refine,
             ["<tab>"] = actions.toggle_selection + actions.move_selection_previous,
           },
@@ -113,6 +115,59 @@ M.config = function()
   vim.cmd("autocmd User TelescopePreviewerLoaded setlocal number") -- line number in previeew mode
   require("telescope").load_extension("fzf")
   require("telescope").load_extension("live_grep_args")
+  require("telescope").load_extension("attempt")
+
+  local my_find_files
+  my_find_files = function(opts, no_ignore)
+    opts = opts or {}
+    no_ignore = vim.F.if_nil(no_ignore, false)
+    opts.attach_mappings = function(_, map)
+      map({ "n", "i" }, "<C-z>", function(prompt_bufnr) -- <C-h> to toggle modes
+        local prompt = require("telescope.actions.state").get_current_line()
+        require("telescope.actions").close(prompt_bufnr)
+        no_ignore = not no_ignore
+        my_find_files({ default_text = prompt }, no_ignore)
+      end)
+      return true
+    end
+
+    if no_ignore then
+      opts.no_ignore = true
+      opts.hidden = true
+      opts.prompt_title = "Find Files <ALL>"
+      require("telescope.builtin").find_files(opts)
+    else
+      opts.prompt_title = "Find Files"
+      require("telescope.builtin").find_files(opts)
+    end
+  end
+  local my_live_grep
+  my_live_grep = function(opts, no_ignore)
+    opts = opts or {}
+    no_ignore = vim.F.if_nil(no_ignore, false)
+    opts.attach_mappings = function(_, map)
+      map({ "n", "i" }, "<C-z>", function(prompt_bufnr) -- <C-h> to toggle modes
+        local prompt = require("telescope.actions.state").get_current_line()
+        require("telescope.actions").close(prompt_bufnr)
+        no_ignore = not no_ignore
+        my_live_grep({ default_text = prompt }, no_ignore)
+      end)
+      return true
+    end
+
+    if no_ignore then
+      opts.no_ignore = true
+      opts.hidden = true
+      opts.prompt_title = "Live Grep <ALL>"
+      require("telescope.builtin").live_grep(opts)
+    else
+      opts.prompt_title = "Live Grep"
+      require("telescope.builtin").live_grep(opts)
+    end
+  end
+
+  -- vim.keymap.set("n", ",w", my_find_files) -- you can then bind this to whatever you want
+  -- vim.keymap.set("n", ",e", my_live_grep) -- you can then bind this to whatever you want
 end
 
 return M

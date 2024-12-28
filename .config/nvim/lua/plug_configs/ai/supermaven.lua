@@ -2,6 +2,8 @@ local M = {
   "supermaven-inc/supermaven-nvim",
 }
 
+-- M._status = true
+
 M.config = function()
   require("supermaven-nvim").setup({
     keymaps = {
@@ -22,32 +24,23 @@ M.config = function()
     disable_inline_completion = false, -- disables inline completion for use with cmp
     disable_keymaps = false, -- disables built in keymaps for more manual control
     condition = function()
+      -- return not M._status
       return false
     end,
   })
-end
 
-M.check_status_supermaven = function()
-  local ok, supermaven = pcall(require, "supermaven-nvim.api")
-  if not ok then
-    return "NOT AI"
+  local b = vim.keymap.set
+
+  local clean_toggle = function()
+    local api = require("supermaven-nvim.api")
+    local completion_preview = require("supermaven-nvim.completion_preview")
+    api.toggle()
+    completion_preview.on_dispose_inlay()
   end
 
-  if supermaven.is_running() then
-    print("supermaven is running")
-    return "AI  "
-  end
-  print("supermaven is not running")
-  return "AI  "
-end
+  b({ "n", "i" }, "<F19>", clean_toggle)
 
-M.toggle_supermaven = function()
-  local ok, supermaven = pcall(require, "supermaven-nvim.api")
-  if not ok then
-    return
-  end
-
-  supermaven.toggle()
+  vim.g.SUPERMAVEN_DISABLED = 1
 end
 
 return M

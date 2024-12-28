@@ -3,6 +3,8 @@ local M = {
   lazy = false,
   dependencies = {
     "nvim-treesitter/nvim-treesitter-textobjects",
+    -- { "andersevenrud/nvim_context_vt" },
+    { "dariuscorvus/tree-sitter-language-injection.nvim", opts = {}, event = { "BufReadPre" } }, -- for injections
     {
       "nvim-treesitter/nvim-treesitter-context",
       config = function()
@@ -50,8 +52,8 @@ M.config = function()
           ["if"] = "@function.inner",
           ["il"] = "@loop.inner",
           ["al"] = "@loop.outer",
-          ["ic"] = "@conditional.inner",
-          ["ac"] = "@conditional.outer",
+          ["ic"] = "@comment.inner",
+          ["ac"] = "@comment.outer",
           -- You can optionally set descriptions to the mappings (used in the desc parameter of
           -- nvim_buf_set_keymap) which plugins like which-key display
           -- ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },

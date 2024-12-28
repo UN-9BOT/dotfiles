@@ -25,7 +25,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "bash", "sh", "lua", "markdown" },
+  pattern = { "bash", "sh", "lua", "markdown", "json" },
   callback = function()
     vim.bo.shiftwidth = 2
     -- vim.bo.smarttab = true

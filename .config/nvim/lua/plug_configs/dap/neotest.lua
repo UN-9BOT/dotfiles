@@ -21,7 +21,7 @@ M.config = function()
       animated = false,
     },
     output = {
-      enabled = false,
+      enabled = true,
       open_on_run = "short",
     },
     floating = {

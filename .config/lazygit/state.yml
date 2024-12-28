@@ -1,0 +1,66 @@
+lastupdatecheck: 0
+recentrepos:
+    - /home/vim9/code/python/dbs/bnpl_billing_jobs
+    - /home/vim9/code/python/dbs/bnpl_back
+    - /home/vim9/code/python/dbs/broker
+    - /home/vim9/code/python/dbs/customer-core
+    - /home/vim9/code/python/dbs/bnpl-si
+    - /home/vim9/code/python/dbs/ali-app
+    - /home/vim9/code/python/dbs/sbp_box
+    - /home/vim9/code/python/dbs/fintech-broker-si
+    - /home/vim9/code/python/dbs/blocklists
+    - /home/vim9/code/python/dbs/dadata-cache
+    - /home/vim9/code/python/STUDY/goome
+    - /home/vim9/code/python/dbs/customer-core-si
+    - /home/vim9/code/python/dbs/databox20
+    - /home/vim9/code/python/dbs/sbp_box_si
+    - /home/vim9/code/python/dbs/blocklists-si
+    - /home/vim9/code/python/dbs/redbox
+    - /home/vim9/.prog/leetmouse-gui
+    - /home/vim9/.prog/leetmouse
+    - /home/vim9/code/python/dbs/bnpl_mocker
+    - /home/vim9/code/python/advent_of_code
+    - /home/vim9/code/lua/test/nvim-dap
+    - /home/vim9/code/python/STUDY/python/TEST_TASKS/Parsing-Test-Task
+    - /home/vim9/code/python/STUDY
+    - /home/vim9/code/python/dbs/card_holder
+    - /home/vim9/code/python/dbs/ipapp
+    - /home/vim9/code/python/dbs/ids_lists
+    - /home/vim9/code/python/dbs/feeds_jobs
+    - /home/vim9/code/s21/LinuxMonitoring_2_0/0MY
+    - /home/vim9/code/s21/internship-1
+    - /home/vim9/code/python/dbs/ids_lists_interface
+    - /home/vim9/.oh-my-zsh/custom/plugins/dotbare
+    - /home/vim9/code/opensource/nvim-lint
+    - /home/vim9/code/s21/smartcalc/ooosae
+    - /home/vim9/code/s21/smartcalc/0MY
+    - /home/vim9/code/s21/smartcalc/merarynd
+    - /home/vim9/code/s21/MATRIX/0MY
+    - /home/vim9/code/s21/MATRIX/azat/C6_s21_matrix-1 2/C6_s21_matrix-1
+    - /home/vim9/code/s21/LinuxMonitoring_1_0/DO3_LinuxMonitoring_v1.0-1
+    - /home/vim9/code/s21/MATH/barnardd
+    - /home/vim9/code/s21/app_bootcamp/Python_Bootcamp.Day00-1
+    - /home/vim9/code/s21/MATH/C4_s21_math-3
+    - /home/vim9/code/s21/MATH/C4_s21_math-2
+    - /home/vim9/code/s21/LinuxMonitoring_2_0/funddaba
+    - /home/vim9/code/s21/Linux1/epimethm
+    - /home/vim9/code/s21/SIMPLEDOCKER/0MY
+    - /home/vim9/code/python/web3/checker_proxy
+    - /home/vim9/code/python/web3/old_eth
+startuppopupversion: 5
+lastversion: 0.44.1
+customcommandshistory:
+    - git reset --soft HEAD~
+    - git reset --hard HEAD~1
+    - pre-commit run --all-files
+    - git reset --hard origin/BNPL-801
+    - git revert --no-commit HEAD~3
+    - git pull --force
+hidecommandlog: false
+ignorewhitespaceindiffview: false
+diffcontextsize: 3
+renamesimilaritythreshold: 55
+localbranchsortorder: recency
+remotebranchsortorder: alphabetical
+gitlogorder: topo-order
+gitlogshowgraph: always

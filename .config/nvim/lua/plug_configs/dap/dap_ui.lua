@@ -8,6 +8,7 @@ M.config = function()
   local nf = require("plug_configs.notify").nf
 
   require("dapui").setup({
+    expand_lines = false,
     layouts = {
       {
         elements = {

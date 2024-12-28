@@ -114,7 +114,7 @@ M.opts = {
     { ft = "dap-repl", title = "Repl", size = { height = 0.1 } },
     { ft = "qf", title = "QuickFix" },
     { ft = "dapui_console", title = "Console" },
-    { ft = "neotest-output-panel", title = " Test Output" },
+    { ft = "neotest-output-panel", title = " Test Output", size = { height = 0.3 } },
   },
 }
 return M

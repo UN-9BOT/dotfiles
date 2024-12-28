@@ -3,7 +3,7 @@ return {
   config = function()
     local null_ls = require("null-ls")
     null_ls.register({
-      name = "add type ignore",
+      name = "add type: ignore",
       method = { require("null-ls").methods.CODE_ACTION },
       filetypes = { "python", "lua" },
       generator = {
@@ -12,13 +12,30 @@ return {
             {
               title = "# type: ignore",
               action = function()
+                local line = vim.api.nvim_get_current_line()
                 if vim.bo.filetype == "python" then
-                  vim.cmd("normal! A  # type: ignore")
-                  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "i", false)
+                  vim.api.nvim_set_current_line(line .. "  # type: ignore")
                 elseif vim.bo.filetype == "lua" then
-                  vim.cmd("normal! A --luacheck: ignore")
-                  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "i", false)
+                  vim.api.nvim_set_current_line(line .. "  --luacheck: ignore")
                 end
+              end,
+            },
+          }
+        end,
+      },
+    })
+    null_ls.register({
+      name = "add pyright: ignore",
+      method = { require("null-ls").methods.CODE_ACTION },
+      filetypes = { "python", "lua" },
+      generator = {
+        fn = function()
+          return {
+            {
+              title = "# pyright: ignore",
+              action = function()
+                local line = vim.api.nvim_get_current_line()
+                vim.api.nvim_set_current_line(line .. "  # pyright: ignore")
               end,
             },
           }
@@ -35,8 +52,8 @@ return {
             {
               title = "# noqa",
               action = function()
-                vim.cmd("normal! A  # noqa")
-                vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "i", false)
+                local line = vim.api.nvim_get_current_line()
+                vim.api.nvim_set_current_line(line .. "  # noqa")
               end,
             },
           }

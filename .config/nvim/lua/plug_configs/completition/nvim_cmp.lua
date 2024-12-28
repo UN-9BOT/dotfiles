@@ -2,6 +2,7 @@ local M = {
   "hrsh7th/nvim-cmp",
   -- commit = "b356f2c",
   -- pin = true,
+  enabled = true,
 }
 
 local cmp_utils = require("plug_configs.completition.utils")
@@ -25,18 +26,6 @@ M.dependencies = {
 
   "hrsh7th/cmp-nvim-lsp-document-symbol",
 
-  {
-    "ray-x/lsp_signature.nvim",
-    ---@diagnostic disable-next-line: unused-local
-    config = function(_, opts) --luacheck: ignore
-      require("lsp_signature").setup({
-        hint_enable = false,
-        -- cursorhold_update = false,
-        zindex = 45,
-        max_width = 100,
-      })
-    end,
-  },
 }
 
 M.config = function()

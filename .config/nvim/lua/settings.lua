@@ -106,7 +106,7 @@ vim.opt.listchars = { tab = "  ", trail = "·", extends = "»", precedes = "«",
 vim.opt.list = true
 
 -- split style
-vim.opt.fillchars = { vert = "▒" }
+vim.opt.fillchars = { vert = "▒", --[[ fold= ' ' ]] }
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 
@@ -141,3 +141,4 @@ vim.bo.imsearch = 0
 vim.opt.exrc = true
 vim.opt.secure = true
 vim.opt.shadafile = ".idea/project.shada"
+

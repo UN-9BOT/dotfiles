@@ -9,6 +9,7 @@ M.config = function()
 
   lint.linters_by_ft = {
     python = { "ruff" },
+    -- python = { "ruff", "flake8" },
     c = { "cppcheck", "clangtidy" },
     sh = { "zsh", "shellcheck" },
     dockerfile = { "hadolint" },
@@ -67,11 +68,16 @@ M.config = function()
 
   -- NOTE: toggle mypy
   _G.is_mypy_enabled = false
-  vim.keymap.set("n", "gl", lint_utils.toggle_mypy(lint), { desc = "Toggle mypy" })
+  vim.keymap.set("n", "gL", lint_utils.toggle_mypy(lint), { desc = "Toggle mypy" })
+  vim.keymap.set("n", "gl", function()
+    vim.cmd("LspRestart")
+    vim.cmd("Gitsigns refresh")
+  end, { desc = "Restart lint" })
 
   -- restart lsp
-  vim.keymap.set("n", "gL", function()
+  vim.keymap.set("n", "gl", function()
     vim.cmd("LspRestart")
+    vim.cmd("Gitsigns refresh")
   end, { desc = "Restart lint" })
 
   vim.api.nvim_set_keymap(

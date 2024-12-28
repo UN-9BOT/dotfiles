@@ -34,6 +34,7 @@ M.toggle_mypy = function(lint)
 
         require("lint").try_lint()
         vim.cmd("LspRestart")
+        vim.cmd("Gitsigns refresh")
 
         require("notify").notify("  Disable mypy", "WARN", {})
         _G.is_mypy_enabled = false
@@ -41,6 +42,7 @@ M.toggle_mypy = function(lint)
         lint.linters_by_ft.python = { "ruff", "mypy" }
         require("lint").try_lint()
         vim.cmd("LspRestart")
+        vim.cmd("Gitsigns refresh")
 
         require("notify").notify("  Try mypy lint", "TRACE", {})
         _G.is_mypy_enabled = true

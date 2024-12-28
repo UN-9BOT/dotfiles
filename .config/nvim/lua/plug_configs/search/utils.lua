@@ -1,6 +1,5 @@
 local M = {}
 
-
 M.file_ignore_patterns = {
   "node_modules",
   "static",
@@ -122,5 +121,104 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     end
   end,
 })
+
+M._add_buf_name = function(func)
+  return function(...)
+    -- Объявляем глобальную переменную
+    _G.__buf_name = vim.fn.expand("%")
+    require("plug_configs.notify").nfe(_G.__buf_name)
+    -- Вызываем оригинальную функцию с теми же аргументами
+    return func(...)
+  end
+end
+
+M.__find_lib = function()
+  local action_state = require("telescope.actions.state")
+  local helpers = require("telescope-live-grep-args.helpers")
+
+  local default_opts = {
+    quote_char = '"',
+    postfix = " ",
+    trim = true,
+  }
+
+  local opts = {}
+  opts = vim.tbl_extend("force", default_opts, opts)
+
+  return function(prompt_bufnr)
+    local picker = action_state.get_current_picker(prompt_bufnr)
+    local prompt = picker:_get_prompt()
+    if opts.trim then
+      prompt = vim.trim(prompt)
+    end
+
+    local buf_name = _G.__buf_name or "ljl/.venv/jlk/tttt/lkj/lkj.py"
+    buf_name = buf_name:match(".*(/%.venv.*)") or buf_name
+    -- Убираем последний компонент пути
+    buf_name = buf_name:match("(.*)[/\\][^/\\]+$") or buf_name
+    prompt = helpers.quote(prompt, { quote_char = opts.quote_char })
+      .. ' -g "'
+      .. buf_name
+      .. '/**" -. --no-ignore --no-require-git'
+    picker:set_prompt(prompt)
+  end
+end
+
+local LGA = {}
+
+---add extra prompt to live_grep_args
+--- @param value string
+--- @return function
+function LGA:__set_extra_prompt(value, prompt_bufnr)
+  local action_state = require("telescope.actions.state")
+  local picker = action_state.get_current_picker(prompt_bufnr)
+  local prompt = picker:_get_prompt()
+  prompt = vim.trim(prompt)
+  prompt = prompt .. value
+  picker:set_prompt(prompt)
+end
+
+---add prompt to live_grep_args = find in lib .venv
+--- @return function
+function LGA:find_lib()
+  return function(prompt_bufnr)
+    local buf_name = _G.__buf_name
+    buf_name = buf_name:match(".*(/%.venv.*)") or buf_name -- Убираем префикс пути перед venv
+    buf_name = buf_name:match("(.*)[/\\][^/\\]+$") or buf_name -- Убираем последний компонент пути
+    local prompt = ' -g "' .. buf_name .. '/**" -. --no-ignore --no-require-git'
+    return self:__set_extra_prompt(prompt, prompt_bufnr)
+  end
+end
+
+M.LGA = LGA
+
+M.__get_prefix = function()
+  local action_state = require("telescope.actions.state")
+  local helpers = require("telescope-live-grep-args.helpers")
+
+  local default_opts = {
+    quote_char = '"',
+    postfix = " ",
+    trim = true,
+  }
+
+  local opts = {}
+  opts = vim.tbl_extend("force", default_opts, opts)
+
+  return function(prompt_bufnr)
+    local picker = action_state.get_current_picker(prompt_bufnr)
+    local prompt = picker:_get_prompt()
+    if opts.trim then
+      prompt = vim.trim(prompt)
+    end
+
+    local buf_name = _G.__buf_name or "ljl/.venv/jlk/tttt/lkj/lkj.py"
+    buf_name = buf_name:match(".*(/%.venv.*)") or buf_name
+    -- Убираем последний компонент пути
+    buf_name = buf_name:match("(.*)[/\\][^/\\]+$") or buf_name
+    prompt = prompt .. ' -g "' .. buf_name .. '/**" -. --no-ignore --no-require-git'
+    picker:set_prompt(prompt)
+  end
+end
 
 return M

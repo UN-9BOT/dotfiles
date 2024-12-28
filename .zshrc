@@ -51,6 +51,8 @@ alias bd='blobdrop'
 alias task='go-task'
 alias t='go-task'
 
+alias mt='sh ~/.prog/mouse-follows-focus/toggle.sh'
+
 mdcd () {
  mkdir "$1" && cd "$1"
 }
@@ -173,7 +175,6 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-source /home/vim9/.config/broot/launcher/bash/br
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
 # Created by `pipx` on 2023-10-14 15:28:34
