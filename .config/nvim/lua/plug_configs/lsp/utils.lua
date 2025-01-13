@@ -142,6 +142,10 @@ M.mapping = {
       -- vim.cmd([[normal! m']])
       require("telescope.builtin").lsp_references()
     end,
+    telescope_menufacture = function()
+      local menufacture = require("plug_configs.search.rewrite_plug_telescope.telescope-menufacture")
+      menufacture.references()
+    end,
   },
   code_action = {
     def = vim.lsp.buf.code_action,

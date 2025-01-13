@@ -1,10 +1,19 @@
 # vim :set ft=conf
+# ctrl-shift-, -> reload config
+# ctrl-, -> open config
 
-background-opacity = 0.92
+# https://ghostty.org/docs/config/reference
+background-opacity = 0.98
 window-decoration = false
-font-size = 9.5
+mouse-hide-while-typing = true
+font-size = 9.0
 theme = tokyonight
 shell-integration = zsh
+font-feature = -calt
+font-feature = -liga
+font-feature = -dlig
+
+
 
 ## disable keybind
 
@@ -48,13 +57,14 @@ keybind = ctrl+alt+down=unbind
 keybind = ctrl+alt+right=unbind
 
 # paste_from_clipboard
-keybind = ctrl+shift+v=unbind
+# keybind = ctrl+shift+v=unbind
+
 
 # new_split:right
 keybind = ctrl+shift+o=unbind
 
 # copy_to_clipboard
-keybind = ctrl+shift+c=unbind
+# keybind = ctrl+shift+c=unbind
 
 # quit
 keybind = ctrl+shift+q=unbind
@@ -129,7 +139,7 @@ keybind = alt+six=unbind
 keybind = alt+seven=unbind
 
 # open_config
-keybind = ctrl+comma=unbind
+# keybind = ctrl+comma=unbind
 
 # next_tab
 keybind = ctrl+page_down=unbind

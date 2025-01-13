@@ -6,6 +6,22 @@ local M = {
     -- { "andersevenrud/nvim_context_vt" },
     { "dariuscorvus/tree-sitter-language-injection.nvim", opts = {}, event = { "BufReadPre" } }, -- for injections
     {
+      "RRethy/nvim-treesitter-textsubjects",
+      config = function()
+        require("nvim-treesitter.configs").setup({
+          textsubjects = {
+            enable = true,
+            prev_selection = ",", -- (Optional) keymap to select the previous selection
+            keymaps = {
+              ["."] = "textsubjects-smart",
+              [";"] = "textsubjects-container-outer",
+              ["i;"] = { "textsubjects-container-inner", desc = "Select inside containers (classes, functions, etc.)" },
+            },
+          },
+        })
+      end,
+    },
+    {
       "nvim-treesitter/nvim-treesitter-context",
       config = function()
         require("treesitter-context").setup({

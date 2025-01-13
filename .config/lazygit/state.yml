@@ -1,13 +1,17 @@
 lastupdatecheck: 0
 recentrepos:
-    - /home/vim9/code/python/dbs/bnpl_billing_jobs
+    - /home/vim9/code/opensource/jq-playground.nvim
     - /home/vim9/code/python/dbs/bnpl_back
+    - /home/vim9/code/opensource/websearcher.nvim
+    - /home/vim9/code/opensource/telescope-menufacture
+    - /home/vim9/code/python/opensource/litestar
     - /home/vim9/code/python/dbs/broker
-    - /home/vim9/code/python/dbs/customer-core
+    - /home/vim9/code/python/dbs/fintech-broker-si
     - /home/vim9/code/python/dbs/bnpl-si
+    - /home/vim9/code/python/dbs/bnpl_billing_jobs
+    - /home/vim9/code/python/dbs/customer-core
     - /home/vim9/code/python/dbs/ali-app
     - /home/vim9/code/python/dbs/sbp_box
-    - /home/vim9/code/python/dbs/fintech-broker-si
     - /home/vim9/code/python/dbs/blocklists
     - /home/vim9/code/python/dbs/dadata-cache
     - /home/vim9/code/python/STUDY/goome
@@ -50,12 +54,12 @@ recentrepos:
 startuppopupversion: 5
 lastversion: 0.44.1
 customcommandshistory:
+    - git pull --force
     - git reset --soft HEAD~
     - git reset --hard HEAD~1
     - pre-commit run --all-files
     - git reset --hard origin/BNPL-801
     - git revert --no-commit HEAD~3
-    - git pull --force
 hidecommandlog: false
 ignorewhitespaceindiffview: false
 diffcontextsize: 3

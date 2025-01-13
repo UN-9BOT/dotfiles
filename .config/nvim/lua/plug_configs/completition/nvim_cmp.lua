@@ -11,7 +11,25 @@ local custom_mapping = cmp_utils.custom_mapping
 
 M.dependencies = {
   "neovim/nvim-lspconfig",
-  "onsails/lspkind.nvim",
+  {
+    "xzbdmw/colorful-menu.nvim", -- or "onsails/lspkind.nvim"
+    config = function()
+      -- You don't need to set these options.
+      require("colorful-menu").setup({
+        ls = {
+          lua_ls = {
+            arguments_hl = "@comment",
+          },
+          pyright = {
+            extra_info_hl = "@comment",
+          },
+          fallback = true,
+        },
+        fallback_highlight = "@variable",
+        max_width = 60,
+      })
+    end,
+  },
   "hrsh7th/cmp-nvim-lsp", -- use suggestions from the LSP
   "hrsh7th/cmp-nvim-lua",
   "hrsh7th/cmp-buffer",
@@ -25,7 +43,6 @@ M.dependencies = {
   "hrsh7th/cmp-cmdline", -- for command line completion
 
   "hrsh7th/cmp-nvim-lsp-document-symbol",
-
 }
 
 M.config = function()
@@ -90,48 +107,20 @@ M.config = function()
       ghost_text = false,
     },
     formatting = {
-      format = require("lspkind").cmp_format({
-        mode = "symbol",
-        maxwidth = 30,
-        ellipsis_char = "...",
-        -- show_labelDetails = true, -- show labelDetails in menu. Disabled by default
-        symbol_map = {
-          Text = "󰉿colors",
-          String = "󰉿",
-          Method = "󰆧",
-          Function = "󰊕",
-          Constructor = "",
-          Field = "󰜢",
-          Variable = "󰀫",
-          Class = "󰠱",
-          Interface = "",
-          Module = "",
-          Property = "󰜢",
-          Unit = "󰑭",
-          Value = "󰎠",
-          Enum = "",
-          Keyword = "󰌋",
-          Snippet = "",
-          Color = "󰏘",
-          File = "󰈙",
-          Reference = "󰈇",
-          Folder = "󰉋",
-          EnumMember = "",
-          Constant = "󰏿",
-          Struct = "󰙅",
-          Event = "",
-          Operator = "󰆕",
-          TypeParameter = "",
-        },
-        menu = {
-          buffer = "[Buffer]",
-          nvim_lsp = "[Lsp]",
-          rg = "[Rg]",
-          treesitter = "[Treesitter]",
-          async_path = "[Path]",
-          crates = "[Crates]",
-        },
-      }),
+      formatting = {
+        format = function(entry, vim_item)
+          local highlights_info = require("colorful-menu").cmp_highlights(entry)
+
+          -- if highlight_info==nil, which means missing ts parser, let's fallback to use default `vim_item.abbr`.
+          -- What this plugin offers is two fields: `vim_item.abbr_hl_group` and `vim_item.abbr`.
+          if highlights_info ~= nil then
+            vim_item.abbr_hl_group = highlights_info.highlights
+            vim_item.abbr = highlights_info.text
+          end
+
+          return vim_item
+        end,
+      },
     },
     mapping = {
       ["<C-d>"] = cmp.mapping.scroll_docs(-4),

@@ -2,6 +2,7 @@ local M = {
   "rcarriga/nvim-dap-ui",
   dependencies = {},
   event = "VeryLazy",
+  lazy = true
 }
 
 M.config = function()

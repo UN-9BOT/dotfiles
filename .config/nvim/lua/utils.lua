@@ -111,10 +111,6 @@ M.custom_exit__force_close = function(opts)
     require("edgy").close()
   end
 
-  if pcall(require, "edgy") then
-    require("edgy").close()
-  end
-
   if pcall(require, "dapui") then
     require("dapui").close()
     M.force_close_buffers()

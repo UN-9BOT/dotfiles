@@ -38,7 +38,6 @@ alias kn='killall nvim'
 alias q='exit'
 alias p='python'
 alias pt='ipython'
-alias f='. ranger'
 alias yank='xclip -sel clip'
 alias cat='ccat'
 alias ls='exa --git'
@@ -57,6 +56,22 @@ mdcd () {
  mkdir "$1" && cd "$1"
 }
 
+# alias f='. ranger'
+f() {
+  tmp="$(mktemp)"
+  yazi --cwd-file "$tmp" "$@"
+
+  if [ -s "$tmp" ]; then
+    dir="$(<"$tmp")"
+    rm -f "$tmp"
+
+    if [ "$dir" != "$(pwd)" ]; then
+      cd "$dir" || return
+    fi
+  else
+    rm -f "$tmp"
+  fi
+}
 
 # ALIAS FOR RUN
 alias wgu='sh ~/.config/scripts/run_DBS.sh'
@@ -192,11 +207,12 @@ eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
 
 
-# zsh-autocomplete
+# zsh-autocomplete plug
 zstyle ':completion:*:paths' path-completion yes
 bindkey '\t' menu-select "$terminfo[kcbt]" menu-select
 bindkey -M menuselect '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
 
+# thefuck plug
 eval $(thefuck --alias)
 
 # remove duplicates in history

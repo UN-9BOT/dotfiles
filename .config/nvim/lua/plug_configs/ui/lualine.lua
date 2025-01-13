@@ -93,12 +93,9 @@ M.config = function()
           end,
           color = { fg = "#aaba88", bg = "grey" },
         },
-        -- {
-        --   color = { fg = "#ffaa88", bg = "grey", gui = "italic,bold" },
-        -- },
         { test_status_counts },
         { check_status_linters },
-        -- { require("recorder").recordingStatus },
+        { require("recorder").recordingStatus },
       },
     },
   })

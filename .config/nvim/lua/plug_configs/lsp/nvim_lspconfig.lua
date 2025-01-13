@@ -41,7 +41,7 @@ M.keys = {
   { "gdmv", mapping.definition.v_m_def, desc = "Motion Goto Definition in vsplit" },
   { "gdmh", mapping.definition.h_m_def, desc = "Motion Goto Definition in hsplit" },
   { "gdmt", mapping.definition.t_m_def, desc = "Motion Goto Definition in new Tab" },
-  { "gr", mapping.references.telescope, desc = "Goto References" },
+  { "gr", mapping.references.telescope_menufacture, desc = "Goto References" },
   { "ga", mapping.code_action.custom, desc = "Code Action", mode = { "n", "v" } },
   { "gR", mapping.rename.live, desc = "Rename" },
   { "gi", mapping.incoming_calls.telescope, desc = "Incoming Calls" },
@@ -62,6 +62,20 @@ M.init = function()
 
   require("lspconfig").zls.setup({})
 
+  ---@type vim.lsp.ClientConfig
+  local jqls_config = {
+    name = "jqls",
+    cmd = { vim.fn.expand("~/.local/share/nvim/mason/bin/jq-lsp") },
+    root_dir = vim.fn.getcwd(),
+    capabilities = capabilities,
+  }
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = "jq",
+    callback = function(args)
+      vim.lsp.start(jqls_config)
+    end,
+  })
+
   require("lspconfig").gitlab_ci_ls.setup({
     capabilities = capabilities,
   })
@@ -71,7 +85,6 @@ M.init = function()
       vim.bo.filetype = "yaml.gitlab"
     end,
   })
-
 end
 
 return M
