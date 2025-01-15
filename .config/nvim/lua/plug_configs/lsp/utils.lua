@@ -43,7 +43,9 @@ M.mapping = {
           require("trouble").open("lsp_definitions")
         end,
         search = {
-          max_length = 2,
+          mode = function(str)
+            return "\\<_*" .. str
+          end,
         },
         label = {
           before = { 0, 2 },
@@ -65,7 +67,9 @@ M.mapping = {
           end)
         end,
         search = {
-          max_length = 2,
+          mode = function(str)
+            return "\\<_*" .. str
+          end,
         },
         label = {
           before = { 0, 2 },
@@ -82,7 +86,9 @@ M.mapping = {
           require("telescope.builtin").lsp_definitions()
         end,
         search = {
-          max_length = 2,
+          mode = function(str)
+            return "\\<_*" .. str
+          end,
         },
         label = {
           before = { 0, 2 },
@@ -93,13 +99,15 @@ M.mapping = {
     h_m_def = function()
       require("flash").jump({
         action = function(match, state)
-          vim.cmd.split()
           vim.api.nvim_set_current_win(match.win)
           vim.api.nvim_win_set_cursor(match.win, match.pos)
+          vim.cmd.split()
           require("telescope.builtin").lsp_definitions()
         end,
         search = {
-          max_length = 2,
+          mode = function(str)
+            return "\\<_*" .. str
+          end,
         },
         label = {
           before = { 0, 2 },
@@ -128,7 +136,9 @@ M.mapping = {
           --
         end,
         search = {
-          max_length = 2,
+          mode = function(str)
+            return "\\<_*" .. str
+          end,
         },
         label = {
           before = { 0, 2 },
@@ -141,10 +151,6 @@ M.mapping = {
     telescope = function()
       -- vim.cmd([[normal! m']])
       require("telescope.builtin").lsp_references()
-    end,
-    telescope_menufacture = function()
-      local menufacture = require("plug_configs.search.rewrite_plug_telescope.telescope-menufacture")
-      menufacture.references()
     end,
   },
   code_action = {

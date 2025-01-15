@@ -5,8 +5,8 @@ local b = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
 -- for move in movements
-b({ "n", "v" }, "j", "gj", opts)
-b({ "n", "v" }, "k", "gk", opts)
+-- b({ "n", "v" }, "j", "gj", opts)
+-- b({ "n", "v" }, "k", "gk", opts)
 
 -- disable highlight when ESC is pressed
 b({ "i", "v", "n" }, "<ESC>", "<ESC>:noh<CR>", opts)

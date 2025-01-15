@@ -46,7 +46,8 @@ M.config = function()
       local function run_git_log()
         local word = vim.fn.expand("<cword>")
         local hash_length = #word
-        if hash_length ~= 7 and hash_length ~= 40 then
+        print(word .. " " .. hash_length)
+        if hash_length ~= 7 and hash_length ~= 8 and hash_length ~= 40 then
           require("plug_configs.notify").nfe(
             "Неверная длина хэша. Хэш должен содержать либо 7, либо 40 символов."
           )

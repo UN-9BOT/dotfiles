@@ -17,6 +17,8 @@ M.config = function()
 
   local pythonPath = require("utils").get_pythonPath()
   require("neotest").setup({
+    -- log_level = vim.log.levels.WARN,
+    log_level = vim.log.levels.DEBUG,
     summary = {
       animated = false,
     },

@@ -28,6 +28,8 @@ lazy.setup({
   { "tpope/vim-surround", dependencies = { "tpope/vim-repeat" } }, -- surround ("' [ { }]')  	-: ysiw' | cs'" | ds"
   { "NStefan002/visual-surround.nvim", config = u.r("visual-surround") }, -- surround visual mode ( [{( )
   { "isak102/ghostty.nvim", config = u.r("ghostty") }, -- ghostty config linting
+  { "nullromo/go-up.nvim", config = u.r("go-up") }, -- extra top lines
+  { "yochem/jq-playground.nvim", opts = { cmd = { "gojq" } } },
 
   -- -----------------------
   -- NOTE: WITH CONFIG
@@ -54,7 +56,6 @@ lazy.setup({
   u.safe_require("plug_configs.text_tools.conform"), -- Autoformat
   u.safe_require("plug_configs.text_tools.autopair"), -- auto pair brackets and quotes (A-e for offset)
   u.safe_require("plug_configs.text_tools.pantran"), -- translate : leader tr
-  u.safe_require("plug_configs.text_tools.norm"), -- live command for :Norm
   u.safe_require("plug_configs.text_tools.refactoring"), -- refactoring for languages
   u.safe_require("plug_configs.text_tools.nvim-macro"), -- macro recorder
   u.safe_require("plug_configs.text_tools.attempt_buffers"), -- temp buffer
@@ -77,6 +78,7 @@ lazy.setup({
   u.safe_require("plug_configs.search.yankbank"), -- yank register ,r
   u.safe_require("plug_configs.search.telescope.telescope"), -- telescope
   u.safe_require("plug_configs.search.trouble"), -- quickfix, bug-list and other (telescope ctrl+q :  (x del))
+  u.safe_require("plug_configs.search.websearch"), -- ,w search in browser
   u.safe_require("plug_configs.navigate.hlslens"), -- for navigate in search mode
   u.safe_require("plug_configs.navigate.vim_smooth_scroll"), -- scrolling
   u.safe_require("plug_configs.navigate.easymotion"), -- fast motion
@@ -98,40 +100,7 @@ lazy.setup({
   -- NOTE: IN_PROGRESS
   -- ----------------------------
   --
-  {
-    "KaitoMuraoka/websearcher.nvim",
-    keys = {
-      {
-        ",w",
-        mode = { "n" },
-        function()
-          require("websearcher").search()
-        end,
-      },
-    },
-    config = {
-      -- The shell command to use to open the URL.
-      -- As an empty string, it defaults to your OS defaults("open" for macOS, "xdg-open" for Linux)
-      open_cmd = "",
 
-      -- Specify search engine. Default is Google.
-      -- See the search_engine section for currently registered search engines
-      search_engine = "Brave",
-
-      -- Use W3M in a floating window. Default is False
-      use_w3m = false,
-
-      -- Add custom search_engines.
-      -- See the search_engine section for currently registered search engines
-    },
-  },
-
-  {
-    "yochem/jq-playground.nvim",
-    opts = {
-      cmd = { "gojq" },
-    },
-  },
 
   -- ---------------------------
   -- NOTE: ARCHIVE

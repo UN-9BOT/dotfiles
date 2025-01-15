@@ -55,15 +55,6 @@ M.dopts = function(desc)
   return { noremap = true, silent = true, desc = desc }
 end
 
-M.lazygit_open_file = function(filename, line_number)
-  print("12")
-  line_number = tonumber(line_number) or 1
-
-  vim.api.nvim_win_close(0, true)
-  vim.api.nvim_command("edit +" .. line_number .. " " .. filename)
-end
-
-_G.lazygit_open_file = M.lazygit_open_file
 
 M.force_close_buffers = function()
   local end_target_bufs = {

@@ -4,4 +4,5 @@ prepend_keymap=[
     { on = [ "g", "/" ], run = "cd /", desc = "Goto root" },
     { on = [ "g", "T" ], run = "cd /home/vim9/.local/share/Trash", desc = "Goto Trash" },
     { on = [ "g", "r" ], run = '''shell 'ya emit cd --str "$(git rev-parse --show-toplevel)"' --confirm''', desc = "Goto git root" },
+    { on = [ "i" ], run = "plugin keyjump --args=keep", desc = "Keyjump (Keep mode)" },
 ]

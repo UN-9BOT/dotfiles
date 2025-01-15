@@ -44,7 +44,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     vim.bo.softtabstop = 2
   end,
 })
-
 -- NOTE: LOGGING
 -- vim.api.nvim_create_autocmd({ "ExitPre" }, {
 --   desc = "Save :messages log",

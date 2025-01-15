@@ -41,7 +41,7 @@ M.keys = {
   { "gdmv", mapping.definition.v_m_def, desc = "Motion Goto Definition in vsplit" },
   { "gdmh", mapping.definition.h_m_def, desc = "Motion Goto Definition in hsplit" },
   { "gdmt", mapping.definition.t_m_def, desc = "Motion Goto Definition in new Tab" },
-  { "gr", mapping.references.telescope_menufacture, desc = "Goto References" },
+  { "gr", mapping.references.telescope, desc = "Goto References" },
   { "ga", mapping.code_action.custom, desc = "Code Action", mode = { "n", "v" } },
   { "gR", mapping.rename.live, desc = "Rename" },
   { "gi", mapping.incoming_calls.telescope, desc = "Incoming Calls" },

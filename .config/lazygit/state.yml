@@ -1,14 +1,18 @@
 lastupdatecheck: 0
 recentrepos:
-    - /home/vim9/code/opensource/jq-playground.nvim
-    - /home/vim9/code/python/dbs/bnpl_back
     - /home/vim9/code/opensource/websearcher.nvim
+    - /home/vim9/code/python/dbs/bnpl_back
+    - /home/vim9/code/python/dbs/broker
+    - /home/vim9/code/python/dbs/bnpl_billing_jobs
+    - /home/vim9/code/opensource/nvim-rip-substitute
+    - /home/vim9/.local/share/nvim/lazy/nvim-rip-substitute
+    - /home/vim9/code/opensource/nvim-navbuddy
+    - /home/vim9/code/python/dbs/bnpl-si
+    - /home/vim9/code/python/dbs/databox20
+    - /home/vim9/code/opensource/jq-playground.nvim
     - /home/vim9/code/opensource/telescope-menufacture
     - /home/vim9/code/python/opensource/litestar
-    - /home/vim9/code/python/dbs/broker
     - /home/vim9/code/python/dbs/fintech-broker-si
-    - /home/vim9/code/python/dbs/bnpl-si
-    - /home/vim9/code/python/dbs/bnpl_billing_jobs
     - /home/vim9/code/python/dbs/customer-core
     - /home/vim9/code/python/dbs/ali-app
     - /home/vim9/code/python/dbs/sbp_box
@@ -16,7 +20,6 @@ recentrepos:
     - /home/vim9/code/python/dbs/dadata-cache
     - /home/vim9/code/python/STUDY/goome
     - /home/vim9/code/python/dbs/customer-core-si
-    - /home/vim9/code/python/dbs/databox20
     - /home/vim9/code/python/dbs/sbp_box_si
     - /home/vim9/code/python/dbs/blocklists-si
     - /home/vim9/code/python/dbs/redbox

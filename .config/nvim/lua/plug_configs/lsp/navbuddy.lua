@@ -1,4 +1,4 @@
-local M = { "SmiteshP/nvim-navbuddy", lazy = true }
+local M = { "UN-9BOT/nvim-navbuddy", lazy = true, branch = "feature_number_lines" }
 
 M.dependencies = {
   "SmiteshP/nvim-navic",
@@ -31,16 +31,19 @@ M.config = function()
         left = {
           size = "20%",
           border = "rounded", -- You can set border style for each section individually as well.
+          number = true,
         },
         mid = {
           size = "35%",
           border = "solid",
+          number = true,
         },
         right = {
           -- No size option for right most section. It fills to
           -- remaining area.
           -- border = "rounded",
           preview = "always", -- Right section can show previews too.
+          number = true,
         },
       },
     },
