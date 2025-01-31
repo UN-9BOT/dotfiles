@@ -1,48 +1,41 @@
 local M = { "neovim/nvim-lspconfig" }
 
-M.dependencies = {}
-
-local utils = require("utils")
+local g_utils = require("utils")
 local mapping = require("plug_configs.lsp.utils").mapping
-
-local r = utils.r
 
 M.dependencies = {
   { "stevanmilic/nvim-lspimport" },
   { "aznhe21/actions-preview.nvim" },
   { "folke/trouble.nvim" },
-  { "folke/neodev.nvim", config = r("neodev") }, -- lua api for neovim
-  { "Fildo7525/pretty_hover", event = "LspAttach", opts = {}, config = r("pretty_hover") },
+  {
+    "folke/lazydev.nvim",
+    ft = "lua",
+    opts = { library = { { path = "${3rd}/luv/library", words = { "vim%.uv" } } } },
+  },
+  { "Fildo7525/pretty_hover", event = "LspAttach", opts = {}, config = g_utils.r("pretty_hover") },
   { "rmagatti/goto-preview", config = true },
   {
     "ray-x/lsp_signature.nvim",
-    ---@diagnostic disable-next-line: unused-local
-    config = function(_, opts) --luacheck: ignore
-      require("lsp_signature").setup({
-        hint_enable = false,
-        -- cursorhold_update = false,
-        zindex = 45,
-        max_width = 100,
-      })
+    config = function(_, opts)
+      require("lsp_signature").setup({ hint_enable = false, zindex = 45, max_width = 100 })
     end,
   },
-  { "saecki/live-rename.nvim" },
 }
 
 M.keys = {
   { "gj", mapping.diagnostic.def, desc = "Show Diagnostics" },
   { "gk", mapping.documentation.pretty, desc = "Show Doc" },
-  { "gdd", mapping.definition.telescope, desc = "Goto Definition" },
-  { "gdv", mapping.definition.v_def, desc = "Goto Definition in vsplit" },
-  { "gdh", mapping.definition.h_def, desc = "Goto Definition in hsplit" },
-  { "gdt", mapping.definition.t_def, desc = "Goto Definition in new Tab" },
-  { "gdmm", mapping.definition.m_m_def, desc = "Motion Goto Definition" },
-  { "gdmp", mapping.definition.p_m_def, desc = "Motion Goto Definition Preview" },
-  { "gdmv", mapping.definition.v_m_def, desc = "Motion Goto Definition in vsplit" },
-  { "gdmh", mapping.definition.h_m_def, desc = "Motion Goto Definition in hsplit" },
-  { "gdmt", mapping.definition.t_m_def, desc = "Motion Goto Definition in new Tab" },
+  { "gdd", mapping.definition.telescope.normal, desc = "Goto Definition" },
+  { "gdv", mapping.definition.telescope.vsplit, desc = "Goto Definition in vsplit" },
+  { "gdh", mapping.definition.telescope.hsplit, desc = "Goto Definition in hsplit" },
+  { "gdt", mapping.definition.telescope.tab, desc = "Goto Definition in new Tab" },
+  { "gdmp", mapping.definition.motion_goto_preview.normal, desc = "Motion Goto Definition Preview" },
+  { "gdmm", mapping.definition.motion_telescope.normal, desc = "Motion Goto Definition" },
+  { "gdmv", mapping.definition.motion_telescope.vsplit, desc = "Motion Goto Definition in vsplit" },
+  { "gdmh", mapping.definition.motion_telescope.hsplit, desc = "Motion Goto Definition in hsplit" },
+  { "gdmt", mapping.definition.motion_telescope.tab, desc = "Motion Goto Definition in new Tab" },
   { "gr", mapping.references.telescope, desc = "Goto References" },
-  { "ga", mapping.code_action.custom, desc = "Code Action", mode = { "n", "v" } },
+  { "ga", mapping.code_action.preview, desc = "Code Action", mode = { "n", "v" } },
   { "gR", mapping.rename.live, desc = "Rename" },
   { "gi", mapping.incoming_calls.telescope, desc = "Incoming Calls" },
   { "gt", mapping.type_definition.goto_preview, desc = "Preview Type Definition" },
@@ -51,40 +44,16 @@ M.keys = {
 
 M.init = function()
   -- this snippet enables auto-completion
-  local lspCapabilities = vim.lsp.protocol.make_client_capabilities()
-  lspCapabilities.textDocument.completion.completionItem.snippetSupport = true
-  local capabilities = require("cmp_nvim_lsp").default_capabilities()
-  -- local lsputil = require("lspconfig/util")
+  vim.lsp.protocol.make_client_capabilities().textDocument.completion.completionItem.snippetSupport = true
 
-  require("plug_configs.lsp.ft_python")
+  local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+  require("plug_configs.lsp.ft_python").init(capabilities)
   require("plug_configs.lsp.ft_sql")
   require("plug_configs.lsp.ft_lua")
-
+  require("plug_configs.lsp.ft_json").init(capabilities)
+  require("plug_configs.lsp.ft_gitlabci").init(capabilities)
   require("lspconfig").zls.setup({})
-
-  ---@type vim.lsp.ClientConfig
-  local jqls_config = {
-    name = "jqls",
-    cmd = { vim.fn.expand("~/.local/share/nvim/mason/bin/jq-lsp") },
-    root_dir = vim.fn.getcwd(),
-    capabilities = capabilities,
-  }
-  vim.api.nvim_create_autocmd("FileType", {
-    pattern = "jq",
-    callback = function(args)
-      vim.lsp.start(jqls_config)
-    end,
-  })
-
-  require("lspconfig").gitlab_ci_ls.setup({
-    capabilities = capabilities,
-  })
-  vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-    pattern = "*.gitlab-ci*.{yml,yaml}",
-    callback = function()
-      vim.bo.filetype = "yaml.gitlab"
-    end,
-  })
 end
 
 return M

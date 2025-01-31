@@ -9,7 +9,7 @@ local opts = { noremap = true, silent = true }
 -- b({ "n", "v" }, "k", "gk", opts)
 
 -- disable highlight when ESC is pressed
-b({ "i", "v", "n" }, "<ESC>", "<ESC>:noh<CR>", opts)
+b({ "i", "v", "n", "x" }, "<ESC>", "<ESC>:noh<CR>", opts)
 -- b({ "i", "v", "n" }, "<ESC>", "<ESC>:noh<CR>:w<CR>", opts) -- NOTE: with save
 
 --

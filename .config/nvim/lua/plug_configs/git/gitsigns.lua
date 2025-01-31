@@ -48,8 +48,9 @@ M.config = function()
         local hash_length = #word
         print(word .. " " .. hash_length)
         if hash_length ~= 7 and hash_length ~= 8 and hash_length ~= 40 then
-          require("plug_configs.notify").nfe(
-            "Неверная длина хэша. Хэш должен содержать либо 7, либо 40 символов."
+          vim.notify(
+            "Неверная длина хэша. Хэш должен содержать либо 7, либо 40 символов.",
+            4
           )
           return
         end
@@ -61,7 +62,7 @@ M.config = function()
         end
         local result = handle:read("*a")
         handle:close()
-        require("plug_configs.notify").nf(result)
+        vim.notify(result)
       end
 
       vim.keymap.set("n", "\\gh", run_git_log, { noremap = true, silent = true })

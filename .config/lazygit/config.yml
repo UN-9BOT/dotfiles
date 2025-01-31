@@ -1,4 +1,4 @@
-promptToReturnFromSubprocess: false
+# promptToReturnFromSubprocess: false
 
 git:
   paging:

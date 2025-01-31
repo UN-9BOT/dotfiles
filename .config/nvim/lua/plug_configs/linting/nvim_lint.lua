@@ -55,6 +55,7 @@ M.config = function()
 
   vim.diagnostic.config({
     -- virtual_lines = { only_current_line = true }, -- for lsp_lines.nvim
+    virtual_lines = false,
     virtual_text = false,
     float = {
       border = "rounded",

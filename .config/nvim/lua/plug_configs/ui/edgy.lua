@@ -15,7 +15,7 @@ M.keys = {
     function()
       if vim.b.edgy_keys then
         vim.b.edgy_disable = not vim.b.edgy_disable
-        require("plug_configs.notify").nf((vim.b.edgy_disable and "Disable" or "Enable") .. " Edgy for buffer")
+        vim.notify((vim.b.edgy_disable and "Disable" or "Enable") .. " Edgy for buffer")
       end
     end,
     desc = "Edgy (un)attach",
@@ -102,15 +102,11 @@ M.opts = {
     },
     { ft = "dapui_stacks", title = "Stacks", size = { height = 0.2 } },
     { ft = "spectre_panel", title = "Spectre", size = { height = 0.2, width = 0.4 } },
+    { ft = "BookmarksTree", title = "BT", size = { height = 0.2, width = 0.2 } },
   },
   bottom = {
     "Trouble",
-    {
-      ft = "toggleterm",
-      -- exclude floating windows
-      ---@diagnostic disable-next-line: unused-local
-      filter = filter_exclude_float_window,
-    },
+    { ft = "toggleterm", filter = filter_exclude_float_window },
     { ft = "dap-repl", title = "Repl", size = { height = 0.1 } },
     { ft = "qf", title = "QuickFix" },
     { ft = "dapui_console", title = "Console" },

@@ -6,7 +6,9 @@ local M = {
 }
 
 M.config = function()
-  local nf = require("plug_configs.notify").nf
+  local nf = function(msg)
+    vim.notify(msg)
+  end
 
   require("dapui").setup({
     expand_lines = false,

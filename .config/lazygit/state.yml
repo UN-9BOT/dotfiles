@@ -1,20 +1,24 @@
 lastupdatecheck: 0
 recentrepos:
-    - /home/vim9/code/opensource/websearcher.nvim
-    - /home/vim9/code/python/dbs/bnpl_back
     - /home/vim9/code/python/dbs/broker
+    - /home/vim9/code/python/dbs/bnpl-si
+    - /home/vim9/code/python/dbs/bnpl_back
+    - /home/vim9/code/python/dbs/customer-core
+    - /home/vim9/code/python/dbs/fintech-broker-si
+    - /home/vim9/code/python/dbs/ali-app
+    - /home/vim9/code/opensource/gamify.nvim
+    - /home/vim9/code/opensource/telescope-all-recent.nvim
+    - /home/vim9/code/opensource/telescope.nvim
+    - /home/vim9/code/python/dbs/databox20
     - /home/vim9/code/python/dbs/bnpl_billing_jobs
+    - /home/vim9/code/opensource/nvim-navbuddy
+    - /home/vim9/.local/share/nvim/lazy/diffview.nvim
+    - /home/vim9/code/opensource/websearcher.nvim
     - /home/vim9/code/opensource/nvim-rip-substitute
     - /home/vim9/.local/share/nvim/lazy/nvim-rip-substitute
-    - /home/vim9/code/opensource/nvim-navbuddy
-    - /home/vim9/code/python/dbs/bnpl-si
-    - /home/vim9/code/python/dbs/databox20
     - /home/vim9/code/opensource/jq-playground.nvim
     - /home/vim9/code/opensource/telescope-menufacture
     - /home/vim9/code/python/opensource/litestar
-    - /home/vim9/code/python/dbs/fintech-broker-si
-    - /home/vim9/code/python/dbs/customer-core
-    - /home/vim9/code/python/dbs/ali-app
     - /home/vim9/code/python/dbs/sbp_box
     - /home/vim9/code/python/dbs/blocklists
     - /home/vim9/code/python/dbs/dadata-cache
@@ -55,11 +59,11 @@ recentrepos:
     - /home/vim9/code/python/web3/checker_proxy
     - /home/vim9/code/python/web3/old_eth
 startuppopupversion: 5
-lastversion: 0.44.1
+lastversion: 0.45.2
 customcommandshistory:
-    - git pull --force
     - git reset --soft HEAD~
     - git reset --hard HEAD~1
+    - git pull --force
     - pre-commit run --all-files
     - git reset --hard origin/BNPL-801
     - git revert --no-commit HEAD~3

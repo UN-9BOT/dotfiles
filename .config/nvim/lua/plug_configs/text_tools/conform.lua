@@ -64,11 +64,11 @@ M.keys = {
         for _, client in pairs(vim.lsp.get_clients()) do
           if client.supports_method("textDocument/formatting") then
             vim.lsp.buf.format({ async = true })
-            require("plug_configs.notify").nf("LSP:format")
+            vim.notify("LSP:format")
           end
         end
       else
-        require("plug_configs.notify").nf("󰏣:Conform:format")
+        vim.notify("󰏣:Conform:format")
       end
     end,
     mode = { "n", "v" },
@@ -79,9 +79,9 @@ M.keys = {
     function()
       local okay_conform = require("conform").format({ timeout_ms = 5000, formatters = { "docformatter" } })
       if not okay_conform then
-        require("plug_configs.notify").nfe("󰏣:Conform: docformatter Error")
+        vim.notify("󰏣:Conform: docformatter Error", 4)
       else
-        require("plug_configs.notify").nf("󰏣:Conform: docformatter Success")
+        vim.notify("󰏣:Conform: docformatter Success")
       end
     end,
     mode = { "n", "v" },

@@ -24,19 +24,20 @@ lazy.setup({
   { "j-hui/fidget.nvim", opts = {} }, -- ui for lsp-progress
   { "NvChad/nvim-colorizer.lua", config = u.r("colorizer") }, -- color for hex and rgb notation
   { "kazhala/close-buffers.nvim" }, -- autoclose hidden buffers (optimization)
-  { "meznaric/key-analyzer.nvim", opts = {} }, --KeyAnalyzer
+  { "meznaric/key-analyzer.nvim", opts = {} }, -- KeyAnalyzer
   { "tpope/vim-surround", dependencies = { "tpope/vim-repeat" } }, -- surround ("' [ { }]')  	-: ysiw' | cs'" | ds"
   { "NStefan002/visual-surround.nvim", config = u.r("visual-surround") }, -- surround visual mode ( [{( )
   { "isak102/ghostty.nvim", config = u.r("ghostty") }, -- ghostty config linting
   { "nullromo/go-up.nvim", config = u.r("go-up") }, -- extra top lines
   { "yochem/jq-playground.nvim", opts = { cmd = { "gojq" } } },
+  { "nvimdev/indentmini.nvim", config = u.r("indentmini") },
 
   -- -----------------------
   -- NOTE: WITH CONFIG
   -- -----------------------
   --
+  u.safe_require("plug_configs.snacks"), -- all_in_one
   u.safe_require("plug_configs.navigate.langmapper"), -- langmapper
-  u.safe_require("plug_configs.notify"), -- notifications
   u.safe_require("plug_configs.ui.my_theme"), -- themes
   u.safe_require("plug_configs.ui.edgy"), -- ui
   u.safe_require("plug_configs.ui.nvim_web_devicons"), -- for other _configsgins, extend with icons
@@ -47,12 +48,10 @@ lazy.setup({
   u.safe_require("plug_configs.ui.nvim-window-picker"), -- window picker for file_browser
   u.safe_require("plug_configs.ui.markdown-preview"), -- markdown preview :MarkdownPreview
   u.safe_require("plug_configs.ui.rainbow_delimiters"), -- rainbow brackets and operators
-  u.safe_require("plug_configs.ui.hlchunk"), -- highlight chunk (indent)
   u.safe_require("plug_configs.ui.todo_comments"), -- TODO: WARNING: FIX: XXX: BUG: NOTE:
-  u.safe_require("plug_configs.ui.cursorword"), -- cursor word hl underline
   u.safe_require("plug_configs.ui.whichkey"), -- help for keymaps
   u.safe_require("plug_configs.ui.colorful_winsep"), -- colorful winseparation
-  u.safe_require("plug_configs.text_tools.neogen"), -- DOC for C (doxygen)
+  u.safe_require("plug_configs.text_tools.neogen"), -- DOCSTRING (doxygen)
   u.safe_require("plug_configs.text_tools.conform"), -- Autoformat
   u.safe_require("plug_configs.text_tools.autopair"), -- auto pair brackets and quotes (A-e for offset)
   u.safe_require("plug_configs.text_tools.pantran"), -- translate : leader tr
@@ -60,6 +59,7 @@ lazy.setup({
   u.safe_require("plug_configs.text_tools.nvim-macro"), -- macro recorder
   u.safe_require("plug_configs.text_tools.attempt_buffers"), -- temp buffer
   u.safe_require("plug_configs.text_tools.switch"), -- toggle true / false
+  u.safe_require("plug_configs.text_tools.swap_case"), -- swap case
   u.safe_require("plug_configs.text_tools.iswap"), -- swap nodes on treesitter
   u.safe_require("plug_configs.text_tools.nvim-rip-substitute"), -- rip substitute
   u.safe_require("plug_configs.text_tools.ssr"), -- struct search and replace
@@ -76,7 +76,7 @@ lazy.setup({
   u.safe_require("plug_configs.dap.conjure"), -- runner code
   u.safe_require("plug_configs.search.grug"), -- search and replace
   u.safe_require("plug_configs.search.yankbank"), -- yank register ,r
-  u.safe_require("plug_configs.search.telescope.telescope"), -- telescope
+  u.safe_require("plug_configs.search.telescope"), -- telescope
   u.safe_require("plug_configs.search.trouble"), -- quickfix, bug-list and other (telescope ctrl+q :  (x del))
   u.safe_require("plug_configs.search.websearch"), -- ,w search in browser
   u.safe_require("plug_configs.navigate.hlslens"), -- for navigate in search mode
@@ -86,27 +86,37 @@ lazy.setup({
   u.safe_require("plug_configs.navigate.smart-splits"), -- navigate and resize tmux [[ ctrl : navigate, alt : resize ]]
   u.safe_require("plug_configs.navigate.yazi"), -- yazi fm
   u.safe_require("plug_configs.navigate.arrow"), -- marks v2
-  u.safe_require("plug_configs.navigate.recall"), -- mark with global save
+  u.safe_require("plug_configs.navigate.ya_bookmarks"), -- bookmarks
   u.safe_require("plug_configs.navigate.vim_auto_save"), -- auto-save files
   u.safe_require("plug_configs.navigate.sessions"), -- session
   u.safe_require("plug_configs.lsp.none_ls"), -- custom code actions
   u.safe_require("plug_configs.lsp.nvim_lspconfig"), -- lsp config
   u.safe_require("plug_configs.lsp.navbuddy"), -- lsp navigation
+  u.safe_require("plug_configs.lsp.live_rename"), -- live rename
   u.safe_require("plug_configs.ai.supermaven"), -- supermaven AI completion
   u.safe_require("plug_configs.completition.nvim_cmp"), -- completition
-  u.safe_require("plug_configs.mason"), -- installer for features
+  u.safe_require("plug_configs.lsp.mason"), -- installer for features
 
   -- ----------------------------
   -- NOTE: IN_PROGRESS
   -- ----------------------------
   --
-
-
+  --
+  --
+  -- lazy.nvim
+  -- {
+  --   "grzegorzszczepanek/gamify.nvim",
+  --   config = function()
+  --     require("gamify")
+  --   end,
+  -- },
+  --
   -- ---------------------------
   -- NOTE: ARCHIVE
   -- ----------------------------
   --[[
+  u.safe_require("plug_configs.search.fzflua"), -- до лучших времен
+  u.safe_require("plug_configs.ui.hlchunk"), -- highlight chunk (indent)
 
-  u.safe_require("plug_configs.text_tools.multicursor"), -- not used
   --]]
 })

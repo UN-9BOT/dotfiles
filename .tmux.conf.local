@@ -432,19 +432,21 @@ tmux_conf_uninstall_plugins_on_reload=false
 # set -g @plugin 'tmux-plugins/tmux-sessionist'
 # set -g @plugin 'tmux-plugins/tmux-resurrect'
 # set -g @plugin 'tmux-plugins/tmux-continuum'
-# set -g @plugin 'AngryMorrocoy/tmux-neolazygit'
 
 ### SECTION PLUGINGS
 set -g @tpm_plugins '              \
     tmux-plugins/tmux-sessionist   \
     tmux-plugins/tmux-resurrect    \
     tmux-plugins/tmux-continuum    \
-    AngryMorrocoy/tmux-neolazygit  \
     laktak/extrakto \
     tmux-plugins/tmux-copycat \
     roosta/tmux-fuzzback \
     omerxx/tmux-floax \
+    AngryMorrocoy/tmux-neolazygit \
 '
+
+##### AngryMorrocoy/tmux-neolazygit
+set -g @open-lazygit 'l'
 
 #### SETTINGS PLUGS
 
@@ -458,8 +460,6 @@ bind -n M-w choose-session # choose session
 ##### tmux-plugins/tmux-continuum
 set -g @continuum-restore 'on'
 
-##### AngryMorrocoy/tmux-neolazygit
-set -g @open-lazygit 'l'
 
 ##### laktak/extrakto
 set -g @extrakto_split_size "15"

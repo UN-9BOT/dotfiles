@@ -1,24 +1,26 @@
-local lsp_utils = require("plug_configs.lsp.utils")
+local M = {}
 local lsputil = require("lspconfig/util")
-local lspCapabilities = lsp_utils.lspCapabilities
 
 -- NOTE: main
-require("lspconfig").pyright.setup({
-  capabilities = lspCapabilities,
-  filetypes = { "python" },
-  root_dir = lsputil.root_pattern(".git", "requirements.txt", "pyproject.toml", "Makefile", "README.md"),
-  -- settings = {
-  --   -- https://microsoft.github.io/pyright/#/configuration?id=main-configuration-options
-  --   python = {
-  --     analysis = {
-  --       autoSearchPaths = true,
-  --       diagnosticMode = "openFilesOnly",
-  --       useLibraryCodeForTypes = true,
-  --       -- typeCheckingMode = "strict",
-  --     },
-  --   },
-  -- },
-})
+M.init = function(capabilities)
+  require("lspconfig").pyright.setup({
+    capabilities = capabilities,
+    filetypes = { "python" },
+    root_dir = lsputil.root_pattern(".git", "requirements.txt", "pyproject.toml", "Makefile", "README.md"),
+    -- settings = {
+    --   -- https://microsoft.github.io/pyright/#/configuration?id=main-configuration-options
+    --   python = {
+    --     analysis = {
+    --       autoSearchPaths = true,
+    --       diagnosticMode = "openFilesOnly",
+    --       useLibraryCodeForTypes = true,
+    --       -- typeCheckingMode = "strict",
+    --     },
+    --   },
+    -- },
+  })
+end
+return M
 
 -- require("lspconfig").pyre.setup({ })
 

@@ -13,7 +13,7 @@ local M = {
 }
 
 M.config = function()
-  local nf = require("plug_configs.notify").nf
+  local nf = vim.notify
 
   local pythonPath = require("utils").get_pythonPath()
   require("neotest").setup({

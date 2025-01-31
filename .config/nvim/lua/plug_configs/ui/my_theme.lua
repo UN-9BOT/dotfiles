@@ -57,7 +57,18 @@
 --     -- { "tribela/vim-transparent" }, -- transparent backgroundqq
 --   },
 -- }
-
+--
+-- NOTE: alabaster
+-- return {
+--   "p00f/alabaster.nvim",
+--
+--   lazy = false,
+--   priority = 1000,
+--   config = function()
+--     vim.cmd([[colorscheme alabaster]])
+--   end,
+-- }
+--
 -- NOTE: tokyonight
 --
 return {

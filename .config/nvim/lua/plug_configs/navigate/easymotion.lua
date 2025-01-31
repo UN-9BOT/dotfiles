@@ -26,6 +26,7 @@ M.keys = {
           rainbow = {
             enabled = true,
           },
+          style = "overlay", ---@type "eol" | "overlay" | "right_align" | "inline"
         },
       })
     end,
@@ -41,6 +42,38 @@ M.keys = {
           rainbow = {
             enabled = true,
           },
+          style = "overlay", ---@type "eol" | "overlay" | "right_align" | "inline"
+        },
+      })
+    end,
+    desc = "Treesitter Search",
+  },
+  {
+    "yr",
+    mode = { "n" },
+    function()
+      require("flash").treesitter_search({
+        action = function(match, state)
+          vim.api.nvim_win_call(match.win, function()
+            -- Сохраняем текущее положение курсора
+            local cursor_pos = vim.api.nvim_win_get_cursor(0)
+
+            -- Создаём визуальное выделение на диапазоне
+            vim.api.nvim_win_set_cursor(0, match.pos) -- Устанавливаем начало
+            vim.cmd("normal! v") -- Включаем визуальный режим
+            vim.api.nvim_win_set_cursor(0, match.end_pos) -- Устанавливаем конец
+            vim.cmd("normal! y") -- Yank (копирование)
+
+            -- Восстанавливаем положение курсора
+            vim.api.nvim_win_set_cursor(0, cursor_pos)
+          end)
+          state:restore()
+        end,
+        label = {
+          rainbow = {
+            enabled = true,
+          },
+          style = "overlay", ---@type "eol" | "overlay" | "right_align" | "inline"
         },
       })
     end,
@@ -50,11 +83,38 @@ M.keys = {
 -- M.config = function ()
 -- end
 M.opts = {
+  -- labels = "asdfghjklqwertyuiopzxcvbnm",
+  labels = "sdfjklghawertyuioqpxcvbnmz",
   modes = {
     char = {
       enabled = false,
     },
   },
+}
+
+M._api_impl = {
+  ---@param fn function
+  ---@return function
+  start_word = function(fn)
+    return function()
+      require("flash").jump({
+        action = function(match, state)
+          vim.api.nvim_set_current_win(match.win)
+          vim.api.nvim_win_set_cursor(match.win, match.pos)
+          fn()
+        end,
+        search = {
+          mode = function(str)
+            return "\\<_*" .. str
+          end,
+        },
+        label = {
+          before = { 0, 2 },
+          after = false,
+        },
+      })
+    end
+  end,
 }
 
 return M

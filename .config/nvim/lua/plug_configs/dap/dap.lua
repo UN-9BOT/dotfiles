@@ -70,8 +70,8 @@ M.config = function()
   local dap = require("dap")
   local dap_widgets = require("dap.ui.widgets")
   local dap_ui = require("dapui")
-  local nf = require("plug_configs.notify").nf
-  local custom_mapping = dap_utils.custom_mapping(dap, dap_widgets, nf, dap_ui)
+
+  local custom_mapping = dap_utils.custom_mapping(dap, dap_widgets, vim.notify, dap_ui)
 
   local b = vim.keymap.set
   b("n", "<leader>d", "<Nop>")

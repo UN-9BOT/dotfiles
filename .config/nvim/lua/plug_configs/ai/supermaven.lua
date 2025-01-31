@@ -2,8 +2,6 @@ local M = {
   "supermaven-inc/supermaven-nvim",
 }
 
--- M._status = true
-
 M.config = function()
   require("supermaven-nvim").setup({
     keymaps = {
@@ -24,7 +22,6 @@ M.config = function()
     disable_inline_completion = false, -- disables inline completion for use with cmp
     disable_keymaps = false, -- disables built in keymaps for more manual control
     condition = function()
-      -- return not M._status
       return false
     end,
   })

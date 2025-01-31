@@ -3,45 +3,45 @@ local M = {
 }
 
 M.dependencies = {
-  "kkharji/sqlite.lua", -- for other dependencies
-
+  { "kkharji/sqlite.lua" },
+  { "nvim-lua/plenary.nvim" },
   {
     "prochri/telescope-all-recent.nvim", -- frecency sorting for Find files
     config = function()
       require("telescope-all-recent").setup({
-        pickers = {
-          find_files = {
-            disable = false,
-            use_cwd = true,
-            sorting = "frecency",
-          },
-        },
+        pickers = { find_files = { disable = false, use_cwd = true, sorting = "frecency" } },
       })
     end,
-  },
-  {
-    "johmsalas/text-case.nvim",
-    lazy = true,
-    config = function()
-      require("textcase").setup({})
-      require("telescope").load_extension("textcase")
-    end,
-    keys = {
-      "gs", -- Default invocation prefix
-      { "gsl", "<cmd>TextCaseOpenTelescopeLSPChange<CR>", mode = { "n", "x" }, desc = "Swap Case (LSP)" },
-      { "gsq", "<cmd>TextCaseOpenTelescopeQuickChange<CR>", mode = { "n", "x" }, desc = "Swap Case (Quick)" },
-    },
-    cmd = {
-      "TextCaseOpenTelescope",
-      "TextCaseOpenTelescopeQuickChange",
-      "TextCaseOpenTelescopeLSPChange",
-      "TextCaseStartReplacingCommand",
-    },
   },
   { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
   { "nvim-telescope/telescope-live-grep-args.nvim" },
   { "scottmckendry/telescope-resession.nvim" },
-  {},
+  { "piersolenski/telescope-import.nvim" },
+  { "jmacadie/telescope-hierarchy.nvim" },
+
+  -- {
+  --   "tanvirtin/vgit.nvim",
+  --   branch = "v1.0.x",
+  --   -- or               , tag = 'v1.0.1',
+  --   dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
+  --   -- Lazy loading on 'VimEnter' event is necessary.
+  --   event = "VimEnter",
+  --   config = function()
+  --     require("vgit").setup()
+  --   end,
+  -- },
+}
+M.keys = {
+  {
+    "<leader>si",
+    "<cmd>Telescope hierarchy incoming_calls<cr>",
+    desc = "LSP: [S]earch [I]ncoming Calls",
+  },
+  {
+    "<leader>so",
+    "<cmd>Telescope hierarchy outgoing_calls<cr>",
+    desc = "LSP: [S]earch [O]utgoing Calls",
+  },
 }
 
 M.config = function()
@@ -125,6 +125,7 @@ M.config = function()
   -- Флаг для отслеживания состояния автокомплита
   --- TESTS
 
+  local actions_layout = require("telescope.actions.layout")
   require("telescope").setup({
     defaults = {
       -- path_display = { "absolute" },
@@ -151,6 +152,7 @@ M.config = function()
           ["<A-q>"] = trouble.open,
           ["<C-Down>"] = actions.cycle_history_next,
           ["<C-Up>"] = actions.cycle_history_prev,
+          ["<C-y>"] = actions_layout.toggle_preview,
         },
         n = {
           -- ["<esc>"] = actions.close,
@@ -160,16 +162,17 @@ M.config = function()
           ["<A-q>"] = trouble.open,
           ["<C-Down>"] = actions.cycle_history_next,
           ["<C-Up>"] = actions.cycle_history_prev,
+          ["<C-y>"] = actions_layout.toggle_preview,
         },
       },
       layout_config = {
         horizontal = {
           prompt_position = "bottom",
-          preview_width = 0.5,
-          results_width = 0.5,
+          preview_width = 0.55,
+          results_width = 0.45,
         },
-        width = 0.95,
-        height = 0.95,
+        width = 0.99,
+        height = 0.98,
       },
     },
     extensions = {
@@ -184,7 +187,7 @@ M.config = function()
         case_mode = "smart_case", -- or "ignore_case" or "respect_case"
       },
       live_grep_args = {
-        auto_quoting = true, -- enable/disable auto-quoting
+        auto_quoting = false, -- enable/disable auto-quoting
         mappings = {
           i = {
             ["<M-e>"] = function(_)
@@ -221,6 +224,57 @@ M.config = function()
   require("telescope").load_extension("fzf")
   require("telescope").load_extension("live_grep_args")
   require("telescope").load_extension("attempt")
+  require("telescope").load_extension("import")
+  require("telescope").load_extension("textcase")
+  require("telescope").load_extension("hierarchy")
+
+  -- require("plug_configs.python_boosted")
+  -- vim.api.nvim_create_user_command("T1T", t.tpicc, {})
 end
+
+M._api_impl = {
+  ---@param jump_type "never" | "split" | "vsplit" | "tab"
+  ---@return function
+  reference = function(jump_type)
+    return function()
+      require("telescope.builtin").lsp_references({ jump_type = jump_type, reuse_win = false })
+    end
+  end,
+  ---@param jump_type "never" | "split" | "vsplit" | "tab"
+  ---@return function
+  definition = function(jump_type)
+    return function()
+      require("telescope.builtin").lsp_definitions({ jump_type = jump_type, reuse_win = false })
+    end
+  end,
+  ---@param jump_type "never" | "split" | "vsplit" | "tab"
+  ---@return function
+  type_definition = function(jump_type)
+    return function()
+      require("telescope.builtin").lsp_type_definitions({ jump_type = jump_type, reuse_win = false })
+    end
+  end,
+  ---@param jump_type "never" | "split" | "vsplit" | "tab"
+  ---@return function
+  incoming_calls = function(jump_type)
+    return function()
+      require("telescope.builtin").lsp_incoming_calls({ jump_type = jump_type })
+    end
+  end,
+  ---@param jump_type "never" | "split" | "vsplit" | "tab"
+  ---@return function
+  outgoing_calls = function(jump_type)
+    return function()
+      require("telescope.builtin").lsp_outgoing_calls({ jump_type = jump_type })
+    end
+  end,
+  ---@param jump_type "never" | "split" | "vsplit" | "tab"
+  ---@return function
+  implementation = function(jump_type)
+    return function()
+      require("telescope.builtin").lsp_implementations({ jump_type = jump_type, reuse_win = false })
+    end
+  end,
+}
 
 return M

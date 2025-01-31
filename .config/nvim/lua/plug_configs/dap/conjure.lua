@@ -33,6 +33,7 @@ local M = {
   ft = { "clojure", "fennel", "python", "lua" }, -- etc
   lazy = true,
   init = function()
+    vim.g["conjure#extract#tree_sitter#enabled"] = true
     vim.g["conjure#mapping#doc_word"] = false
     vim.g["conjure#mapping#eval_visual"] = false
     -- vim.g["conjure#client#python#stdio#command"] = "ipython --classic"

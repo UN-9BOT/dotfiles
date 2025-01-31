@@ -22,12 +22,6 @@ M.config = {
 
   -- Add custom search_engines.
   -- See the search_engine section for currently registered search engines
-  search_engines = {
-    Google = "https://google.com/search?q=",
-    Yandex = "https://yandex.com/search/?text=",
-    Phind = "https://www.phind.com/search?q=",
-    Perplexity = "https://www.perplexity.ai/search?q=",
-    Brave = "https://search.brave.com/search?q=",
-  },
+  search_engines = {},
 }
 return M

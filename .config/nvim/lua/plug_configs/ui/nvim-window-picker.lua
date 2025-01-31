@@ -1,10 +1,17 @@
 local M = {
   "s1n7ax/nvim-window-picker",
-  version = '2.*',
+  version = "2.*",
+  event = "VeryLazy",
 }
 
 M.config = function()
-  require "window-picker".setup({
+  require("window-picker").setup({
+    -- hint = "floating-big-letter",
+    -- picker_config = {
+    --   floating_big_letter = {
+    --     font = "ansi-shadow", -- ansi-shadow |
+    --   },
+    -- },
     filter_rules = {
       include_current_win = false,
       autoselect_one = true,

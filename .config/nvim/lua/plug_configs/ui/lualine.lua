@@ -1,6 +1,4 @@
-local M = {
-  "nvim-lualine/lualine.nvim",
-}
+local M = { "nvim-lualine/lualine.nvim" }
 
 local function check_status_linters()
   local linters = require("lint").get_running()
@@ -96,6 +94,7 @@ M.config = function()
         { test_status_counts },
         { check_status_linters },
         { require("recorder").recordingStatus },
+
       },
     },
   })

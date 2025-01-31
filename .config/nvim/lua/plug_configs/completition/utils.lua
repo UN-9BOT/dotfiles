@@ -65,7 +65,7 @@ M.custom_mapping = {
         local last_message_line = get_last_message_line()
         if last_message_line:find("^no import") then
           vim.cmd("echom '___'") -- Печать "___" в messages
-          require("plug_configs.notify").nfe("No found 󰏣:lspimport")
+          vim.notify("No found 󰏣:lspimport", 4)
           start_cmp()
         end
       end, 500)
