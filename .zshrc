@@ -194,7 +194,7 @@ fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
 # Created by `pipx` on 2023-10-14 15:28:34
 export PATH="$PATH:/home/vim9/.local/bin"
-export PATH="$PATH:/home/vim9/.cargo/bin"
+# export PATH="$PATH:/home/vim9/.cargo/bin"
 
 
 export PYENV_ROOT="$HOME/.pyenv"

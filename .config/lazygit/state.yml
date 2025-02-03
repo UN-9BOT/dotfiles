@@ -1,6 +1,9 @@
 lastupdatecheck: 0
 recentrepos:
     - /home/vim9/code/python/dbs/broker
+    - /home/vim9/.prog/YeetMouse
+    - /home/vim9/.prog/leetmouse
+    - /home/vim9/code/python/dbs/blocklists
     - /home/vim9/code/python/dbs/bnpl-si
     - /home/vim9/code/python/dbs/bnpl_back
     - /home/vim9/code/python/dbs/customer-core
@@ -20,7 +23,6 @@ recentrepos:
     - /home/vim9/code/opensource/telescope-menufacture
     - /home/vim9/code/python/opensource/litestar
     - /home/vim9/code/python/dbs/sbp_box
-    - /home/vim9/code/python/dbs/blocklists
     - /home/vim9/code/python/dbs/dadata-cache
     - /home/vim9/code/python/STUDY/goome
     - /home/vim9/code/python/dbs/customer-core-si
@@ -28,7 +30,6 @@ recentrepos:
     - /home/vim9/code/python/dbs/blocklists-si
     - /home/vim9/code/python/dbs/redbox
     - /home/vim9/.prog/leetmouse-gui
-    - /home/vim9/.prog/leetmouse
     - /home/vim9/code/python/dbs/bnpl_mocker
     - /home/vim9/code/python/advent_of_code
     - /home/vim9/code/lua/test/nvim-dap
