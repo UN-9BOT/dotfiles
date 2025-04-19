@@ -86,8 +86,8 @@ M.config = function()
   b("n", ",o", builtin.jumplist, opts)
   -- b("n", ",f", builtin.find_files, opts)
   b("n", ",f", my_find_files, opts)
-  b("n", ",SS", builtin.lsp_dynamic_workspace_symbols, opts)
-  b("n", ",Ss", builtin.lsp_document_symbols, opts)
+  -- b("n", ",SS", builtin.lsp_dynamic_workspace_symbols, opts)
+  -- b("n", ",Ss", builtin.lsp_document_symbols, opts)
   b("n", ",g", live_grep_args_ext.live_grep_args, opts)
 
   -- b("n", ",g", require("telescope").extensions.live_grep_args.live_grep_args, opts)
@@ -105,6 +105,7 @@ M.config = function()
       "ignore-case",
       "word-regexp",
       "fixed-strings",
+      'g "//" -g "/*" -m1',
     }
     local used_flags = {}
 

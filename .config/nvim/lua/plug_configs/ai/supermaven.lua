@@ -33,6 +33,7 @@ M.config = function()
     local completion_preview = require("supermaven-nvim.completion_preview")
     api.toggle()
     completion_preview.on_dispose_inlay()
+    vim.notify("Supermaven status: " .. tostring(api.is_running()))
   end
 
   b({ "n", "i" }, "<F19>", clean_toggle)

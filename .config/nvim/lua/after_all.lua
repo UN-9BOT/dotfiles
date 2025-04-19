@@ -4,11 +4,6 @@
 --
 --
 
--- coc-highlight
--- vim.cmd([[
---   autocmd CursorHold * silent call CocActionAsync('highlight')
--- ]])
-
 require("mason").setup()
 require("mason-nvim-dap").setup()
 
@@ -44,6 +39,18 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     vim.bo.softtabstop = 2
   end,
 })
+
+vim.api.nvim_create_user_command("PreCommitQuickfix", function()
+  vim.cmd("copen")
+  local output = vim.fn.systemlist("pre-commit run -a 2>&1")
+  vim.fn.setqflist({}, " ", {
+    title = "pre-commit run -a",
+    lines = output,
+  })
+end, {})
+
+vim.api.nvim_set_hl(0, "CurSearch", { fg = "#d8dbdb", bg = "TEAL", bold = true, blend = 90, nocombine = true })
+vim.api.nvim_set_hl(0, "Search", { fg = "#d8dbdb", bg = "GRAY", italic = true, blend = 90, nocombine = true })
 -- NOTE: LOGGING
 -- vim.api.nvim_create_autocmd({ "ExitPre" }, {
 --   desc = "Save :messages log",
@@ -64,3 +71,4 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 --     end
 --   end,
 -- })
+--

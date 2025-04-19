@@ -1,5 +1,17 @@
 local M = { "saecki/live-rename.nvim", lazy = true }
 
+-- vim.api.nvim_set_hl(0, "LiveRenameCurrent", { fg = "#ecf0f1", bg = "#2c3e50", bold = true, blend=60, nocombine=true }) -- Синий текст на светло-сером фоне
+-- vim.api.nvim_set_hl(0, "LiveRenameOthers", { fg = "#d8dbdb", bg = "#34495e", italic = true, blend=60, nocombine=true }) -- Тёмно-синий на мягком сером
+--
+-- M.config = function()
+--   require("live-rename").setup({
+--     hl = {
+--       current = "LiveRenameCurrent",
+--       others = "LiveRenameOthers",
+--     },
+--   })
+-- end
+
 M._api_impl = {
   live = function()
     -- Write buffers that were edited

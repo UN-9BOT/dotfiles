@@ -4,7 +4,7 @@ M.init = function(capabilities)
     capabilities = capabilities,
   })
   vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-    pattern = "*.gitlab-ci*.{yml,yaml}",
+    pattern = "*ci*.{yml,yaml}",
     callback = function()
       vim.bo.filetype = "yaml.gitlab"
     end,

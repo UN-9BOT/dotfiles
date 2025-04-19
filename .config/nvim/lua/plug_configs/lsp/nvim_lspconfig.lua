@@ -4,7 +4,9 @@ local g_utils = require("utils")
 local mapping = require("plug_configs.lsp.utils").mapping
 
 M.dependencies = {
-  { "stevanmilic/nvim-lspimport" },
+  -- { "stevanmilic/nvim-lspimport" },
+  { "UN-9BOT/nvim-lspimport", branch = "nvim11" },
+
   { "aznhe21/actions-preview.nvim" },
   { "folke/trouble.nvim" },
   {
@@ -53,7 +55,9 @@ M.init = function()
   require("plug_configs.lsp.ft_lua")
   require("plug_configs.lsp.ft_json").init(capabilities)
   require("plug_configs.lsp.ft_gitlabci").init(capabilities)
+  require("lspconfig").bashls.setup({})
   require("lspconfig").zls.setup({})
+  require("lspconfig").taplo.setup({})
 end
 
 return M

@@ -82,6 +82,10 @@ vim.opt.breakindent = true
 --
 -- " включает мышь
 vim.opt.mouse = "a"
+-- vim.opt.mouse = "c" -- отключить
+
+-- sessions
+vim.opt.sessionoptions = "buffers,curdir,help,tabpages,winsize,winpos,localoptions"
 
 --  highlight yank text
 vim.api.nvim_exec(

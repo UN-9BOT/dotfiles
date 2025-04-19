@@ -109,7 +109,7 @@ M.custom_exit__force_close = function(opts)
 
   if pcall(require, "close_buffers") then
     require("close_buffers").delete({ type = "hidden", force = true })
-    require("close_buffers").delete({ type = "nameless", force = true })
+    -- require("close_buffers").delete({ type = "nameless", force = true })
     require("close_buffers").delete({ regex = "Neotest Output Panel", force = true })
     require("close_buffers").delete({ regex = "Neotest Summary", force = true })
     require("close_buffers").delete({ regex = "neotest-output", force = true })

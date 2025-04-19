@@ -6,7 +6,7 @@ M.config = function()
   local attempt = require("attempt")
   attempt.setup({
 
-    ext_options = { "lua", "json", "py", "" }, -- Options to choose from
+    ext_options = { "lua", "json", "py", "md", "" }, -- Options to choose from
   })
 
   local function map(mode, l, r, opts)

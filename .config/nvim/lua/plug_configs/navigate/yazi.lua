@@ -1,12 +1,12 @@
 -- https://yazi-rs.github.io/docs/quick-start
 --
----@type LazySpec
+---@class LazySpec
 local M = {
   "mikavilpas/yazi.nvim",
   event = "VeryLazy",
 }
 
----@type YaziConfig
+---@class YaziConfig
 M.opts = {
   open_for_directories = false,
   keymaps = {

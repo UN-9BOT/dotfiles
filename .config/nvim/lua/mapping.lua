@@ -17,7 +17,7 @@ b({ "i", "v", "n", "x" }, "<ESC>", "<ESC>:noh<CR>", opts)
 -- b("n", "<leader>Y", "<Cmd>%y+<CR>", opts)
 
 -- editing
-b("n", "yc", "yygccp", { remap = true, silent = true })
+-- b("n", "yc", "yygccp", { remap = true, silent = true })
 b("x", "<leader>d", "y'>p", { remap = true, silent = true })
 
 -- blackhole register

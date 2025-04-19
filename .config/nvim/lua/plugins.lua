@@ -62,7 +62,6 @@ lazy.setup({
   u.safe_require("plug_configs.text_tools.swap_case"), -- swap case
   u.safe_require("plug_configs.text_tools.iswap"), -- swap nodes on treesitter
   u.safe_require("plug_configs.text_tools.nvim-rip-substitute"), -- rip substitute
-  u.safe_require("plug_configs.text_tools.ssr"), -- struct search and replace
   u.safe_require("plug_configs.git.gitsigns"), -- right sign inline
   u.safe_require("plug_configs.git.diffview"), -- Leader+D -- diffview in n/x
   u.safe_require("plug_configs.git.gitblame"), -- git blame
@@ -85,6 +84,7 @@ lazy.setup({
   u.safe_require("plug_configs.navigate.spider"), -- moving for only word (w e b)
   u.safe_require("plug_configs.navigate.smart-splits"), -- navigate and resize tmux [[ ctrl : navigate, alt : resize ]]
   u.safe_require("plug_configs.navigate.yazi"), -- yazi fm
+  u.safe_require("plug_configs.navigate.oil"), -- oil
   u.safe_require("plug_configs.navigate.arrow"), -- marks v2
   u.safe_require("plug_configs.navigate.ya_bookmarks"), -- bookmarks
   u.safe_require("plug_configs.navigate.vim_auto_save"), -- auto-save files
@@ -94,6 +94,7 @@ lazy.setup({
   u.safe_require("plug_configs.lsp.navbuddy"), -- lsp navigation
   u.safe_require("plug_configs.lsp.live_rename"), -- live rename
   u.safe_require("plug_configs.ai.supermaven"), -- supermaven AI completion
+  u.safe_require("plug_configs.ai.avante"), -- avante AI chat
   u.safe_require("plug_configs.completition.nvim_cmp"), -- completition
   u.safe_require("plug_configs.lsp.mason"), -- installer for features
 
@@ -101,15 +102,18 @@ lazy.setup({
   -- NOTE: IN_PROGRESS
   -- ----------------------------
   --
-  --
-  --
-  -- lazy.nvim
-  -- {
-  --   "grzegorzszczepanek/gamify.nvim",
-  --   config = function()
-  --     require("gamify")
-  --   end,
-  -- },
+  {
+    "Apeiros-46B/qalc.nvim",
+    config = function()
+      vim.api.nvim_create_user_command("Calc", function(opts)
+        vim.cmd("tabnew")
+        vim.cmd("Qalc")
+      end, {
+        desc = "Calculator",
+      })
+    end,
+  },
+
   --
   -- ---------------------------
   -- NOTE: ARCHIVE

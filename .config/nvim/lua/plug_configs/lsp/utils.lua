@@ -31,7 +31,7 @@ M.mapping = {
     },
     motion_goto_preview = {
       normal = require("plug_configs.navigate.easymotion")._api_impl.start_word(function()
-        require("goto-preview").goto_preview_definition({ width = 20, height = 25 })
+        require("goto-preview").goto_preview_definition()
       end),
     },
   },
