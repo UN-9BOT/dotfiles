@@ -1,19 +1,39 @@
 lastupdatecheck: 0
 recentrepos:
+    - /home/vim9/code/python/dbs/bnpl-si
+    - /home/vim9/code/python/dbs/bnpl_billing_jobs
+    - /home/vim9/code/python/dbs/bnpl_back
+    - /home/vim9/code/python/dbs/customer-core-si
+    - /home/vim9/code/python/dbs/customer-core
+    - /home/vim9/code/python/opensource/mbtest
+    - /home/vim9/code/python/dbs/databox20
+    - /home/vim9/code/python/dbs/blocklists-si
+    - /home/vim9/code/python/dbs/blocklists
+    - /home/vim9/code/python/dbs/fintech-broker-si
     - /home/vim9/code/python/dbs/broker
+    - /home/vim9/code/python/dbs/databox-ui
+    - /home/vim9/code/python/dbs/wb-instacash-tranche-si
+    - /home/vim9/code/python/dbs/wb-instacash-tranche
+    - /home/vim9/code/python/dbs/customer_monitoring_si
+    - /home/vim9/code/python/dbs/bnpl_mocker
+    - /home/vim9/code/opensource/nvim-lspimport
+    - /home/vim9/.local/share/nvim/lazy/rainbow-delimiters.nvim
+    - /home/vim9/code/opensource/tmux-neolazygit
+    - /home/vim9/.tmux
+    - /home/vim9/.tmux/plugins/tmux-neolazygit
+    - /home/vim9/code/python/dbs/dadata-cache
+    - /home/vim9/code/python/dbs/credapp
+    - /home/vim9/code/python/dbs/ali-app-si
+    - /home/vim9/code/python/dbs/ids_lists_interface
+    - /home/vim9/code/python/dbs/ali-app
+    - /home/vim9/code/opensource/neotest-python
+    - /home/vim9/code/opensource/switchsearch
+    - /home/vim9/code/python/dbs/sbp_box_si
     - /home/vim9/.prog/YeetMouse
     - /home/vim9/.prog/leetmouse
-    - /home/vim9/code/python/dbs/blocklists
-    - /home/vim9/code/python/dbs/bnpl-si
-    - /home/vim9/code/python/dbs/bnpl_back
-    - /home/vim9/code/python/dbs/customer-core
-    - /home/vim9/code/python/dbs/fintech-broker-si
-    - /home/vim9/code/python/dbs/ali-app
     - /home/vim9/code/opensource/gamify.nvim
     - /home/vim9/code/opensource/telescope-all-recent.nvim
     - /home/vim9/code/opensource/telescope.nvim
-    - /home/vim9/code/python/dbs/databox20
-    - /home/vim9/code/python/dbs/bnpl_billing_jobs
     - /home/vim9/code/opensource/nvim-navbuddy
     - /home/vim9/.local/share/nvim/lazy/diffview.nvim
     - /home/vim9/code/opensource/websearcher.nvim
@@ -23,14 +43,9 @@ recentrepos:
     - /home/vim9/code/opensource/telescope-menufacture
     - /home/vim9/code/python/opensource/litestar
     - /home/vim9/code/python/dbs/sbp_box
-    - /home/vim9/code/python/dbs/dadata-cache
     - /home/vim9/code/python/STUDY/goome
-    - /home/vim9/code/python/dbs/customer-core-si
-    - /home/vim9/code/python/dbs/sbp_box_si
-    - /home/vim9/code/python/dbs/blocklists-si
     - /home/vim9/code/python/dbs/redbox
     - /home/vim9/.prog/leetmouse-gui
-    - /home/vim9/code/python/dbs/bnpl_mocker
     - /home/vim9/code/python/advent_of_code
     - /home/vim9/code/lua/test/nvim-dap
     - /home/vim9/code/python/STUDY/python/TEST_TASKS/Parsing-Test-Task
@@ -41,7 +56,6 @@ recentrepos:
     - /home/vim9/code/python/dbs/feeds_jobs
     - /home/vim9/code/s21/LinuxMonitoring_2_0/0MY
     - /home/vim9/code/s21/internship-1
-    - /home/vim9/code/python/dbs/ids_lists_interface
     - /home/vim9/.oh-my-zsh/custom/plugins/dotbare
     - /home/vim9/code/opensource/nvim-lint
     - /home/vim9/code/s21/smartcalc/ooosae
@@ -60,12 +74,12 @@ recentrepos:
     - /home/vim9/code/python/web3/checker_proxy
     - /home/vim9/code/python/web3/old_eth
 startuppopupversion: 5
-lastversion: 0.45.2
+lastversion: 0.49.0
 customcommandshistory:
     - git reset --soft HEAD~
     - git reset --hard HEAD~1
-    - git pull --force
     - pre-commit run --all-files
+    - git pull --force
     - git reset --hard origin/BNPL-801
     - git revert --no-commit HEAD~3
 hidecommandlog: false
