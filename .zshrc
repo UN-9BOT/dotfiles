@@ -156,6 +156,8 @@ httpie
 cd-ls
 dotbare
 celery
+poetry
+zsh_codex
 # zsh-interactive-cd
 # zsh-navigation-tools
 )
@@ -163,6 +165,12 @@ celery
 
 
 source $ZSH/oh-my-zsh.sh
+my_custom_function() {
+  echo "Hello from custom function!"
+}
+zle -N my_custom_function
+
+bindkey '\eu' create_completion # alt-u
 
 # User configuration
 
@@ -213,9 +221,6 @@ zstyle ':completion:*:paths' path-completion yes
 bindkey '\t' menu-select "$terminfo[kcbt]" menu-select
 bindkey -M menuselect '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
 
-# thefuck plug
-eval $(thefuck --alias)
-
 # remove duplicates in history
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_IGNORE_DUPS
@@ -223,3 +228,6 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_SPACE
 setopt HIST_FIND_NO_DUPS
 setopt HIST_SAVE_NO_DUPS
+
+ZSH_HIGHLIGHT_STYLES[comment]='fg=139'
+source "/home/vim9/.config/scripts/get_secrets.sh"

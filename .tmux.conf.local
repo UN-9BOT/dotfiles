@@ -442,7 +442,8 @@ set -g @tpm_plugins '              \
     tmux-plugins/tmux-copycat \
     roosta/tmux-fuzzback \
     omerxx/tmux-floax \
-    AngryMorrocoy/tmux-neolazygit \
+    UN-9BOT/tmux-neolazygit \
+    sainnhe/tmux-fzf \
 '
 
 ##### AngryMorrocoy/tmux-neolazygit
@@ -455,7 +456,7 @@ set -g @floax-bind '-n M-p'
 
 ##### tmux-plugins/tmux-sessionist
 bind -n M-s switch-client -l # switch latest session
-bind -n M-w choose-session # choose session
+# bind -n M-w choose-session # choose session # changed to fzf
 
 ##### tmux-plugins/tmux-continuum
 set -g @continuum-restore 'on'
@@ -473,6 +474,13 @@ set -g @extrakto_fzf_header "i c f g" # for small screens shorten the fzf header
 set -g @fuzzback-popup 1
 set -g @fuzzback-popup-size '95%'
 set -g @fuzzback-hide-preview 1
+
+##### sainnhe/tmux-fzf
+TMUX_FZF_OPTIONS="-p -w 92% -h 88% -m"
+bind -n "M-w" run-shell -b "~/.tmux/plugins/tmux-fzf/scripts/session.sh switch"
+
+
+
 
 # -- custom variables ----------------------------------------------------------
 
