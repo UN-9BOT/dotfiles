@@ -1,24 +1,26 @@
 local M = {
   "WhoIsSethDaniel/mason-tool-installer.nvim",
-  lazy = true,
+  lazy = false,
   dependencies = {
     { "williamboman/mason.nvim", opts = true },
     { "williamboman/mason-lspconfig.nvim", opts = true },
+    { "jay-babu/mason-nvim-dap.nvim" },
   },
   opts = {
+  },
+}
+M.config = function()
+  require("mason-tool-installer").setup({
+
     ensure_installed = {
       -- python
       "pyright", -- LSP for python
-      "ruff-lsp", -- linter for python (includes flake8, pep8, etc.)
       "ruff", -- linter for python (includes flake8, pep8, etc.)
-      "debugpy", -- debugger
       "black", -- formatter
       "isort", -- organize imports
+      "docformatter", -- docstring formatter
       -- toml
       "taplo", -- LSP for toml (for pyproject.toml files)
-      -- C
-      "clangd",
-      "cpptools",
       -- docker
       "docker-compose-language-service",
       "dockerfile-language-server",
@@ -29,13 +31,13 @@ local M = {
       -- lua
       "lua-language-server",
       "stylua",
-      "luacheck",
+      -- "luacheck",
+      "selene",
       -- makefile
       "checkmake",
-      -- c
-      "clang-format",
       --json
       "fixjson",
+      "jqls",
       -- sql
       "sql-formatter",
       "sqlfluff",
@@ -43,7 +45,18 @@ local M = {
       -- xml
       "xmlformatter",
     },
-  },
-}
+
+    auto_update = false,
+
+    run_on_start = false,
+
+
+    integrations = {
+      ["mason-lspconfig"] = true,
+      ["mason-null-ls"] = true,
+      ["mason-nvim-dap"] = true,
+    },
+  })
+end
 
 return M

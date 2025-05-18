@@ -39,6 +39,7 @@ M.dependencies = {
   "lukas-reineke/cmp-under-comparator",
   "lukas-reineke/cmp-rg",
   "ray-x/cmp-treesitter",
+  "dnnr1/lorem-ipsum.nvim",
 
   "hrsh7th/cmp-cmdline", -- for command line completion
 
@@ -87,18 +88,19 @@ M.config = function()
       { name = "nvim_lua", priority = 900, max_item_count = 3 },
       { name = "buffer", priority = 700, max_item_count = 5 },
       { name = "async_path", priority = 650, max_item_count = 3 },
+      { name = "lorem_ipsum" },
     }),
     sorting = {
       priority_weight = 2,
       comparators = {
         cmp_utils.comparators_tscompae,
+        cmp.config.compare.sort_text,
         cmp.config.compare.offset,
         cmp.config.compare.exact,
         cmp.config.compare.score,
         cmp.config.compare.recently_used,
         require("cmp-under-comparator").under, -- magic method last
         cmp.config.compare.kind,
-        cmp.config.compare.sort_text,
         -- cmp.config.compare.length,
         -- cmp.config.compare.order,
       },
@@ -142,7 +144,7 @@ M.config = function()
     },
   })
   -- Set configuration for specific filetype.
-  cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+  cmp.setup.filetype({ "dap-repl" }, {
     sources = {
       { name = "dap" },
     },
@@ -156,6 +158,8 @@ M.config = function()
   })
   cmp.setup.cmdline({ "/", "?" }, {
     mapping = cmp.mapping.preset.cmdline(),
+
+    fuzzy = { sorts = { "implementation" } },
     sources = cmp.config.sources({
       { name = "nvim_lsp_document_symbol" },
     }, {

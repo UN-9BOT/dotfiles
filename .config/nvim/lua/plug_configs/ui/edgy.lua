@@ -92,24 +92,32 @@ M.opts = {
   },
 
   right = {
-    { ft = "dapui_scopes", title = "Scopes" },
-    { ft = "dapui_watches", title = "Watches", size = { height = 0.1 } },
-    {
-      ft = "dapui_breakpoints",
-      title = "Breakpoints",
-      size = { height = 0.2 },
-      filter = filter_exclude_float_window,
-    },
-    { ft = "dapui_stacks", title = "Stacks", size = { height = 0.2 } },
+    -- { -- NOTE: перешел на debugmaster
+    --   ft = "",
+    --   title = "Scopes",
+    --   filter = function(buf, win)
+    --     local name = vim.api.nvim_buf_get_name(buf)
+    --     return name:find("dap%-scopes") ~= nil
+    --   end,
+    --   size = { width = 0.6 }
+    -- },
+    -- { ft = "dap-watches", title = "Watches", size = { height = 0.1 } },
+    -- {
+    --   ft = "dap-breakpoints",
+    --   title = "Breakpoints",
+    --   size = { height = 0.2 },
+    --   filter = filter_exclude_float_window,
+    -- },
+    -- { ft = "dap-stacks", title = "Stacks", size = { height = 0.2 } },
     { ft = "spectre_panel", title = "Spectre", size = { height = 0.2, width = 0.4 } },
     { ft = "BookmarksTree", title = "BT", size = { height = 0.2, width = 0.2 } },
   },
   bottom = {
     "Trouble",
     { ft = "toggleterm", filter = filter_exclude_float_window },
-    { ft = "dap-repl", title = "Repl", size = { height = 0.1 } },
+    -- { ft = "dap-repl", title = "Repl", size = { height = 0.1 } },
     { ft = "qf", title = "QuickFix" },
-    { ft = "dapui_console", title = "Console" },
+    -- { ft = "dap_console", title = "Console" },
     { ft = "neotest-output-panel", title = " Test Output", size = { height = 0.3 } },
   },
 }

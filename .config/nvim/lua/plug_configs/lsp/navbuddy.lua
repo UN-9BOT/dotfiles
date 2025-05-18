@@ -1,4 +1,4 @@
-local M = { "UN-9BOT/nvim-navbuddy", lazy = true, branch = "compare_un9" }
+local M = { "SmiteshP/nvim-navbuddy", lazy = true }
 
 M.dependencies = {
   "SmiteshP/nvim-navic",

@@ -5,7 +5,20 @@ local mapping = require("plug_configs.lsp.utils").mapping
 
 M.dependencies = {
   -- { "stevanmilic/nvim-lspimport" },
-  { "UN-9BOT/nvim-lspimport", branch = "nvim11" },
+  {
+    "UN-9BOT/nvim-lspimport",
+    branch = "layout_config",
+    config = function()
+      require("lspimport").cfg.select_config = {
+        telescope = {
+          layout_config = {
+            width = 0.9,
+            height = 0.2,
+          },
+        },
+      }
+    end,
+  },
 
   { "aznhe21/actions-preview.nvim" },
   { "folke/trouble.nvim" },
@@ -44,20 +57,23 @@ M.keys = {
   { "gT", mapping.type_definition.goto_preview_close, desc = "Close Preview Type Definition" },
 }
 
-M.init = function()
+M.init = function(bufnr)
   -- this snippet enables auto-completion
   vim.lsp.protocol.make_client_capabilities().textDocument.completion.completionItem.snippetSupport = true
 
   local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
 
   require("plug_configs.lsp.ft_python").init(capabilities)
   require("plug_configs.lsp.ft_sql")
   require("plug_configs.lsp.ft_lua")
   require("plug_configs.lsp.ft_json").init(capabilities)
   require("plug_configs.lsp.ft_gitlabci").init(capabilities)
+  require("plug_configs.lsp.ft_gitlabci").init(capabilities)
   require("lspconfig").bashls.setup({})
   require("lspconfig").zls.setup({})
   require("lspconfig").taplo.setup({})
+  vim.lsp.enable("clangd")
 end
 
 return M

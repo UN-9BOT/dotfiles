@@ -31,6 +31,7 @@ lazy.setup({
   { "nullromo/go-up.nvim", config = u.r("go-up") }, -- extra top lines
   { "yochem/jq-playground.nvim", opts = { cmd = { "gojq" } } },
   { "nvimdev/indentmini.nvim", config = u.r("indentmini") },
+  { "vuciv/golf" },
 
   -- -----------------------
   -- NOTE: WITH CONFIG
@@ -67,9 +68,9 @@ lazy.setup({
   u.safe_require("plug_configs.git.gitblame"), -- git blame
   u.safe_require("plug_configs.git.gitdev"), -- open repos in temp dir
   u.safe_require("plug_configs.linting.nvim_lint"), -- Lint
-  u.safe_require("plug_configs.dap.dap"), -- debugger
-  u.safe_require("plug_configs.dap.dap_ui"), -- debugger ui
-  u.safe_require("plug_configs.dap.dap_python"), -- config dap
+  u.safe_require("plug_configs.dap.dap"), -- debugger protocol
+  u.safe_require("plug_configs.dap.dap_virtual_text"), -- virtual text dap (eol)
+  u.safe_require("plug_configs.dap.dap_python"), -- config dap python
   u.safe_require("plug_configs.dap.envfiles"), -- auto load .env files [[:Dotenv : load .env]]
   u.safe_require("plug_configs.dap.neotest"), -- tests ui
   u.safe_require("plug_configs.dap.conjure"), -- runner code
@@ -89,14 +90,14 @@ lazy.setup({
   u.safe_require("plug_configs.navigate.ya_bookmarks"), -- bookmarks
   u.safe_require("plug_configs.navigate.vim_auto_save"), -- auto-save files
   u.safe_require("plug_configs.navigate.sessions"), -- session
+  u.safe_require("plug_configs.lsp.mason"), -- installer for features
   u.safe_require("plug_configs.lsp.none_ls"), -- custom code actions
   u.safe_require("plug_configs.lsp.nvim_lspconfig"), -- lsp config
   u.safe_require("plug_configs.lsp.navbuddy"), -- lsp navigation
   u.safe_require("plug_configs.lsp.live_rename"), -- live rename
   u.safe_require("plug_configs.ai.supermaven"), -- supermaven AI completion
-  u.safe_require("plug_configs.ai.avante"), -- avante AI chat
+  -- u.safe_require("plug_configs.ai.avante"), -- avante AI chat
   u.safe_require("plug_configs.completition.nvim_cmp"), -- completition
-  u.safe_require("plug_configs.lsp.mason"), -- installer for features
 
   -- ----------------------------
   -- NOTE: IN_PROGRESS
@@ -112,6 +113,54 @@ lazy.setup({
         desc = "Calculator",
       })
     end,
+  },
+  {
+    "stevearc/overseer.nvim",
+    opts = {},
+    keys = {
+      {
+        "<leader>o",
+        mode = { "n" },
+        function()
+          vim.cmd("OverseerRun")
+        end,
+        desc = "overseer",
+      },
+    },
+    config = function()
+      local overseer = require("overseer")
+      overseer.setup()
+
+      overseer.register_template({
+        name = "pre-commit run -a",
+        builder = function()
+          return {
+            cmd = { "pre-commit" },
+            args = { "run", "-a" },
+            components = {
+              { "on_output_quickfix", open = true },
+              "default",
+            },
+          }
+        end,
+        priority = 2,
+        -- condition = {
+        --   callback = function()
+        --     -- проверяем, что есть .pre-commit-config.yaml
+        --     return vim.fn.filereadable(".pre-commit-config.yaml") == 1
+        --   end,
+        -- },
+      })
+    end,
+  },
+  {
+    "pmouraguedes/sql-ghosty.nvim",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
+    opts = {
+      show_hints_by_default = true,
+    },
   },
 
   --

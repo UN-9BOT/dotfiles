@@ -39,7 +39,7 @@ M.config = function()
   -- local new_yamllint_args = { "-d", "{extends: relaxed, rules: {line-length: {max: 130}}}" }
   -- vim.list_extend(linters.yamllint.args, new_yamllint_args)
 
-  linters.sqlfluff.args = { "lint", "--format=json", "--config=/home/vim9/.config/nvim/.sqlfluff" }
+  linters.sqlfluff.args = { "lint", "--format=json", "--config=" .. os.getenv("HOME").. "/.config/nvim/.sqlfluff" }
 
   --------
   --------

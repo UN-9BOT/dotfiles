@@ -6,6 +6,7 @@ local M = {
 M.opts = {}
 
 M.config = function()
+  local home = os.getenv("HOME")
   local conform = require("conform")
   conform.setup({
     log_level = vim.log.levels.DEBUG,
@@ -16,11 +17,11 @@ M.config = function()
       python = { "black" },
       -- python = { "black", "docformatter" },
       -- Use a sub-list to run only the first available formatter
-      javascript = { { "prettierd", "prettier" } },
+      javascript = { "prettierd", "prettier" },
       -- sql = { "sql_formatter" },
       sql = { "sqlfluff" },
       xml = { "xmllint" },
-      json = { "fixjson" },
+      json = { "jq" },
       c = { "clang-format" },
       yaml = { "yamlfmt" },
       sh = { "shfmt" },
@@ -28,10 +29,10 @@ M.config = function()
   })
   conform.formatters.shfmt = { prepend_args = { "-i", "4", "-bn", "-ci", "-sr" } }
   conform.formatters.docformatter = { prepend_args = { "--black" } }
-  conform.formatters.stylua = { prepend_args = { "--config-path", "/home/vim9/.config/nvim/stylua.toml" } }
+  conform.formatters.stylua = { prepend_args = { "--config-path", home .. "/.config/nvim/stylua.toml" } }
   -- conform.formatters.sql_formatter = { prepend_args = { "-l", "postgresql" } }
-  conform.formatters.sqlfluff = { append_args = { "--config", "/home/vim9/.config/nvim/.sqlfluff" } }
-  conform.formatters.yamlfmt = { prepend_args = { "-conf", "/home/vim9/.config/nvim/yamlfmt.yml" } }
+  conform.formatters.sqlfluff = { append_args = { "--config", home .. "/.config/nvim/.sqlfluff" } }
+  conform.formatters.yamlfmt = { prepend_args = { "-conf", home .. "/.config/nvim/yamlfmt.yml" } }
 
   -- local black_args = { "--fast", "-l", "120" }
   local black_args = { "-l", "120" }
@@ -47,7 +48,7 @@ M.config = function()
   _G.nn = black_command
   conform.formatters.black = { prepend_args = black_args, command = black_command }
 
-  conform.formatters.clang_format = { prepend_args = { "-style", "/home/vim9/.config/nvim/.clang-format" } }
+  conform.formatters.clang_format = { prepend_args = { "-style", home .. "/.config/nvim/.clang-format" } }
 end
 
 M.keys = {

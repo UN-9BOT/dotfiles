@@ -15,7 +15,7 @@ end
 
 return M
 
---NOTE:example for launch.json
+--NOTE:example for .vscode/launch.json
 --[[
   {
       "version": "0.2.0",

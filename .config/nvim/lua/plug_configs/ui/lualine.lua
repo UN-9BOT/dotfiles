@@ -1,6 +1,5 @@
 local M = { "nvim-lualine/lualine.nvim" }
 
-
 local function check_status_linters()
   local linters = require("lint").get_running()
   if #linters == 0 then
@@ -60,6 +59,13 @@ local test_status_counts = function()
 end
 
 M.config = function()
+  local dmode_enabled = false
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "DebugModeChanged",
+    callback = function(args)
+      dmode_enabled = args.data.enabled
+    end,
+  })
   require("lualine").setup({
     options = {
       section_separators = { left = "", right = "" },
@@ -70,6 +76,15 @@ M.config = function()
     },
     sections = {
       lualine_a = {
+        {
+          "mode",
+          fmt = function(str)
+            return dmode_enabled and "D" or str:sub(1,1) .. "|"
+          end,
+          color = function(tb)
+            return dmode_enabled and "dCursor" or tb
+          end,
+        },
         {
           "filename",
           file_status = true, -- Displays file status (readonly status, modified status)

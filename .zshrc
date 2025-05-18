@@ -200,14 +200,7 @@ bindkey '\eu' create_completion # alt-u
 
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
-# Created by `pipx` on 2023-10-14 15:28:34
-export PATH="$PATH:/home/vim9/.local/bin"
-# export PATH="$PATH:/home/vim9/.cargo/bin"
 
-
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
 
 # zoxide
 eval "$(zoxide init zsh)"
@@ -230,4 +223,12 @@ setopt HIST_FIND_NO_DUPS
 setopt HIST_SAVE_NO_DUPS
 
 ZSH_HIGHLIGHT_STYLES[comment]='fg=139'
-source "/home/vim9/.config/scripts/get_secrets.sh"
+# source "$HOME/.config/scripts/get_secrets.sh"
+
+# Created by `pipx` on 2025-04-27 18:06:10
+export PATH="$PATH:/home/leneggo/.local/bin"
+
+# https://github.com/pyenv/pyenv#b-set-up-your-shell-environment-for-pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - zsh)"

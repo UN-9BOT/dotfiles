@@ -3,6 +3,7 @@
 --[[
 --INFO:
 :lua print(vim.api.nvim_buf_get_name(vim.inspect_pos().buffer))
+:lua =vim.api.nvim_buf_get_name(vim.inspect_pos().buffer)
 :lua print(vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf()))
 :lua vim.api.nvim_buf_delete(vim.api.nvim_get_current_buf())
 :lua vim.b[vim.inspect_pos().buffer].edgy_disable = false
