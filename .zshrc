@@ -232,3 +232,6 @@ export PATH="$PATH:/home/leneggo/.local/bin"
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init - zsh)"
+
+# Created by `pipx` on 2025-05-18 15:45:01
+export PATH="$PATH:/home/unbot/.local/bin"
